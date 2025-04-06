@@ -1,11 +1,15 @@
+from unittest.mock import Base
 from fastapi import FastAPI, HTTPException, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from requests import Session
+from sqlalchemy import Engine
 from routers import user_login, user_goal  # ✅ Ensure correct imports
 import fitz
 
 app = FastAPI()
+
+Base.metadata.create_all(bind=Engine)
 
 app.mount("/resumes", StaticFiles(directory="uploaded_resumes"), name="resumes")
 

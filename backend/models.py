@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, Enum, Text, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, Enum, Text, Boolean, Time
 from database import Base
 from datetime import datetime
 
@@ -24,6 +24,25 @@ class Weekday(PyEnum):
     Friday = "Friday"
     Saturday = "Saturday"
     Sunday = "Sunday"
+
+class ScheduledTask(Base):
+    __tablename__ = "scheduled_tasks"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("user_login.id"), nullable=False)
+
+    week = Column(Integer, nullable=False)
+    day = Column(String(10), nullable=False)
+
+    # 🔗 Resource Info (hybrid)
+    learning_resource_id = Column(Integer, ForeignKey("learning_resource.id"), nullable=False)
+    resource_name = Column(String(255), nullable=False)
+    resource_url = Column(Text, nullable=False)
+
+    start_time = Column(Time, nullable=False)
+    end_time = Column(Time, nullable=False)
+
+    status = Column(String(20), default="pending")
 
 # ✅ User Login Table
 class User_Login(Base):
@@ -68,18 +87,6 @@ class User_Goal(Base):
 
     # 🔹 Integrate resume text into user_goal
     resume_text = Column(Text, nullable=True)  # Store extracted resume content
-
-class Study_Plan(Base):
-    __tablename__ = "study_plan"
-
-    id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("user_login.id"), nullable=False)
-    learn_skill_id = Column(Integer, ForeignKey("learn_skill.id"), nullable=False)
-    resource_id = Column(Integer, ForeignKey("learning_resource.id"), nullable=True)
-    start_time = Column(DateTime, nullable=True)
-    end_time = Column(DateTime, nullable=True)
-    duration_hours = Column(Integer, nullable=False)
-    status = Column(String(100), nullable=False)
 
 # ✅ Learning Resource Table
 class Learning_Resource(Base):
