@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, Enum, Text, Boolean, Time
+from sqlalchemy import Column, Date, Integer, String, ForeignKey, DateTime, Float, Enum, Text, Boolean, Time
 from database import Base
 from datetime import datetime
 
@@ -28,21 +28,18 @@ class Weekday(PyEnum):
 class ScheduledTask(Base):
     __tablename__ = "scheduled_tasks"
 
-    id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("user_login.id"), nullable=False)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, nullable=False)
 
-    week = Column(Integer, nullable=False)
-    day = Column(String(10), nullable=False)
+    # New date column instead of week/day
+    scheduled_date = Column(Date, nullable=False)
 
-    # 🔗 Resource Info (hybrid)
-    learning_resource_id = Column(Integer, ForeignKey("learning_resource.id"), nullable=False)
+    learning_resource_id = Column(Integer, nullable=False)
     resource_name = Column(String(255), nullable=False)
     resource_url = Column(Text, nullable=False)
-
     start_time = Column(Time, nullable=False)
     end_time = Column(Time, nullable=False)
-
-    status = Column(String(20), default="pending")
+    status = Column(String(20), nullable=False)
 
 # ✅ User Login Table
 class User_Login(Base):

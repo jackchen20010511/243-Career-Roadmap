@@ -72,7 +72,7 @@ export default function ResumePreview({ userId }: ResumePreviewProps) {
     }
 
     if (loading) {
-        return <div className="text-center text-gray-400 p-10">Loading resume...</div>;
+        return <div className="text-center text-gray-300 p-10">Loading resume...</div>;
     }
 
     if (!resumeUrl) {

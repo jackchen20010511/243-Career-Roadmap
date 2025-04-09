@@ -72,7 +72,7 @@ export default function ScheduleGrid({ selectedDate }: { selectedDate: Date }) {
                 {/* Current Time Line */}
                 {timeOffset !== null && isTodayInSameWeek(selectedDate) && (
                     <div
-                        className="relative w-[calc(100%/7)] border-t-4 border-red-400 z-20 transition-all duration-300 ease-in-out"
+                        className="relative w-[calc(100%/7)] border-t-3 border-red-400 z-20 transition-all duration-300 ease-in-out"
                         style={{
                             top: `${timeOffset}px`,
                             left: `calc((100% / 7) * ${getTodayColumnIndex()})`

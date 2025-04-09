@@ -73,7 +73,7 @@ export default function GoalDetails() {
         setIsEditing(false);
     };
 
-    if (loading || !editedGoal) return <div className="flex items-center justify-center min-h-screen text-white text-lg">Loading...</div>;
+    if (loading || !editedGoal) return <div className="text-center text-gray-300 p-10">Loading resume...</div>;
     if (!goal) return <div className="text-red-400 p-10">No goal data found.</div>;
 
     return (
