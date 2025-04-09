@@ -15,7 +15,7 @@ from caches.goal_cache import (
     clear_all_user_goal_cache,
 )
 
-UPLOAD_DIR = "uploaded_resumes"
+UPLOAD_DIR = "../data/uploaded_resumes"
 
 
 router = APIRouter(tags=["User Goal"])

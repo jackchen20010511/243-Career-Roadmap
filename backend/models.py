@@ -25,7 +25,7 @@ class Weekday(PyEnum):
     Saturday = "Saturday"
     Sunday = "Sunday"
 
-class ScheduledTask(Base):
+class Scheduled_Tasks(Base):
     __tablename__ = "scheduled_tasks"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -84,21 +84,6 @@ class User_Goal(Base):
 
     # 🔹 Integrate resume text into user_goal
     resume_text = Column(Text, nullable=True)  # Store extracted resume content
-
-# ✅ Learning Resource Table
-class Learning_Resource(Base):
-    __tablename__ = "learning_resource"
-
-    id = Column(Integer, primary_key=True, index=True)
-    learn_skill_id = Column(Integer, ForeignKey("learn_skill.id"), nullable=False)
-    resource_name = Column(String(255), nullable=False)
-    resource_url = Column(String(500), nullable=False)
-    thumbnail_url = Column(Text)  # ✅ Match TEXT field
-    provider = Column(String(255))
-    resource_type = Column(Enum(ResourceType), nullable=False)
-    estimated_hours = Column(Float, nullable=False)
-    completed_hours = Column(Float, default=0)
-    price = Column(Float, default=0)
 
 # ✅ Learn Skill Table
 class Learn_Skill(Base):

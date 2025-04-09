@@ -10,7 +10,7 @@ app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
 
-app.mount("/resumes", StaticFiles(directory="uploaded_resumes"), name="resumes")
+app.mount("/resumes", StaticFiles(directory="./data/uploaded_resumes"), name="resumes")
 
 # ✅ CORS Configuration (Allow Frontend to Access API)
 app.add_middleware(
