@@ -8,29 +8,22 @@ import GoalDetails from "@/components/goal/goalDetails";
 import { updateUserGoal } from "@/utils/api";
 
 export default function Goal() {
-    const handleSaveGoal = async (updatedGoal) => {
-        const userId = localStorage.getItem("user_id");
-        try {
-            // await updateUserGoal(Number(userId), updatedGoal);
-            // setGoalData(updatedGoal); // update local state
-        } catch (error) {
-            console.error("Failed to save goal:", error);
-        }
-    };
 
     return (
 
         <AuthProtected>
             <Header />
-            <main className="flex flex-row w-full min-h-screen p-3 gap-6">
+            <main className="mt-8 flex flex-row w-full min-h-screen p-3 gap-6">
                 {/* Left: Resume */}
-                <div className="w-[50%]">
-                    <ResumePreview />
+                <div className="w-[50%] flex justify-center">
+                    <div className="w-[91%]">
+                        <ResumePreview />
+                    </div>
                 </div>
 
                 {/* Right: Your career goal components go here */}
                 <div className="w-[50%]">
-                    <GoalDetails goal={{}} onSave={handleSaveGoal} />
+                    <GoalDetails />
                 </div>
             </main>
         </AuthProtected>

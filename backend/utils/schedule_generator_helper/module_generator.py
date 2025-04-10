@@ -118,7 +118,7 @@ def assign_module_durations(skill_groups, input_skills, total_hours):
     module_durations = []
 
     for group in skill_groups:
-        durations = [round(skill_focus_map.get(skill, 0) * total_hours, 1) for skill in group]
+        durations = [int(skill_focus_map.get(skill, 0) * total_hours) for skill in group]
         module_durations.append(durations)
 
     modules = []

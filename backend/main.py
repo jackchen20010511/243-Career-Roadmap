@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from requests import Session
 from database import engine, Base
-from routers import user_login, user_goal  # ✅ Ensure correct imports
+from routers import user_login, user_goal, learn_skill, scheduled_tasks  # ✅ Ensure correct imports
 import fitz
 
 app = FastAPI()
@@ -24,6 +24,8 @@ app.add_middleware(
 # ✅ Include Routers (Matches `api.ts` structure)
 app.include_router(user_login.router, prefix="/user-login")  # ✅ Matches API_BASE_URL in frontend
 app.include_router(user_goal.router, prefix="/user-goal")    # ✅ Matches frontend API calls
+app.include_router(learn_skill.router, prefix="/learn-skill")
+app.include_router(scheduled_tasks.router, prefix="/scheduled-tasks")
 
 # ✅ Root Endpoint (Optional)
 @app.get("/")

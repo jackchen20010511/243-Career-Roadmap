@@ -229,7 +229,7 @@ def suggest_courses(
 
     for [skill, focus, confidence] in skill_list:
         main_skill = skill
-        D_ideal = portion * total_weeks * weekly_hours * focus
+        D_ideal = int(portion * total_weeks * weekly_hours * focus)
 
         # Extract + preprocess courses
         courses = extract_courses_for_skill(course_df, main_skill)

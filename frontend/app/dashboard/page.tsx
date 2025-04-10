@@ -9,6 +9,7 @@ import WeeklyHours from "@/components/dashboard/weekly-hours";
 import StepNavigation from "@/components/dashboard/step-navigation";
 import AuthProtected from "@/components/auth-protected";
 import { fetchUserGoal, saveResumeFile, updateUserGoal } from "@/utils/api"; // ✅ Use API utility
+import HeaderNoNav from "@/components/ui/headerNoNav";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -116,40 +117,52 @@ export default function Dashboard() {
   };
 
   return (
-    <AuthProtected>
-      <Header />
-      <div className="relative flex flex-col items-center justify-start min-h-screen text-white overflow-hidden w-full pt-5">
-        {!isSetupComplete ? (
-          <section className="text-center bg-gray-800/80 bg-opacity-80 p-10 rounded-xl shadow-xl max-w-3xl w-[90%] mt-10">
-            {step === 1 && <CareerGoal jobTitle={jobTitle} setJobTitle={setJobTitle} industry={industry} setIndustry={setIndustry}
-              exp_level={exp_level} setExpLevel={setExpLevel} responsibility={responsibility} setResponsibility={setResponsibility} />}
-            {step === 2 && <LearningDuration duration={duration} setDuration={setDuration} durationUnit={durationUnit} setDurationUnit={setDurationUnit} />}
-            {step === 3 && <WeeklyHours weeklyHours={weeklyHours} setWeeklyHours={setWeeklyHours} studyDays={studyDays} setStudyDays={setStudyDays} />}
-            {/* ✅ ALWAYS Render StepNavigation for Buttons */}
-            <StepNavigation
-              step={step}
-              handlePrevStep={handlePrevStep}
-              handleNextStep={handleNextStep}
-              handleConfirmSetup={handleConfirmSetup}
-              jobTitle={jobTitle}
-              industry={industry}
-              exp_level={exp_level}
-              duration={duration}
-              durationUnit={durationUnit}
-              weeklyHours={weeklyHours}
-              studyDays={studyDays}
-              resumeFile={resumeFile}
-              setResumeFile={setResumeFile}
-              resumeText={resumeText}
-              setResumeText={setResumeText}
-              notReadyChecked={notReadyChecked}
-              setNotReadyChecked={setNotReadyChecked}
-            />
-          </section>
-        ) : (
-          <h1 className="text-4xl font-bold mt-20">Dashboard</h1>
-        )}
-      </div>
-    </AuthProtected>
+    <>
+      {!isSetupComplete ? (
+
+        <AuthProtected>
+          <HeaderNoNav />
+          <div className="relative flex flex-col items-center justify-start min-h-screen text-white overflow-hidden w-full pt-5">
+            <section className="text-center bg-gray-800/80 bg-opacity-80 p-10 rounded-xl shadow-xl max-w-3xl w-[90%] mt-10">
+              {step === 1 && <CareerGoal jobTitle={jobTitle} setJobTitle={setJobTitle} industry={industry} setIndustry={setIndustry}
+                exp_level={exp_level} setExpLevel={setExpLevel} responsibility={responsibility} setResponsibility={setResponsibility} />}
+              {step === 2 && <LearningDuration duration={duration} setDuration={setDuration} durationUnit={durationUnit} setDurationUnit={setDurationUnit} />}
+              {step === 3 && <WeeklyHours weeklyHours={weeklyHours} setWeeklyHours={setWeeklyHours} studyDays={studyDays} setStudyDays={setStudyDays} />}
+              {/* ✅ ALWAYS Render StepNavigation for Buttons */}
+              <StepNavigation
+                step={step}
+                handlePrevStep={handlePrevStep}
+                handleNextStep={handleNextStep}
+                handleConfirmSetup={handleConfirmSetup}
+                jobTitle={jobTitle}
+                industry={industry}
+                exp_level={exp_level}
+                duration={duration}
+                durationUnit={durationUnit}
+                weeklyHours={weeklyHours}
+                studyDays={studyDays}
+                resumeFile={resumeFile}
+                setResumeFile={setResumeFile}
+                resumeText={resumeText}
+                setResumeText={setResumeText}
+                notReadyChecked={notReadyChecked}
+                setNotReadyChecked={setNotReadyChecked}
+              />
+            </section>
+          </div>
+        </AuthProtected>
+
+
+      ) : (
+        <AuthProtected>
+          <Header />
+          <div className="relative flex flex-col items-center justify-start min-h-screen text-white overflow-hidden w-full pt-5">
+            <h1 className="text-4xl font-bold mt-20">Dashboard</h1>
+          </div>
+        </AuthProtected>
+      )
+      }
+
+    </>
   );
 }

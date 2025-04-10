@@ -191,7 +191,7 @@ export default function GoalDetails() {
                 {/* Responsibility */}
                 <p className="text-left px-3 mb-1 block text-lg text-indigo-200">Responsibilities</p>
                 <textarea
-                    value={editedGoal.responsibility}
+                    value={editedGoal.responsibility ?? ""}
                     onChange={(e) => handleChange("responsibility", e.target.value)}
                     readOnly={!isEditing}
                     className="mt-2 p-4 w-full h-30 border border-gray-600 bg-gray-700 text-white rounded-lg text-lg resize-none"

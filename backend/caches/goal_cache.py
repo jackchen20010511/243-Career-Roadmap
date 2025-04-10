@@ -8,7 +8,7 @@ from fastapi.encoders import jsonable_encoder
 from models import User_Goal
 
 # User goal cache: key is user_id, value is the goal object
-user_goal_cache = LRUCache(maxsize=1000)
+user_goal_cache = LRUCache(maxsize=100)
 
 def get_cached_user_goal(user_id: int):
     """Fetch user goal from cache if available."""

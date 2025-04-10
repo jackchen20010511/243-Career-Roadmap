@@ -152,3 +152,53 @@ export const registerUser = async (formData: SignupFormData) => {
     return data; // ✅ Return success message or response data
 };
 
+export async function fetchLearnSkill(userId: number) {
+    console.log(userId);
+    const res = await fetch(`${API_BASE_URL}/learn-skill/${userId}`);
+    if (!res.ok) {
+        throw new Error("Failed to fetch learning skills");
+    }
+    return await res.json();
+}
+
+export async function updateLearnSkill(userId: number, skills: any[]) {
+    const res = await fetch(`${API_BASE_URL}/learn-skill/${userId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(skills),
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to update learning skills");
+    }
+    return await res.json();
+}
+
+// ✅ Fetch scheduled tasks for a user
+export async function fetchScheduledTasks(userId: number) {
+    const res = await fetch(`${API_BASE_URL}/scheduled-tasks/${userId}`);
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch scheduled tasks");
+    }
+
+    return await res.json();
+}
+
+// ✅ Replace scheduled tasks for a user
+export async function updateScheduledTasks(userId: number, tasks: any[]) {
+    const res = await fetch(`${API_BASE_URL}/scheduled-tasks/${userId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(tasks),
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to update scheduled tasks");
+    }
+    return await res.json();
+}

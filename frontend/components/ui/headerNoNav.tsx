@@ -7,7 +7,7 @@ import UserMenu from "@/components/ui/userMenu";
 import { usePathname } from "next/navigation";
 
 
-export default function Header() {
+export default function HeaderNoNav() {
   const [user, setUser] = useState<{ name: string } | null>(null);
   const pathname = usePathname();
 
@@ -50,26 +50,6 @@ export default function Header() {
             </ul>
           ) : (
             <>
-              <nav className="absolute left-1/2 transform -translate-x-1/2">
-                <ul className="flex space-x-8 text-lg font-semibold">
-                  {navItems.map((item) => {
-                    const isActive = pathname === item.href;
-                    return (
-                      <li key={item.href}>
-                        <Link
-                          href={item.href}
-                          className={`px-4 py-2 block rounded-md transition ${isActive
-                            ? "bg-indigo-600 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white"
-                            }`}
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </nav>
 
               <div className="flex items-center space-x-2 relative z-50">
                 <span className="ml-2 text-white font-semibold">{`Welcome, ${user.name}`}</span>

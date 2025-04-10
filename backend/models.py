@@ -29,12 +29,10 @@ class Scheduled_Tasks(Base):
     __tablename__ = "scheduled_tasks"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, nullable=False)
+    user_id = Column(Integer, ForeignKey("user_login.id"), nullable=False)
 
     # New date column instead of week/day
     scheduled_date = Column(Date, nullable=False)
-
-    learning_resource_id = Column(Integer, nullable=False)
     resource_name = Column(String(255), nullable=False)
     resource_url = Column(Text, nullable=False)
     start_time = Column(Time, nullable=False)
@@ -51,15 +49,6 @@ class User_Login(Base):
     password = Column(String(255), nullable=False)
     security_question = Column(String(255), nullable=False)
     security_answer = Column(String(255), nullable=False)
-
-# ✅ User Skill Table
-class User_Skill(Base):
-    __tablename__ = "user_skill"
-
-    id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("user_login.id"), nullable=False)
-    skill_name = Column(String(255), nullable=False)
-    skill_level = Column(Float, nullable=False)  # Consider changing to Integer if needed
 
 class User_Goal(Base):
     __tablename__ = "user_goal"
@@ -90,15 +79,16 @@ class Learn_Skill(Base):
     __tablename__ = "learn_skill"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_goal_id = Column(Integer, ForeignKey("user_goal.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("user_login.id"), nullable=False)
     skill_name = Column(String(255), nullable=False)
     focus_score = Column(Float, nullable=False)
+    confidence_score = Column(Float, nullable=False)
 
 # ✅ Job Skill Table
 class Job_Skill(Base):
     __tablename__ = "job_skill"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_goal_id = Column(Integer, ForeignKey("user_goal.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("user_login.id"), nullable=False)
     skill_name = Column(String(255), nullable=False)
     importance_score = Column(Float, nullable=False)
