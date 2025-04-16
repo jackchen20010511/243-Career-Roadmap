@@ -1,6 +1,6 @@
 
 import numpy as np
-from pulp import LpProblem, LpMaximize, LpVariable, lpSum, lpSum
+from pulp import LpProblem, LpMaximize, LpVariable, lpSum, lpSum, PULP_CBC_CMD
 from collections import defaultdict
 
 
@@ -185,8 +185,8 @@ def solve_course_selection_pulp(course_df, skill, D_ideal, alpha, beta, lambda_,
     )
     
 
-    # Skill Coverage Constraint: At least one course must be selected
-    problem += lpSum(x[i] for i in relevant_courses.index) >= 1
+    # Skill Coverage Constraint: At least 2 courses must be selected
+    problem += lpSum(x[i] for i in relevant_courses.index) >= 2
 
     # Duration Constraint: Total selected duration must be within ±10% of the ideal duration
     duration_tolerance = 0.1 * D_ideal
@@ -194,7 +194,7 @@ def solve_course_selection_pulp(course_df, skill, D_ideal, alpha, beta, lambda_,
     problem += lpSum(relevant_courses.loc[i, "duration"] * x[i] for i in relevant_courses.index) >= (D_ideal - duration_tolerance)
 
     # Solve the ILP
-    problem.solve()
+    problem.solve(PULP_CBC_CMD(msg=False))
 
     # Extract selected courses
     selected_courses = [i for i in relevant_courses.index if x[i].varValue == 1]
@@ -220,15 +220,8 @@ def suggest_courses(
     skill_list = standardize_focus_scores(skill_list)
     scaler = StandardScaler()
 
-    # Precompute embeddings
-    skill_embeddings = {
-        skill[0].lower(): embedding_model.encode(skill[0].lower(), convert_to_tensor=True)
-        for skill in skill_list
-    }
-    job_title_embedding = embedding_model.encode(job_title.lower(), convert_to_tensor=True)
-
     for [skill, focus, confidence] in skill_list:
-        main_skill = skill
+        main_skill = skill.lower()
         D_ideal = int(portion * total_weeks * weekly_hours * focus)
 
         # Extract + preprocess courses

@@ -1,8 +1,77 @@
-# Cache for block patterns by hour
-import copy
 from datetime import datetime, timedelta
-
 import pulp
+import copy
+from typing import List, Dict
+
+def distribute_short_hours(module_hours, learning_days, max_per_day=10):
+    # Active days
+    active_days = [d for d, on in learning_days.items() if on]
+    allocations = {d: 0.0 for d in active_days}
+    remaining = round(module_hours * 2) / 2  # force 0.5 precision
+
+    # Step 1: Prioritize weekdays only (Mon–Fri)
+    weekdays = [d for d in active_days if d not in ["Saturday", "Sunday"]]
+    i = 0
+    while remaining >= 0.5 and weekdays:
+        day = weekdays[i % len(weekdays)]
+        if allocations[day] + 0.5 <= max_per_day:
+            allocations[day] += 0.5
+            remaining -= 0.5
+        i += 1
+        if i > len(weekdays) * 20:
+            break  # fallback if trapped
+
+    # Step 2: If still remaining, use weekends too
+    if remaining >= 0.5:
+        i = 0
+        while remaining >= 0.5:
+            day = active_days[i % len(active_days)]
+            if allocations[day] + 0.5 <= max_per_day:
+                allocations[day] += 0.5
+                remaining -= 0.5
+            i += 1
+            if i > len(active_days) * 20:
+                break
+
+    # Step 3: Try to reduce weekend load (remove up to 3h if possible)
+    transferable = 0
+    for day in ["Saturday", "Sunday"]:
+        if allocations.get(day, 0) >= 6:
+            allocations[day] -= 3
+            transferable += 3
+        elif allocations.get(day, 0) >= 4:
+            allocations[day] -= 2
+            transferable += 2
+        elif allocations.get(day, 0) >= 2:
+            allocations[day] -= 1
+            transferable += 1
+
+    # Step 4: Redistribute to weekdays
+    j = 0
+    failed = 0
+    while transferable >= 0.5 and weekdays:
+        day = weekdays[j % len(weekdays)]
+        if allocations[day] + 0.5 <= max_per_day:
+            allocations[day] += 0.5
+            transferable -= 0.5
+        else:
+            failed += 1
+        j += 1
+        if failed >= len(weekdays):
+            break
+
+    # Step 5: Return leftover back to weekends if needed
+    if transferable >= 0.5:
+        weekend_days = [d for d in ["Saturday", "Sunday"] if d in active_days]
+        k = 0
+        while transferable >= 0.5 and weekend_days:
+            day = weekend_days[k % len(weekend_days)]
+            allocations[day] += 0.5
+            transferable -= 0.5
+            k += 1
+
+    return allocations
+
 
 # === DAILY HOURS DISTRIBUTOR ===
 def distribute_weekly_hours(weekly_hours, learning_days):
@@ -21,7 +90,10 @@ def distribute_weekly_hours(weekly_hours, learning_days):
     # Step 2: Try to reduce 1h from each weekend day if it leaves >= 1h
     transferable = 0
     for day in ["Saturday", "Sunday"]:
-        if allocations.get(day, 0) > 1.5:
+        if allocations.get(day, 0) >= 6:
+            allocations[day] -= 2
+            transferable += 2
+        elif allocations.get(day, 0) >= 4:
             allocations[day] -= 1
             transferable += 1
 
@@ -68,20 +140,10 @@ def distribute_weekly_hours(weekly_hours, learning_days):
                 allocations[day] += 0.5
                 overflow -= 0.5
             i += 1
-
+    print(allocations)
     return allocations
 
-
-# === HELPER: Round-robin hour splitting ===
-def split_hours_round_robin(total_hours, num_blocks):
-    blocks = [0.0] * num_blocks
-    i = 0
-    while total_hours >= 0.5:
-        blocks[i] += 0.5
-        total_hours -= 0.5
-        i = (i + 1) % num_blocks
-    return blocks
-
+# === LEARNING BLOCKS GENERATOR ===
 def generate_learning_blocks(L_hours):
     block_duration = 15  # minutes
     total_blocks = (21 - 8) * 4  # 08:00 to 21:00 → 13 hours = 52 blocks
@@ -139,16 +201,26 @@ def generate_learning_blocks(L_hours):
     # 🎯 Objective:
     # 1. Prefer afternoon blocks (12:00–17:00 → block indices 16–35)
     # 2. Penalize group lengths < 6 or > 8
-    afternoon_blocks = list(range(16, 36))
-    afternoon_score = pulp.lpSum([x[i] for i in afternoon_blocks if i not in fixed_breaks])
+    # 🟢 Preferred blocks: Midday (12:00–17:00)
+    preferred_blocks = list(range(16, 36))  # 12:00 to 17:00
+    preferred_score = pulp.lpSum([x[i] for i in preferred_blocks if i not in fixed_breaks])
+
+    # 🔴 Penalize early morning (08:00–10:00) and late evening (19:00–21:00)
+    penalize_early = list(range(0, 5))    # 08:00–10:00
+    penalize_late = list(range(47, 52))   # 19:00–21:00
+    penalty_score = pulp.lpSum([x[i] for i in penalize_early + penalize_late if i not in fixed_breaks])
+
+    # ⛔ Penalize groups that are too short or too long
     group_penalty = pulp.lpSum([
         (6 - l) * group if l < 6 else (l - 8) * group if l > 8 else 0
         for _, _, l, group in group_indices
     ])
-    prob += afternoon_score - group_penalty
+
+    # 🎯 Combined objective
+    prob += preferred_score - penalty_score - group_penalty
 
     # Solve
-    prob.solve()
+    prob.solve(pulp.PULP_CBC_CMD(msg=False))
 
     # Output: merged continuous learning sessions
     results = []
@@ -180,86 +252,101 @@ def generate_learning_blocks(L_hours):
 
 block_cache = {}
 
-def schedule_module(module, start_date, weekly_hours, learning_days, skill_course_dict, user_id=1):
-    module_id = module['module']
-    total_duration = sum(module['duration'])  # in hours
-    skills = module['skills']
+def schedule_module(module, start_date, weekly_hours, learning_days, skill_course_dict, user_id):
 
+    module_id = module['module']
+    total_duration = sum([round(d * 2) / 2 for d in module['duration']])  # Round each to nearest 0.5
+    skills = module['skills']
     scheduled_sessions = []
     current_date = start_date
     hours_remaining = total_duration
 
-    # Build course stack (longest to shortest), tracking remaining durations
+    # Build course stack
     course_pool = []
     for skill in skills:
         for course in skill_course_dict.get(skill, []):
             course_entry = copy.deepcopy(course)
-            course_entry['remaining'] = course_entry['duration']
+            course_entry['remaining'] = round(course_entry['duration'] * 2) / 2
             course_entry['skill'] = skill
             course_pool.append(course_entry)
+    course_pool.sort(key=lambda x: -x['duration'])
 
-    course_pool.sort(key=lambda x: -x['duration'])  # longest first
+    # Fixed weekly allocation and blocks
+    if weekly_hours <= hours_remaining:
+        daily_hours = distribute_weekly_hours(weekly_hours, learning_days)
+    else:
+        daily_hours = distribute_short_hours(hours_remaining, learning_days)
 
-    while hours_remaining > 0:
-        # Distribute weekly hours over the selected days
-        dist = distribute_weekly_hours(min(weekly_hours, hours_remaining), learning_days)
+    block_plan = {}
+    for day_name, hours in daily_hours.items():
+        if hours < 0.5:
+            continue
+        if hours not in block_cache:
+            block_cache[hours] = generate_learning_blocks(hours)
+        block_plan[day_name] = block_cache[hours]
 
-        for i in range(7):
-            day_name = current_date.strftime("%A")
-            if not learning_days.get(day_name):
-                current_date += timedelta(days=1)
-                continue
-
-            daily_hours = dist.get(day_name, 0)
-            if daily_hours == 0:
-                current_date += timedelta(days=1)
-                continue
-
-            # Cache or generate learning blocks for this hour count
-            if daily_hours not in block_cache:
-                block_cache[daily_hours] = generate_learning_blocks(daily_hours)
-            blocks = block_cache[daily_hours]
-
-            used_today = set()  # Track which courses have been used today
-            single_course_remaining = [c for c in course_pool if c['remaining'] >= 0.5]
-            single_course_allowed = len(single_course_remaining) == 1
-
-            for block in blocks:
-                block_start = datetime.strptime(f"{current_date.date()} {block['start']}", "%Y-%m-%d %H:%M")
-                block_end = datetime.strptime(f"{current_date.date()} {block['end']}", "%Y-%m-%d %H:%M")
-                block_duration = (block_end - block_start).seconds / 3600
-
-                for course in course_pool:
-                    if course['remaining'] < 0.5:
-                        continue
-                    if not single_course_allowed and course['title'] in used_today:
-                        continue
-
-                    allocated_time = min(course['remaining'], block_duration)
-                    actual_end = block_start + timedelta(hours=allocated_time)
-
-                    scheduled_sessions.append({
-                        'user_id': user_id,
-                        'module': module_id,
-                        'skill': course['skill'],
-                        'course_title': course['title'],
-                        'course_link': course['link'],
-                        'date': current_date.strftime("%Y-%m-%d"),
-                        'start': block_start.strftime("%H:%M"),
-                        'end': actual_end.strftime("%H:%M")
-                    })
-
-                    course['remaining'] -= allocated_time
-                    used_today.add(course['title'])
-                    break  # only one course per block
-
-            hours_remaining -= daily_hours
+    while hours_remaining > 0.0:
+        day_name = current_date.strftime("%A")
+        if not learning_days.get(day_name, False) or day_name not in block_plan:
             current_date += timedelta(days=1)
+            continue
 
-            if hours_remaining <= 0:
-                break
+        blocks = block_plan[day_name]
+        used_today = set()  # Track courses already scheduled today
+        one_course_left = len([c for c in course_pool if c['remaining'] >= 0.5]) == 1
+        if one_course_left:
+            break
+
+        for block in blocks:
+            block_start = datetime.strptime(f"{current_date.date()} {block['start']}", "%Y-%m-%d %H:%M")
+            block_end = datetime.strptime(f"{current_date.date()} {block['end']}", "%Y-%m-%d %H:%M")
+            block_duration = round(((block_end - block_start).seconds / 3600) * 2) / 2
+            for course in course_pool:
+                remaining = round(course['remaining'] * 2) / 2
+                if remaining < 0.5:
+                    continue
+                if not one_course_left and course['title'] in used_today:
+                    continue
+
+                allocated = min(remaining, block_duration)
+                allocated = round(allocated * 2) / 2
+                if allocated < 1.0:
+                    continue  # Only fill if 1h or more
+
+                actual_end = block_start + timedelta(hours=allocated)
+
+                scheduled_sessions.append({
+                    'user_id': user_id,
+                    'module': module_id,
+                    'skill': course['skill'],
+                    'date': current_date.strftime("%Y-%m-%d"),
+                    'resource_name': course['title'],
+                    'resource_url': course['link'],
+                    'thumbnail_url': course['image_link'],
+                    'start': block_start.strftime("%H:%M"),
+                    'end': actual_end.strftime("%H:%M"),
+                    "status": "pending"
+                })
+
+                course['remaining'] -= allocated
+                course['remaining'] = round(course['remaining'] * 2) / 2
+
+                if course['remaining'] < 0.5:
+                    course['remaining'] = 0.0
+                elif 0.5 <= course['remaining'] < 1.0:
+                    course['remaining'] = 1.0
+
+                used_today.add(course['title'])
+                break  # Stop after assigning one course per block
+
+        hours_remaining = round(
+            sum(c['remaining'] for c in course_pool if c['remaining'] >= 0.5) * 2
+        ) / 2
+        current_date += timedelta(days=1)
 
     return scheduled_sessions
+
+
 
 
 def schedule_all_modules(final_modules, start_date, weekly_hours, learning_days, suggestions, user_id):
@@ -277,7 +364,6 @@ def schedule_all_modules(final_modules, start_date, weekly_hours, learning_days,
         )
         all_sessions.extend(module_sessions)
 
-        # Find the last date used in this module to update current_date
         if module_sessions:
             last_date_str = module_sessions[-1]['date']
             last_date = datetime.strptime(last_date_str, "%Y-%m-%d")

@@ -1,3 +1,4 @@
+from datetime import date, time
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
@@ -14,27 +15,33 @@ router = APIRouter(tags=["Scheduled Tasks"])
 
 class TaskRequest(BaseModel):
     user_id: int
-    week: int
-    day: str
+    module: int
+    skill: str                     # ✅ string now
+    date: date            # format: YYYY-MM-DD
     resource_name: str
     resource_url: str
-    start_time: str  # format HH:MM
-    end_time: str    # format HH:MM
+    thumbnail_url: str
+    start: time                # format HH:MM
+    end: time
     status: str
 
 class TaskResponse(BaseModel):
     user_id: int
-    week: int
-    day: str
+    module: int
+    skill: str
+    date: date
     resource_name: str
     resource_url: str
-    start_time: str
-    end_time: str
+    thumbnail_url: str
+    start: time
+    end: time
     status: str
 
     class Config:
-        from_attributes = True  
+        from_attributes = True
 
+
+# === GET ALL TASKS FOR USER ===
 @router.get("/{user_id}", response_model=List[TaskResponse])
 def get_scheduled_tasks(user_id: int, db: Session = Depends(get_db)):
     cached = get_cached_tasks(user_id)
@@ -48,7 +55,8 @@ def get_scheduled_tasks(user_id: int, db: Session = Depends(get_db)):
     cache_tasks(user_id, tasks)
     return tasks
 
-# ✅ Replace all existing scheduled tasks for user
+
+# === REPLACE ALL TASKS FOR USER ===
 @router.post("/{user_id}")
 def update_scheduled_tasks(user_id: int, request: List[TaskRequest], db: Session = Depends(get_db)):
     db.query(Scheduled_Tasks).filter(Scheduled_Tasks.user_id == user_id).delete()
@@ -59,4 +67,8 @@ def update_scheduled_tasks(user_id: int, request: List[TaskRequest], db: Session
     db.commit()
 
     clear_task_cache(user_id)
-    return {"message": "Scheduled tasks updated successfully!", "user_id": user_id, "tasks_added": len(new_tasks)}
+    return {
+        "message": "Scheduled tasks updated successfully!",
+        "user_id": user_id,
+        "tasks_added": len(new_tasks)
+    }

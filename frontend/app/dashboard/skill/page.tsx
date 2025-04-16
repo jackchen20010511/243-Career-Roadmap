@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
 
-import StepTracker from "@/components/stepTracker/stepTracker";
 import Header from "@/components/ui/header";
 import AuthProtected from "@/components/auth-protected";
+import MiniStepTracker from "@/components/stepTracker/miniStepTracker";
 
 export default function SkillPage() {
     const [userId, setUserId] = useState<number | null>(null);
@@ -22,7 +22,7 @@ export default function SkillPage() {
     return (
         <AuthProtected>
             <Header />
-            <StepTracker userId={userId} />
+            <MiniStepTracker userId={userId} />
         </AuthProtected>
     );
 }

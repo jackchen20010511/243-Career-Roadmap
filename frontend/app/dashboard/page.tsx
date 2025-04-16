@@ -36,7 +36,6 @@ export default function Dashboard() {
     isSunday: false,
   });
   const [resumeFile, setResumeFile] = useState(null);
-  const [resumeText, setResumeText] = useState("");
   const [notReadyChecked, setNotReadyChecked] = useState(false);
 
   // ✅ Check if User is Authenticated and Fetch Goal
@@ -83,7 +82,6 @@ export default function Dashboard() {
   const handlePrevStep = async () => {
     setStep(step - 1);
     setResumeFile(null);
-    setResumeText("");
     // ✅ Ensure file input can be used again by resetting it safely
     const fileInput = document.getElementById("resumeUploadInput") as HTMLInputElement;
     if (fileInput) fileInput.value = "";
@@ -100,7 +98,6 @@ export default function Dashboard() {
       responsibility: (responsibility == "") ? null : responsibility,
       duration_weeks: durationUnit === "weeks" ? Number(duration) : durationUnit === "months" ? Number(duration) * 4 : Number(duration) * 52,
       weekly_hours: Number(weeklyHours),
-      resume_text: notReadyChecked ? null : resumeText,
       ...studyDays, // Spread selected weekdays
     };
     console.log(goalData);
@@ -143,8 +140,6 @@ export default function Dashboard() {
                 studyDays={studyDays}
                 resumeFile={resumeFile}
                 setResumeFile={setResumeFile}
-                resumeText={resumeText}
-                setResumeText={setResumeText}
                 notReadyChecked={notReadyChecked}
                 setNotReadyChecked={setNotReadyChecked}
               />

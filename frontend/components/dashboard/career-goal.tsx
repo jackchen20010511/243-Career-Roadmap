@@ -35,16 +35,13 @@ export default function CareerGoal({ jobTitle, setJobTitle, industry, setIndustr
                 <option value="" disabled hidden>
                     Choose Experience Level
                 </option>
-                <option value="Internship level">Internship level</option>
+                <option value="" disabled hidden>Choose Experience Level</option>
+                <option value="Internship">Internship</option>
                 <option value="Entry level">Entry level</option>
-                <option value="Junior level">Junior level</option>
-                <option value="Junior-Mid level">Junior-Mid level</option>
-                <option value="Mid level">Mid level</option>
                 <option value="Mid-Senior level">Mid-Senior level</option>
-                <option value="Senior level">Senior level</option>
-                <option value="Executive level">Executive level</option>
-                <option value="Professional level">Professional level</option>
-                <option value="Other levels">Other levels</option>
+                <option value="Associate">Associate</option>
+                <option value="Director">Director</option>
+                <option value="Executive">Executive</option>
             </select>
 
             <p className="text-left px-3 mb-1 block text-lg text-indigo-200">Responsibilities (Optional but Recommended)</p>

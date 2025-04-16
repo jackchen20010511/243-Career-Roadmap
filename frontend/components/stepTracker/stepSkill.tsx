@@ -2,8 +2,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchLearnSkill, updateLearnSkill } from "@/utils/api";
+import { fetchLearnSkill, generateLearnSkill, updateLearnSkill } from "@/utils/api";
 import FlowButton from "../ui/flowButton";
+import LearnSkill from "../skill/learnSkill";
 
 interface LearnSkill {
     skill_name: string;
@@ -17,6 +18,8 @@ export default function StepSkill({ userId, onChange }: { userId: number; onChan
     const [generating, setGenerating] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [originalSkills, setOriginalSkills] = useState<LearnSkill[]>([]);
+    const [editValues, setEditValues] = useState<Record<number, { focus: string; confidence: string }>>({});
+
 
     useEffect(() => {
         fetchLearnSkill(userId)
@@ -28,34 +31,32 @@ export default function StepSkill({ userId, onChange }: { userId: number; onChan
             .catch((err) => console.error("Failed to fetch skills:", err))
             .finally(() => setLoading(false));
     }, [userId]);
+
+
     const handleGenerate = async () => {
-        // setGenerating(true);
-        // try {
-        //     const newSkills = await generateLearnSkill(userId);
-        //     await updateLearnSkill(userId, newSkills);
-        //     setSkills(newSkills);
-        //     if (onChange) onChange();
-        // } catch (error) {
-        //     console.error("Error generating skills:", error);
-        // } finally {
-        //     setGenerating(false);
-        // }
+        setGenerating(true);
+        try {
+            const newSkills = await generateLearnSkill(userId);
+            setSkills(newSkills);
+            if (onChange) onChange();
+        } catch (error) {
+            console.error("Error generating skills:", error);
+        } finally {
+            setGenerating(false);
+        }
     };
 
-    const handleFocusChange = (index: number, value: number) => {
-        setSkills((prev) =>
-            prev.map((skill, i) =>
-                i === index ? { ...skill, focus_score: value } : skill
-            )
-        );
-    };
+    const handleEdit = () => {
+        const initialValues = skills.reduce((acc, skill, index) => {
+            acc[index] = {
+                focus: skill.focus_score.toFixed(2),
+                confidence: skill.confidence_score.toFixed(2),
+            };
+            return acc;
+        }, {} as Record<number, { focus: string; confidence: string }>);
 
-    const handleConfidenceChange = (index: number, value: number) => {
-        setSkills((prev) =>
-            prev.map((skill, i) =>
-                i === index ? { ...skill, confidence_score: value } : skill
-            )
-        );
+        setEditValues(initialValues);
+        setIsEditing(true);
     };
 
     const handleCancel = () => {
@@ -65,22 +66,40 @@ export default function StepSkill({ userId, onChange }: { userId: number; onChan
     };
 
     const normalizeFocusScores = (skills: LearnSkill[]): LearnSkill[] => {
-        const total = skills.reduce((sum, skill) => sum + skill.focus_score, 0);
-        if (total === 0) return skills; // avoid division by zero
+        const totalFocus = skills.reduce((sum, skill) => sum + (isNaN(skill.focus_score) ? 0 : skill.focus_score), 0);
+        const maxConfidence = Math.max(...skills.map(skill => isNaN(skill.confidence_score) ? 0 : skill.confidence_score), 0);
 
-        return skills.map((skill) => ({
-            ...skill,
-            focus_score: parseFloat((skill.focus_score / total).toFixed(4)),
-        }));
+        return skills.map(skill => {
+            const focus = isNaN(skill.focus_score) ? 0 : skill.focus_score;
+            const confidence = isNaN(skill.confidence_score) ? 0 : skill.confidence_score;
+
+            return {
+                ...skill,
+                focus_score: totalFocus > 0 ? parseFloat((focus / totalFocus).toFixed(2)) : 0.0,
+                confidence_score: maxConfidence > 0 ? parseFloat((confidence / maxConfidence).toFixed(2)) : 0.0,
+            };
+        });
     };
 
     const handleSave = async () => {
         try {
-            const normalized = normalizeFocusScores(skills);
+            const updated = skills.map((skill, index) => {
+                const focus = parseFloat(editValues[index]?.focus || "0");
+                const confidence = parseFloat(editValues[index]?.confidence || "0");
+                return {
+                    ...skill,
+                    focus_score: isNaN(focus) ? 0 : focus,
+                    confidence_score: isNaN(confidence) ? 0 : confidence,
+                };
+            });
+
+            const normalized = normalizeFocusScores(updated);
+
             await updateLearnSkill(userId, normalized);
-            setSkills(normalized.map((s) => ({ ...s })));
-            setOriginalSkills(normalized.map((s) => ({ ...s })));
+            setSkills(normalized.map(s => ({ ...s })));
+            setOriginalSkills(normalized.map(s => ({ ...s })));
             setIsEditing(false);
+            setEditValues({});
             if (onChange) onChange();
         } catch (error) {
             console.error("Error saving skills:", error);
@@ -96,75 +115,29 @@ export default function StepSkill({ userId, onChange }: { userId: number; onChan
 
     return (
         <div className="space-y-6">
-            {skills.length === 0 ? (
-
-                <div className="mt-10 flex flex-col items-center justify-center w-[95%] h-[65vh] aspect-[595/600] mx-auto border-2 border-dashed border-gray-400 rounded-lg text-indigo-200 text-lg p-6 space-y-4">
-                    <button
-                        onClick={handleGenerate}
-                        className="px-4 py-2 rounded-lg text-white bg-indigo-500 hover:bg-indigo-600 text-white cursor-pointer"
-                    >
-                        Analyze Skills
-                    </button>
+            {generating ? (
+                <div className="mt-10 flex flex-col items-center justify-center w-full h-[65vh] space-y-4 text-indigo-200">
+                    <svg className="animate-spin h-8 w-8 text-indigo-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    <p className="text-lg">Analyzing your resume skills in the job market...</p>
+                    <p className="text-sm text-indigo-300">This may take 20-30 seconds. Hang tight! ⏳</p>
+                </div>
+            ) : skills.length === 0 ? (
+                <div className="max-w-5xl px-6 mx-auto">
+                    <div className="mt-10 flex flex-col items-center justify-center w-[95%] h-[65vh] aspect-[595/600] mx-auto border-2 border-dashed border-gray-400 rounded-lg text-indigo-200 text-lg p-6 space-y-4">
+                        <button
+                            onClick={handleGenerate}
+                            className="px-4 py-2 rounded-lg text-white bg-indigo-500 hover:bg-indigo-600 text-white cursor-pointer"
+                        >
+                            Analyze Skills
+                        </button>
+                    </div>
                 </div>
 
             ) : (
-                <>
-                    <div className="flex items-start justify-between">
-                        <h2 className="text-xl text-white font-semibold">Edit Suggested Skills</h2>
-                        <div className="flex gap-3">
-                            {isEditing && (
-                                <button
-                                    onClick={handleCancel}
-                                    className="px-4 py-2 bg-gray-500 hover:bg-gray-400 text-white rounded-lg text-sm cursor-pointer"
-                                >
-                                    Cancel
-                                </button>
-                            )}
-                            <button
-                                onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
-                                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm cursor-pointer"
-                            >
-                                {isEditing ? "Save" : "Edit"}
-                            </button>
-                        </div>
-                    </div>                    <ul className="space-y-4">
-                        {skills.map((skill, index) => (
-                            <li key={index} className="flex items-center gap-3 bg-gray-800 px-4 py-3 rounded-lg">
-                                <span className="flex-1 text-white">{skill.skill_name}</span>
-                                <input
-                                    type="number"
-                                    min={0}
-                                    max={1}
-                                    step={0.1}
-                                    value={isNaN(skill.focus_score) ? "" : parseFloat(skill.focus_score.toFixed(2))}
-                                    onChange={(e) => handleFocusChange(index, parseFloat(e.target.value))}
-                                    className="w-24 rounded border-gray-500 bg-gray-700 text-white"
-                                    readOnly={!isEditing}
-                                />
-
-                                <input
-                                    type="number"
-                                    min={0}
-                                    max={1}
-                                    step={0.1}
-                                    value={isNaN(skill.confidence_score) ? "" : parseFloat(skill.confidence_score.toFixed(2))}
-                                    onChange={(e) => handleConfidenceChange(index, parseFloat(e.target.value))}
-                                    className="w-24 rounded border-gray-500 bg-gray-700 text-white"
-                                    readOnly={!isEditing}
-                                />
-
-                                {isEditing && (
-                                    <button
-                                        onClick={() => handleDelete(index)}
-                                        className="text-red-400 hover:text-red-300"
-                                    >
-                                        ✕
-                                    </button>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
-                </>
+                <LearnSkill userId={userId} step={3} />
             )}
         </div>
     );

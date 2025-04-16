@@ -30,13 +30,15 @@ class Scheduled_Tasks(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("user_login.id"), nullable=False)
-
+    module = Column(Integer, nullable=False)
+    skill = Column(String(100), nullable=False)
     # New date column instead of week/day
-    scheduled_date = Column(Date, nullable=False)
+    date = Column(Date, nullable=False)
     resource_name = Column(String(255), nullable=False)
     resource_url = Column(Text, nullable=False)
-    start_time = Column(Time, nullable=False)
-    end_time = Column(Time, nullable=False)
+    thumbnail_url = Column(Text, nullable=True)
+    start = Column(Time, nullable=False)
+    end = Column(Time, nullable=False)
     status = Column(String(20), nullable=False)
 
 # ✅ User Login Table
@@ -70,9 +72,6 @@ class User_Goal(Base):
     isFriday = Column(Boolean, default=False)
     isSaturday = Column(Boolean, default=False)
     isSunday = Column(Boolean, default=False)
-
-    # 🔹 Integrate resume text into user_goal
-    resume_text = Column(Text, nullable=True)  # Store extracted resume content
 
 # ✅ Learn Skill Table
 class Learn_Skill(Base):

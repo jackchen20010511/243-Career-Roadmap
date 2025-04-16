@@ -1,31 +1,30 @@
 "use client";
 
-import { useState } from "react";
-import ScheduleGrid from "@/components/schedule/scheduleGrid";
+import { useEffect, useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import AuthProtected from "@/components/auth-protected";
 import Header from "@/components/ui/header";
-import CalendarPanel from "@/components/schedule/calendarPanel";
+import StepTracker from "@/components/stepTracker/stepTracker";
 
 export default function SchedulePage() {
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [userId, setUserId] = useState<number | null>(null);
 
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const storedId = localStorage.getItem("user_id");
+            if (storedId) {
+                setUserId(Number(storedId));
+            }
+        }
+    }, []);
+
+    if (userId === null) return <div className="flex items-center justify-center min-h-screen text-white text-lg">Loading...</div>;
 
     return (
         <AuthProtected>
             <Header />
-            <main className="flex flex-row w-full min-h-screen p-3 gap-6">
-                {/* Left: Resume */}
-                <div className="pt-5 w-[25%]">
-                    <CalendarPanel selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-
-                </div>
-
-                {/* Right: Your career goal components go here */}
-                <div className="w-[75%]">
-                    <ScheduleGrid selectedDate={selectedDate} />
-                </div>
-            </main>
+            <StepTracker userId={userId} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
         </AuthProtected>
 
     );

@@ -202,3 +202,31 @@ export async function updateScheduledTasks(userId: number, tasks: any[]) {
     }
     return await res.json();
 }
+
+export async function generateScheduledTasks(userId: number) {
+    const response = await fetch(`${API_BASE_URL}/generate-scheduled-tasks`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_id: userId }),
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to generate scheduled tasks");
+    }
+
+    return await response.json(); // returns the list of generated tasks
+}
+
+export async function generateLearnSkill(userId: number) {
+    const response = await fetch(`${API_BASE_URL}/generate-learn-skills`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: userId }),
+    });
+
+    if (!response.ok) throw new Error("Failed to generate skills");
+    return await response.json().then(res => res.skills);
+}
+

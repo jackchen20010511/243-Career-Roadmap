@@ -1,30 +1,41 @@
-// --- stepTracker.tsx ---
 "use client";
 
 import { useEffect, useState } from "react";
 import StepProgressBar from "@/components/stepTracker/stepProgressBar";
 import StepResume from "@/components/stepTracker/stepResume";
 import StepSkill from "@/components/stepTracker/stepSkill";
-import StepSchedule from "@/components/stepTracker/stepSchedule";
+import StepSchedule, { ScheduledTask } from "@/components/stepTracker/stepSchedule";
 import {
     fetchUserGoal,
     fetchLearnSkill,
     fetchScheduledTasks,
+    fetchResumeUrl,
 } from "@/utils/api";
+import CalendarPanel from "../schedule/calendarPanel";
+import ScheduleGrid from "../schedule/scheduleGrid";
 
-export default function StepTracker({ userId }: { userId: number }) {
+export default function StepTracker({
+    userId,
+    selectedDate,
+    setSelectedDate
+}: {
+    userId: number,
+    selectedDate: Date;
+    setSelectedDate: (date: Date) => void;
+}) {
     const [step, setStep] = useState(1);
     const [loading, setLoading] = useState(true);
     const [hasResume, setHasResume] = useState(false);
     const [hasSkills, setHasSkills] = useState(false);
     const [hasTasks, setHasTasks] = useState(false);
+    const [tasks, setTasks] = useState<ScheduledTask[]>([]);
 
     useEffect(() => {
         async function initializeStep() {
             try {
-                const goal = await fetchUserGoal(userId);
-                const resume = goal?.resume_text && goal.resume_text.trim() !== "";
-                setHasResume(resume);
+                const url = await fetchResumeUrl(userId);
+                const resumeExists = !!url;
+                setHasResume(resumeExists);
 
                 const skills = await fetchLearnSkill(userId);
                 const hasLearnedSkills = skills && skills.length > 0;
@@ -33,11 +44,12 @@ export default function StepTracker({ userId }: { userId: number }) {
                 const tasks = await fetchScheduledTasks(userId);
                 const hasScheduledTasks = tasks && tasks.length > 0;
                 setHasTasks(hasScheduledTasks);
+                setTasks(tasks.tasks);
 
-                if (!resume) return setStep(1);
+                if (!resumeExists) return setStep(1);
                 if (!hasLearnedSkills) return setStep(2);
                 if (!hasScheduledTasks) return setStep(3);
-                setStep(4);
+                setStep(3);
             } catch (error) {
                 console.error("StepTracker init failed:", error);
             } finally {
@@ -52,45 +64,83 @@ export default function StepTracker({ userId }: { userId: number }) {
     const handleBack = () => setStep((prev) => Math.max(prev - 1, 1));
 
     if (loading) {
-        return <div className="text-white text-center py-10">Checking setup progress...</div>;
+        return <div className="-mt-50 flex items-center justify-center min-h-screen text-white text-lg">Checking setup progress...</div>;
     }
 
-    if (step === 4) return null;
+    if (step === 4) {
+        return (
+            <main className="flex flex-row w-full min-h-screen p-3 gap-6">
+                {/* Left: Calendar */}
+                <div className="pt-5 w-[25%]">
+                    <CalendarPanel selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+                </div>
+                {/* Right: Schedule */}
+                <div className="w-[75%]">
+                    <ScheduleGrid selectedDate={selectedDate} tasks={tasks} />
+                </div>
+            </main>
+        );
+    }
 
     return (
-        <div className="relative w-full max-w-5xl mx-auto pb-28 space-y-8">
-            <StepProgressBar currentStep={step - 1} />
+        <div className="relative w-full max-w-[1600px] px-6 mx-auto pb-28 space-y-10">
 
-            {step === 1 && <StepResume userId={userId} onChange={() => setHasResume(true)} />}
-            {step === 2 && <StepSkill userId={userId} onChange={() => setHasSkills(true)} />}
-            {step === 3 && <StepSchedule userId={userId} onChange={() => setHasTasks(true)} />}
-
-            {/* Button group fixed to bottom right */}
-            <div className="absolute bottom-20 right-3 flex gap-4">
-                {step > 1 && (
+            <div className="flex items-center justify-center w-full max-w-[900px] mx-auto gap-2">
+                {/* Back Button */}
+                {step > 1 ? (
                     <button
                         onClick={handleBack}
-                        className="px-6 py-2 bg-gray-600 text-white rounded-lg cursor-pointer"
+                        className="mt-5 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 cursor-pointer"
                     >
-                        Back
+                        &lt;
                     </button>
+                ) : (
+                    <div className="w-[44px] h-[40px] mt-4" /> // Placeholder for alignment (matches button size)
                 )}
-                {step < 4 && (
-                    <button
-                        onClick={handleNext}
-                        className={`px-4 py-2 rounded-lg font-semibold ${(step === 1 && !hasResume)
-                                || (step === 2 && !hasSkills)
-                                || (step === 3 && !hasTasks) ? "bg-gray-500 cursor-not-allowed" : "bg-indigo-500 hover:bg-indigo-600 text-white cursor-pointer"}`}
-                        disabled={
-                            (step === 1 && !hasResume) ||
-                            (step === 2 && !hasSkills) ||
-                            (step === 3 && !hasTasks)
-                        }
-                    >
-                        Next
-                    </button>
-                )}
+
+                {/* Progress Bar with fixed width */}
+                <div className="w-[800px]">
+                    <StepProgressBar currentStep={step - 1} />
+                </div>
+
+                {/* Next Button */}
+                <button
+                    onClick={handleNext}
+                    className={`mt-5 px-4 py-2 font-bold rounded-lg ${(step === 1 && !hasResume) ||
+                        (step === 2 && !hasSkills) ||
+                        (step === 3 && !hasTasks)
+                        ? "bg-gray-500 text-white cursor-not-allowed"
+                        : "bg-indigo-500 hover:bg-indigo-600 text-white cursor-pointer"
+                        }`}
+                    disabled={
+                        (step === 1 && !hasResume) ||
+                        (step === 2 && !hasSkills) ||
+                        (step === 3 && !hasTasks)
+                    }
+                >
+                    &gt;
+                </button>
             </div>
-        </div >
+
+
+
+            {step === 1 && (
+                <div className="max-w-5xl px-6 mx-auto">
+                    <StepResume userId={userId} onChange={() => setHasResume(true)} />
+                </div>
+            )}
+            {step === 2 && <StepSkill userId={userId} onChange={() => setHasSkills(true)} />}
+            {step === 3 && (
+                <div className="max-w-5xl px-6 mx-auto">
+                    <StepSchedule
+                        userId={userId}
+                        onChange={() => setHasTasks(true)}
+                        tasks={tasks}
+                        setTasks={setTasks}
+                    />
+                </div>
+            )}
+
+        </div>
     );
 }

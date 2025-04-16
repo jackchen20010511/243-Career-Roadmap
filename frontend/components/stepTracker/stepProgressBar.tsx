@@ -21,8 +21,8 @@ export default function StepProgressBar({ currentStep }: { currentStep: number }
                             <div className="z-10">
                                 <div
                                     className={`w-40 h-10 flex items-center justify-center rounded-full border-2 text-md text-center font-bold
-                                    ${isCompleted ? "bg-blue-500 text-white border-blue-500" : ""}
-                                    ${isCurrent ? "bg-blue-600 text-white border-blue-600 ring-2 ring-blue-300" : ""}
+                                    ${isCompleted ? "bg-indigo-500 text-white border-indigo-500" : ""}
+                                    ${isCurrent ? "bg-indigo-600 text-white border-indigo-600 ring-2 ring-indigo-300" : ""}
                                     ${!isCompleted && !isCurrent ? "bg-gray-700 text-white border-gray-500" : ""}`}
                                 >
                                     {label}
@@ -32,7 +32,7 @@ export default function StepProgressBar({ currentStep }: { currentStep: number }
                             {/* Connector Line */}
                             {i < steps.length - 1 && (
                                 <div className="absolute top-4 left-1/2 w-full h-2 z-0">
-                                    <div className={`w-full h-full ${i < currentStep ? "bg-blue-500" : "bg-gray-600"}`} />
+                                    <div className={`w-full h-full ${i < currentStep ? "bg-indigo-500" : "bg-gray-600"}`} />
                                 </div>
                             )}
                         </div>

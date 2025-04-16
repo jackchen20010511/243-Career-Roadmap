@@ -2,21 +2,38 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchScheduledTasks } from "@/utils/api";
+import { fetchScheduledTasks, generateScheduledTasks } from "@/utils/api";
 
-interface ScheduledTask {
+export interface ScheduledTask {
     id: number;
-    day: string;
-    start_time: string;
-    end_time: string;
+    user_id: number;
+    module: number;
+    skill: string;
+    date: string;   // string (ISO format, e.g. "2025-05-22")
     resource_name: string;
     resource_url: string;
+    thumbnail_url?: string;   // optional if not always present
+    start: string;       // "HH:MM" string from API
+    end: string;         // "HH:MM" string from API
+    status: string;
 }
 
-export default function StepSchedule({ userId, onChange }: { userId: number; onChange: () => void }) {
-    const [tasks, setTasks] = useState<ScheduledTask[]>([]);
+export default function StepSchedule({
+    userId,
+    onChange,
+    tasks,
+    setTasks
+}: {
+    userId: number;
+    onChange: () => void;
+    tasks: ScheduledTask[];
+    setTasks: (tasks: ScheduledTask[]) => void;
+}) {
+
     const [loading, setLoading] = useState(true);
     const [generating, setGenerating] = useState(false);
+    const [generatedModules, setGeneratedModules] = useState([]);
+    const [previewReady, setPreviewReady] = useState(true);
 
     useEffect(() => {
         fetchScheduledTasks(userId)
@@ -26,23 +43,37 @@ export default function StepSchedule({ userId, onChange }: { userId: number; onC
     }, [userId]);
 
     const handleGenerate = async () => {
-        // setGenerating(true);
-        // try {
-        //     const newTasks = await generateScheduledTasks(userId);
-        //     setTasks(newTasks);
-        //     if (onChange) onChange();
-        // } catch (error) {
-        //     console.error("Error generating schedule:", error);
-        // } finally {
-        //     setGenerating(false);
-        // }
+        setGenerating(true);
+        try {
+            const response = await generateScheduledTasks(userId);
+            setTasks(response.tasks || []);
+            setGeneratedModules(response.modules || []); // if modules returned
+            setPreviewReady(true);
+            if (onChange) onChange(); // enables step change in StepTracker
+        } catch (err) {
+            console.error("Error generating schedule:", err);
+        } finally {
+            setGenerating(false);
+        }
     };
 
-    if (loading) return <div className="text-center text-white">Loading scheduled tasks...</div>;
+    if (loading) return <div className="-mt-70 flex items-center justify-center min-h-screen text-white text-lg">Loading scheduled tasks...</div>;
+
+    console.log("Previewing tasks:", tasks.slice(0, 5));
+
 
     return (
         <div className="space-y-6">
-            {tasks.length === 0 ? (
+            {generating ? (
+                <div className="mt-10 flex flex-col items-center justify-center w-full h-[65vh] space-y-4 text-indigo-200">
+                    <svg className="animate-spin h-8 w-8 text-indigo-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    <p className="text-lg">Generating your personalized schedule...</p>
+                    <p className="text-sm text-indigo-300">This may take 20-30 seconds. Hang tight! ⏳</p>
+                </div>
+            ) : tasks.length === 0 ? (
                 <div className="mt-10 flex flex-col items-center justify-center w-[95%] h-[65vh] aspect-[595/600] mx-auto border-2 border-dashed border-gray-400 rounded-lg text-indigo-200 text-lg p-6 space-y-4">
                     <button
                         onClick={handleGenerate}
@@ -53,20 +84,35 @@ export default function StepSchedule({ userId, onChange }: { userId: number; onC
                 </div>
             ) : (
                 <>
-                    <h2 className="text-xl text-white font-semibold">Generated Task Blocks</h2>
-                    <ul className="space-y-4">
-                        {tasks.map((task) => (
-                            <li
-                                key={task.id}
-                                className="flex flex-col gap-1 bg-gray-800 px-4 py-3 rounded-lg text-white"
-                            >
-                                <span className="font-semibold">{task.day}</span>
-                                <span>{task.start_time} - {task.end_time}</span>
-                                <span>{task.resource_name}</span>
-                            </li>
-                        ))}
-                    </ul>
+                    {generatedModules.length > 0 && (
+                        <div className="mt-6 p-4 rounded-lg bg-indigo-200 text-gray-900 shadow">
+                            <h3 className="text-xl font-bold mb-2">📘 Modules Included</h3>
+                            <ul className="list-disc ml-6 space-y-1 text-sm">
+                                {generatedModules.map((mod, idx) => (
+                                    <li key={idx}>
+                                        <span className="font-semibold">Module {mod.module}:</span> {mod.skills.join(", ")} {" "}
+                                        <span className="text-gray-600">(Total: {mod.duration.reduce((a, b) => a + b, 0)} hrs)</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                    {previewReady && (
+                        <div className="mt-6 p-4 rounded-lg bg-indigo-100 text-gray-800 shadow">
+
+                            <h3 className="text-xl font-bold mb-2">📅 Your Learning Plan Preview</h3>
+                            <ul className="list-disc ml-6 space-y-1 text-sm">
+                                {tasks.slice(0, 5).map((task, i) => (
+                                    <li key={i}>
+                                        {task.date} | {task.start}–{task.end} → {task.resource_name}
+                                    </li>
+                                ))}
+                            </ul>
+                            <p className="text-sm mt-2 text-gray-600">...and more scheduled tasks</p>
+                        </div>
+                    )}
                 </>
+
             )}
         </div>
     );

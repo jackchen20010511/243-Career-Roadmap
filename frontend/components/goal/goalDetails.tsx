@@ -81,7 +81,7 @@ export default function GoalDetails() {
             <div className="mb-5 pt-2 px-3">
                 {/* Flex row: title on left, buttons + message on right */}
                 <div className="flex items-start justify-between w-full">
-                    <h2 className="mb-8 text-3xl font-bold text-indigo-200">Your Goal</h2>
+                    <h2 className="mb-8 text-3xl font-bold text-indigo-200">My Goal</h2>
                     <div className="flex gap-3">
                         {isEditing && (
                             <button
@@ -135,16 +135,12 @@ export default function GoalDetails() {
                             className="mb-6 mt-2 p-4 w-full border border-gray-600 bg-gray-700 rounded-lg text-lg text-white cursor-pointer"
                         >
                             <option value="" disabled hidden>Choose Experience Level</option>
-                            <option value="Internship level">Internship level</option>
+                            <option value="Internship">Internship</option>
                             <option value="Entry level">Entry level</option>
-                            <option value="Junior level">Junior level</option>
-                            <option value="Junior-Mid level">Junior-Mid level</option>
-                            <option value="Mid level">Mid level</option>
                             <option value="Mid-Senior level">Mid-Senior level</option>
-                            <option value="Senior level">Senior level</option>
-                            <option value="Executive level">Executive level</option>
-                            <option value="Professional level">Professional level</option>
-                            <option value="Other levels">Other levels</option>
+                            <option value="Associate">Associate</option>
+                            <option value="Director">Director</option>
+                            <option value="Executive">Executive</option>
                         </select>
                     </div>
 
@@ -194,7 +190,7 @@ export default function GoalDetails() {
                     value={editedGoal.responsibility ?? ""}
                     onChange={(e) => handleChange("responsibility", e.target.value)}
                     readOnly={!isEditing}
-                    className="mt-2 p-4 w-full h-30 border border-gray-600 bg-gray-700 text-white rounded-lg text-lg resize-none"
+                    className="mt-2 p-4 w-full h-50 border border-gray-600 bg-gray-700 text-white rounded-lg text-lg resize-none"
                     placeholder="Empty"
                 />
             </div>

@@ -41,6 +41,7 @@ export default function ProfilePage() {
             await updateUserInfo(user.id, { name: newName }); // ✅ Use the unified function
             setMessage("✅ Name updated successfully!");
             setUser((prev) => prev ? { ...prev, name: newName } : prev); // ✅ Update local UI
+            localStorage.setItem("user_name", newName);
         } catch (error: any) {
             setMessage(`❌ ${error.message}`);
         }

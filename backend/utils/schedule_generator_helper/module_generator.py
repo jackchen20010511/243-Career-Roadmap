@@ -1,6 +1,8 @@
 from collections import defaultdict
 import json
 import networkx as nx
+import numpy as np
+
 
 def load_knowledge_graph(path):
     with open(path, "r", encoding="utf-8") as f:
@@ -18,17 +20,27 @@ def parse_prerequisite_edges(graph_path, input_skill_set):
     return prereq_edges
 
 
-def parse_association_weights(graph_path, input_skill_set):
+def parse_association_weights(graph_path, input_skill_set, threshold=0.4, conf_weight=0.8):
     knowledge_graph = load_knowledge_graph(graph_path)
     association_scores = {}
+
+    # Step 1: Collect direct associations
     for rel in knowledge_graph.get("relationships", []):
         if rel["relationship"] == "association":
             src, tgt = rel["source"].lower(), rel["target"].lower()
             if src in input_skill_set and tgt in input_skill_set:
-                weight = rel.get("weight", 0)
+                confidence = rel.get("confidence", 0)
+                lift = rel.get("lift", 0)
+                if confidence > threshold:
+                    norm = (1 / (1 + np.exp(-lift)) - 0.5) / 0.5  # sigmoid & normalize
+                    weight = conf_weight * confidence + (1-conf_weight) * norm
+                else:
+                    weight = 0
                 association_scores[(src, tgt)] = weight
                 association_scores[(tgt, src)] = weight
+
     return association_scores
+
 
 
 def build_prereq_graph_from_edges(prereq_edges):
@@ -72,10 +84,12 @@ def topological_sort_with_priorities(prereq_graph, input_skill_set):
         return list(prereq_graph.nodes())
 
 
-def group_skills_by_association(topo_order, association_scores, input_skills, prereq_graph, threshold=0.3):
+def group_skills_by_association(topo_order, association_scores, total_hours, input_skills, prereq_graph, threshold=0.3, max_portion=1/3):
     groups = []
     skill_to_module = {}
     prereq_map = defaultdict(set)
+    skill_focus_map = {s[0].lower(): s[1] for s in input_skills}
+
 
     if not isinstance(prereq_graph, nx.Graph):
         prereq_graph = build_prereq_graph_from_edges(prereq_graph)
@@ -94,7 +108,10 @@ def group_skills_by_association(topo_order, association_scores, input_skills, pr
 
         for idx in range(max_prereq_module + 1, len(groups)):
             group = groups[idx]
-            if len(group) >= 3:
+            new_skill_duration = round(skill_focus_map.get(skill, 0) * total_hours, 1)
+            durations = [round(skill_focus_map.get(s, 0) * total_hours, 1) for s in group]
+            total_duration = sum(durations) + new_skill_duration
+            if len(group) >= 3 or total_duration > max_portion * total_hours:
                 continue
             score = sum(association_scores.get((skill, other), 0) for other in group)
             avg_score = score / len(group) if group else 0
@@ -118,7 +135,7 @@ def assign_module_durations(skill_groups, input_skills, total_hours):
     module_durations = []
 
     for group in skill_groups:
-        durations = [int(skill_focus_map.get(skill, 0) * total_hours) for skill in group]
+        durations = [round(skill_focus_map.get(skill, 0) * total_hours, 1) for skill in group]
         module_durations.append(durations)
 
     modules = []
@@ -130,17 +147,16 @@ def assign_module_durations(skill_groups, input_skills, total_hours):
         })
     return modules
 
-def generate_modules(matched_domain, input_skills, total_weeks, weekly_hours):
+def generate_modules(graph_path, matched_domain, input_skills, total_weeks, weekly_hours):
     total_hours = total_weeks * weekly_hours
+    
 
-    graph_path = f"../data/skill_graph/{matched_domain}.json"
     input_skill_set = set(s[0].lower() for s in input_skills)
     prereq_edges = parse_prerequisite_edges(graph_path, input_skill_set)
-    assoc_scores = parse_association_weights(graph_path, input_skill_set)
+    assoc_scores = parse_association_weights(graph_path, input_skill_set, threshold=0.42, conf_weight=0.5)
     prereq_graph = build_prereq_graph_from_edges(prereq_edges)
     ordered_skills = topological_sort_with_priorities(prereq_graph, input_skill_set)
     skill_groups = group_skills_by_association(
-        ordered_skills, assoc_scores, input_skills, prereq_graph, threshold=0.2
-    )
+    ordered_skills, assoc_scores, total_hours, input_skills, prereq_graph, threshold=0.1)
     final_modules = assign_module_durations(skill_groups, input_skills, total_hours)
     return final_modules

@@ -14,7 +14,6 @@ export default function StepResume({ userId, onChange }: { userId: number; onCha
     const [resumeUrl, setResumeUrl] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
     const [resumeFile, setResumeFile] = useState(null);
-    const [resumeText, setResumeText] = useState("");
     const [isNextDisabled, setIsNextDisabled] = useState(true);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
@@ -28,24 +27,9 @@ export default function StepResume({ userId, onChange }: { userId: number; onCha
     const handleFileUpload = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
-
         setResumeFile(file);
-        try {
-            const formData = new FormData();
-            formData.append("file", file);
-
-            const response = await fetch(`${API_BASE_URL}/extract-text`, {
-                method: "POST",
-                body: formData,
-            });
-
-            const data = await response.json();
-            setResumeText(data.text);
-            setIsNextDisabled(false);
-            setShowSuccessMessage(true);
-        } catch (error) {
-            console.error("Error extracting text from file:", error);
-        }
+        setIsNextDisabled(false);
+        setShowSuccessMessage(true);
     };
 
     const handleConfirmUpload = async () => {
@@ -53,7 +37,6 @@ export default function StepResume({ userId, onChange }: { userId: number; onCha
 
         try {
             const goal = await fetchUserGoal(userId);
-            goal.resume_text = resumeText;
             await updateUserGoal(userId, goal);
             await saveResumeFile(userId, resumeFile);
             fetchResumeUrl(userId)
@@ -82,7 +65,7 @@ export default function StepResume({ userId, onChange }: { userId: number; onCha
                     <input
                         id="resumeUploadInput"
                         type="file"
-                        accept=".pdf"
+                        accept=".pdf,.docx,.txt"
                         className="hidden"
                         onChange={handleFileUpload}
                     />
@@ -92,7 +75,7 @@ export default function StepResume({ userId, onChange }: { userId: number; onCha
                     <p className="text-green-400">✔ {resumeFile.name} uploaded successfully!</p>
                 )}
 
-                <p className="text-sm text-gray-400">Accepted format: PDF</p>
+                <p className="text-sm text-gray-400">Accepted format: PDF, DOCX, TXT</p>
                 <button
                     onClick={handleConfirmUpload}
                     className={`px-4 py-2 rounded-lg text-white ${isNextDisabled ? "bg-gray-500 cursor-not-allowed" : "bg-indigo-500 hover:bg-indigo-600 text-white cursor-pointer"}`}
@@ -117,7 +100,7 @@ export default function StepResume({ userId, onChange }: { userId: number; onCha
                                 <input
                                     id="resumeUploadInput"
                                     type="file"
-                                    accept=".pdf"
+                                    accept=".pdf,.docx,.txt"
                                     className="hidden"
                                     onChange={handleFileUpload}
                                 />
@@ -135,21 +118,42 @@ export default function StepResume({ userId, onChange }: { userId: number; onCha
                         {showSuccessMessage && resumeFile && (
                             <p className="text-green-400 text-sm">✔ {resumeFile.name} uploaded successfully!</p>
                         )}
+                        <p className="text-sm text-gray-400">Accepted format: PDF, DOCX, TXT</p>
                     </div>
                 </div>
             </div>
 
-            <iframe
-                src={`${resumeUrl}#toolbar=0&navpanes=0&scrollbar=0&zoom=124`}
-                className="w-full h-full shadow-md"
-                style={{
-                    border: "none",
-                    margin: 0,
-                    padding: 0,
-                    height: "65vh",
-                }}
-                title="Resume Preview"
-            />
+            {
+                resumeUrl?.endsWith(".pdf") ? (
+                    <iframe
+                        src={`${resumeUrl}#toolbar=0&navpanes=0&scrollbar=0&zoom=100`}
+                        className="w-full h-full shadow-md"
+                        style={{
+                            border: "none",
+                            margin: 0,
+                            padding: 0,
+                            height: "65vh",
+                        }}
+                        title="Resume Preview"
+                    />
+                ) : resumeUrl?.endsWith(".txt") ? (
+                    <iframe
+                        src={`${resumeUrl}#toolbar=0&navpanes=0&scrollbar=0&zoom=100`}
+                        className="w-full h-full shadow-md"
+                        style={{
+                            border: "none",
+                            margin: 0,
+                            padding: 0,
+                            height: "65vh",
+                        }}
+                        title="Resume Preview"
+                    />
+                ) : (
+                    <div className="flex items-center justify-center w-full h-[65vh] bg-gray-900/40 text-indigo-300 border border-gray-600 rounded-lg text-xl font-semibold">
+                        No preview available for DOCX file type.
+                    </div>
+                )
+            }
         </div>
     );
 }

@@ -17,32 +17,14 @@ export default function StepNavigation({
     studyDays,
     resumeFile,
     setResumeFile,
-    resumeText,
-    setResumeText,
     notReadyChecked,
     setNotReadyChecked
 }) {
     const handleFileUpload = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
-
         setResumeFile(file);
         setNotReadyChecked(false);
-
-        try {
-            const formData = new FormData();
-            formData.append("file", file);
-
-            const response = await fetch(`${API_BASE_URL}/extract-text`, {
-                method: "POST",
-                body: formData,
-            });
-
-            const data = await response.json();
-            setResumeText(data.text);
-        } catch (error) {
-            console.error("Error extracting text from file:", error);
-        }
     };
 
     const handleNotReadyChange = async () => {
@@ -51,7 +33,6 @@ export default function StepNavigation({
 
         if (newValue) {
             setResumeFile(null);
-            setResumeText(null);
         } else {
             // ✅ Ensure file input can be used again by resetting it safely
             const fileInput = document.getElementById("resumeUploadInput") as HTMLInputElement;
@@ -88,7 +69,7 @@ export default function StepNavigation({
                             <input
                                 id="resumeUploadInput"
                                 type="file"
-                                accept=".pdf"
+                                accept=".pdf,.docx,.txt"
                                 className="hidden"
                                 onChange={handleFileUpload}
                                 disabled={notReadyChecked}
@@ -101,7 +82,7 @@ export default function StepNavigation({
                         {resumeFile && (
                             <p className="mt-3 text-green-400">✔ {resumeFile.name} uploaded successfully!</p>
                         )}
-                        <p className="mb-5 mt-3 text-gray-400">Accepted format: PDF</p>
+                        <p className="mb-5 mt-3 text-gray-400">Accepted format: PDF, DOCX, TXT</p>
 
                         {/* ✅ Not Ready Yet Checkbox */}
                         <label className="mt-4 flex items-center text-white text-lg">
