@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { fetchUserData, updateUserInfo } from "@/utils/api";
+import { fetchUserData, fetchUserGoal, updateUserInfo } from "@/utils/api";
 import Header from "@/components/ui/header";
 import AuthProtected from "@/components/auth-protected";
+import HeaderDashboard from "@/components/ui/headerDashboard";
 
 export default function ProfilePage() {
     const router = useRouter();
@@ -13,6 +14,8 @@ export default function ProfilePage() {
     const [user, setUser] = useState<{ id: number; name: string; email: string } | null>(null);
     const [newName, setNewName] = useState("");
     const [message, setMessage] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isSetupComplete, setIsSetupComplete] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem("access_token");
@@ -30,6 +33,16 @@ export default function ProfilePage() {
             setNewName(data.name);
         }
 
+        // ✅ Fetch User Goal
+        fetchUserGoal(Number(userId))
+            .then((goalData) => {
+                if (goalData) {
+                    setIsSetupComplete(true);
+
+                }
+            })
+            .catch(() => console.error("Failed to fetch goal"))
+            .finally(() => setIsLoading(false));
     }, [router]);
 
     // ✅ Update Name
@@ -47,9 +60,14 @@ export default function ProfilePage() {
         }
     };
 
+    // ✅ Loading State
+    if (isLoading) {
+        return <div className="flex items-center justify-center min-h-screen text-white text-lg">Loading...</div>;
+    }
+
     return (
         <AuthProtected>
-            <Header />
+            {!isSetupComplete ? (<HeaderDashboard />) : (<Header />)}
             <div className="max-w-3xl mx-auto p-10 bg-gray-900/80 text-white rounded-xl shadow-xl mt-10 w-[90%]">
                 <h1 className="text-center text-3xl font-semibold text-indigo-200 mb-6">Profile</h1>
                 <div className="mb-6">

@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import userIcon from "/public/images/user_icon.svg"; // Ensure correct path
+import userIcon from "/public/images/user_logo.png"; // Ensure correct path
 
 interface User {
     name: string;
@@ -40,13 +40,13 @@ export default function UserMenu({ user }: { user: User }) {
     };
 
     return (
-        <div className="relative inline-flex z-50">
+        <div className="relative inline-flex">
             {/* ✅ Avatar Button */}
             <button
                 onClick={() => setShowMenu((prev) => !prev)}
-                className="p-2 rounded-full hover:bg-gray-700 transition cursor-pointer"
+                className="mt-1 ml-2 rounded-full hover:bg-gray-700 transition cursor-pointer"
             >
-                <Image src={userIcon} alt="User Menu" width={38} height={38} />
+                <Image src={userIcon} alt="User Menu" width={50} height={50} />
             </button>
 
             {/* ✅ Dropdown Menu (uses `useRef`) */}
@@ -61,7 +61,7 @@ export default function UserMenu({ user }: { user: User }) {
                     </div>
                     <Link
                         href="/dashboard/profile"
-                        className="block w-full px-4 py-2 text-sm hover:bg-gray-700 cursor-pointer"
+                        className="block text-left w-full px-4 py-2 text-sm hover:bg-gray-700 cursor-pointer"
                     >
                         Profile
                     </Link>

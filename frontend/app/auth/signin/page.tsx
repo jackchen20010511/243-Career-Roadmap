@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Header from "@/components/ui/header"; // Keep the Header component
-import { loginUser } from "@/utils/api"; // ✅ Use API function
+import Header from "@/components/ui/header";
+import { loginUser } from "@/utils/api";
 
 export default function SignIn() {
   const router = useRouter();
@@ -16,7 +16,6 @@ export default function SignIn() {
 
   const [message, setMessage] = useState<string | null>(null);
 
-  // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -30,16 +29,11 @@ export default function SignIn() {
 
     try {
       const data = await loginUser(formData.email, formData.password);
-      console.log(data);
-      // ✅ Clear Old User Data
       localStorage.clear();
-
-      // ✅ Store New User Info
       localStorage.setItem("access_token", data.access_token);
       localStorage.setItem("user_id", data.user_id);
       localStorage.setItem("user_email", data.user_email);
       localStorage.setItem("user_name", data.user_name);
-      console.log(data);
       setMessage("✅ Login successful! Redirecting...");
       router.push("/dashboard");
     } catch (error: any) {
@@ -47,75 +41,71 @@ export default function SignIn() {
     }
   };
 
-
-
   return (
     <>
       <Header />
-      <div className="max-w-3xl mx-auto p-10 bg-gray-900/80 text-white rounded-xl shadow-xl mt-10 w-[30%]">
-        {/* Section header */}
-        <div className="pb-12 text-center">
+      <div className="max-w-3xl mx-auto p-10 bg-gray-500/50 text-white rounded-xl shadow-xl mt-10 w-[90%] md:w-[50%] lg:w-[35%] backdrop-blur-md">
+        <div className="pb-10 text-center">
           <h1 className="text-3xl font-semibold text-indigo-200 md:text-4xl">
             Welcome back
           </h1>
         </div>
-        {/* Login Form */}
-        <form className="mx-auto max-w-[400px]" onSubmit={handleSubmit}>
-          <div className="space-y-5">
-            <div>
-              <label className="mb-1 block text-sm font-medium text-indigo-200" htmlFor="email">
-                Email
+
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-indigo-200">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full mt-1 rounded-md bg-gray-800/40 text-white placeholder-white/70 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Your email"
+            />
+          </div>
+
+          <div>
+            <div className="mb-1 flex items-center justify-between gap-3">
+              <label htmlFor="password" className="block text-sm font-medium text-indigo-200">
+                Password
               </label>
-              <input
-                id="email"
-                type="email"
-                className="form-input w-full"
-                placeholder="Your email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
+              <Link href="/auth/reset-password" className="text-sm text-indigo-300 hover:underline">
+                Forgot?
+              </Link>
             </div>
-            <div>
-              <div className="mb-1 flex items-center justify-between gap-3">
-                <label className="block text-sm font-medium text-indigo-200" htmlFor="password">
-                  Password
-                </label>
-                <Link className="text-sm text-gray-600 hover:underline" href="/auth/reset-password">
-                  Forgot?
-                </Link>
-              </div>
-              <input
-                id="password"
-                type="password"
-                className="form-input w-full"
-                placeholder="Your password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
+            <input
+              id="password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="w-full mt-1 rounded-md bg-gray-800/40 text-white placeholder-white/70 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Your password"
+            />
           </div>
-          <div className="mt-6 space-y-5">
-            <button
-              type="submit"
-              className="btn w-full bg-indigo-600 text-white transition-all duration-300 hover:bg-indigo-700 hover:shadow-lg cursor-pointer"
-            >
-              Sign in
-            </button>
-          </div>
+
+          <button
+            type="submit"
+            className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 rounded-md transition cursor-pointer"
+          >
+            Sign in
+          </button>
         </form>
 
-        {message && <p className="mt-4 text-center text-white-500">{message}</p>}
+        {message && (
+          <p className="mt-4 text-center text-white/80">{message}</p>
+        )}
 
-        <div className="mt-6 text-center text-sm text-indigo-200/65">
-          Don't have an account?{" "}
-          <Link className="font-medium text-indigo-500" href="/auth/signup">
+        <div className="mt-6 text-center text-sm text-indigo-200">
+          Don&apos;t have an account?{" "}
+          <Link href="/auth/signup" className="font-medium text-indigo-400 hover:underline">
             Sign Up
           </Link>
         </div>
       </div>
-
     </>
   );
 }

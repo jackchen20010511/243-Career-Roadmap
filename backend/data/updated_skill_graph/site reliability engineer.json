@@ -5136,190 +5136,22 @@
       "weight": 0.87
     },
     {
-      "source": "puppet",
-      "target": "infrastructure as code",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "linux",
-      "target": "shell scripting",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "rest api",
-      "target": "restful api",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "docker",
-      "target": "kubernetes",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "big data",
-      "target": "data lake",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "java",
-      "target": "gradle",
-      "relationship": "prerequisite",
-      "weight": 0.83
-    },
-    {
-      "source": "sql",
-      "target": "mysql",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "software development",
-      "target": "software engineering",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "sql",
-      "target": "postgresql",
-      "relationship": "prerequisite",
-      "weight": 0.82
-    },
-    {
-      "source": "web services",
-      "target": "nginx",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "cloud technologies",
-      "target": "aws",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "js",
-      "target": "typescript",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "microservices",
-      "target": "spring boot",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "nosql",
-      "target": "cassandra",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "jira",
-      "target": "agile",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "nosql",
-      "target": "mongodb",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "c/c++",
-      "target": "c",
+      "source": "go",
+      "target": "golang",
       "relationship": "prerequisite",
       "weight": 0.95
-    },
-    {
-      "source": "terraform",
-      "target": "aws",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "git",
-      "target": "gitlab",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "big data",
-      "target": "cloud technologies",
-      "relationship": "prerequisite",
-      "weight": 0.83
-    },
-    {
-      "source": "js",
-      "target": "angular",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "tcp/ip",
-      "target": "http",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "devops",
-      "target": "docker",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "devops",
-      "target": "chef",
-      "relationship": "prerequisite",
-      "weight": 0.82
     },
     {
       "source": "nosql",
       "target": "redis",
       "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "shell",
-      "target": "shell scripting",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "perl",
-      "target": "scripting",
-      "relationship": "prerequisite",
-      "weight": 0.84
+      "weight": 0.87
     },
     {
       "source": "docker",
-      "target": "containerization",
+      "target": "kubernetes",
       "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "js",
-      "target": "react",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "automation",
-      "target": "ci/cd",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "devops",
-      "target": "configuration management",
-      "relationship": "prerequisite",
-      "weight": 0.92
+      "weight": 0.87
     },
     {
       "source": "devops",
@@ -5328,118 +5160,10 @@
       "weight": 0.87
     },
     {
-      "source": "agile",
-      "target": "devops",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "c#",
-      "target": ".net",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "scripting",
-      "target": "automation",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "aws",
-      "target": "cloud",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "ansible",
-      "target": "infrastructure as code",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "http",
-      "target": "rest api",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "scripting",
-      "target": "powershell",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "automation",
-      "target": "ansible",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "software development",
-      "target": "git",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "chef",
-      "target": "infrastructure as code",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "container",
-      "target": "docker",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "containerization",
-      "target": "docker",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "windows",
-      "target": "powershell",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "scala",
-      "target": "spark",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "ci/cd pipeline",
-      "target": "artifactory",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "aws",
-      "target": "aws services",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "hadoop",
-      "target": "spark",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "ci/cd",
-      "target": "ci/cd pipeline",
+      "source": "js",
+      "target": "react",
       "relationship": "prerequisite",
       "weight": 0.91
-    },
-    {
-      "source": "devops",
-      "target": "continuous integration",
-      "relationship": "prerequisite",
-      "weight": 0.9
     },
     {
       "source": "shell scripting",
@@ -5448,52 +5172,10 @@
       "weight": 0.92
     },
     {
-      "source": "azure",
+      "source": "aws",
       "target": "cloud",
       "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "unix",
-      "target": "shell scripting",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "c/c++",
-      "target": "c++",
-      "relationship": "prerequisite",
-      "weight": 0.96
-    },
-    {
-      "source": "linux",
-      "target": "unix/linux",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "c",
-      "target": "c++",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "sql",
-      "target": "oracle",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "cloud technologies",
-      "target": "gcp",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "terraform",
-      "target": "infrastructure as code",
-      "relationship": "prerequisite",
-      "weight": 0.92
+      "weight": 0.88
     },
     {
       "source": "software engineering",
@@ -5502,86 +5184,26 @@
       "weight": 0.91
     },
     {
-      "source": "database concepts",
-      "target": "relational database",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
       "source": "monitoring",
       "target": "elk",
       "relationship": "prerequisite",
       "weight": 0.86
     },
     {
-      "source": "terraform",
-      "target": "gcp",
+      "source": "devops",
+      "target": "chef",
+      "relationship": "prerequisite",
+      "weight": 0.82
+    },
+    {
+      "source": "agile",
+      "target": "devops",
       "relationship": "prerequisite",
       "weight": 0.86
     },
     {
-      "source": "aws",
-      "target": "dynamodb",
-      "relationship": "prerequisite",
-      "weight": 0.82
-    },
-    {
-      "source": "devops",
-      "target": "ansible",
-      "relationship": "prerequisite",
-      "weight": 0.84
-    },
-    {
-      "source": "linux",
-      "target": "scripting",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "c++",
-      "target": "c/c++",
-      "relationship": "prerequisite",
-      "weight": 0.95
-    },
-    {
-      "source": "automation",
-      "target": "chef",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "js",
-      "target": "node",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "relational database",
-      "target": "sql",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "devops",
-      "target": "puppet",
-      "relationship": "prerequisite",
-      "weight": 0.82
-    },
-    {
-      "source": "automation",
-      "target": "puppet",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "devops",
-      "target": "terraform",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
       "source": "cloud technologies",
-      "target": "azure",
+      "target": "gcp",
       "relationship": "prerequisite",
       "weight": 0.89
     },
@@ -5592,16 +5214,142 @@
       "weight": 0.93
     },
     {
-      "source": "terraform",
+      "source": "c++",
+      "target": "c/c++",
+      "relationship": "prerequisite",
+      "weight": 0.95
+    },
+    {
+      "source": "nosql",
+      "target": "cassandra",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "software development",
+      "target": "software engineering",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "cloud technologies",
       "target": "azure",
       "relationship": "prerequisite",
-      "weight": 0.86
+      "weight": 0.89
+    },
+    {
+      "source": "c/c++",
+      "target": "c",
+      "relationship": "prerequisite",
+      "weight": 0.95
+    },
+    {
+      "source": "devops",
+      "target": "puppet",
+      "relationship": "prerequisite",
+      "weight": 0.82
+    },
+    {
+      "source": "scripting",
+      "target": "powershell",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "chef",
+      "target": "infrastructure as code",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "automation",
+      "target": "ansible",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "azure",
+      "target": "cloud",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "c#",
+      "target": ".net",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "ci/cd",
+      "target": "ci/cd pipeline",
+      "relationship": "prerequisite",
+      "weight": 0.94
+    },
+    {
+      "source": "ansible",
+      "target": "infrastructure as code",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "aws",
+      "target": "aws services",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "rest api",
+      "target": "restful api",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "js",
+      "target": "angular",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "linux",
+      "target": "scripting",
+      "relationship": "prerequisite",
+      "weight": 0.85
     },
     {
       "source": "java",
       "target": "maven",
       "relationship": "prerequisite",
-      "weight": 0.87
+      "weight": 0.89
+    },
+    {
+      "source": "sql",
+      "target": "postgresql",
+      "relationship": "prerequisite",
+      "weight": 0.82
+    },
+    {
+      "source": "automation",
+      "target": "ci/cd",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "hadoop",
+      "target": "spark",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "relational database",
+      "target": "sql",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "microservices",
+      "target": "spring boot",
+      "relationship": "prerequisite",
+      "weight": 0.89
     },
     {
       "source": "software development",
@@ -5610,16 +5358,268 @@
       "weight": 0.86
     },
     {
-      "source": "go",
-      "target": "golang",
+      "source": "sql",
+      "target": "mysql",
       "relationship": "prerequisite",
-      "weight": 0.95
+      "weight": 0.88
+    },
+    {
+      "source": "container",
+      "target": "docker",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "java",
+      "target": "gradle",
+      "relationship": "prerequisite",
+      "weight": 0.83
+    },
+    {
+      "source": "docker",
+      "target": "containerization",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "software development",
+      "target": "git",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "tcp/ip",
+      "target": "http",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "js",
+      "target": "typescript",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "nosql",
+      "target": "mongodb",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "database concepts",
+      "target": "relational database",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "terraform",
+      "target": "infrastructure as code",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "terraform",
+      "target": "azure",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "c",
+      "target": "c++",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "devops",
+      "target": "terraform",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "linux",
+      "target": "unix/linux",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "http",
+      "target": "rest api",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "aws",
+      "target": "dynamodb",
+      "relationship": "prerequisite",
+      "weight": 0.82
+    },
+    {
+      "source": "big data",
+      "target": "cloud technologies",
+      "relationship": "prerequisite",
+      "weight": 0.83
+    },
+    {
+      "source": "linux",
+      "target": "shell scripting",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "devops",
+      "target": "docker",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "cloud technologies",
+      "target": "aws",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "sql",
+      "target": "oracle",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "terraform",
+      "target": "gcp",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "perl",
+      "target": "scripting",
+      "relationship": "prerequisite",
+      "weight": 0.84
     },
     {
       "source": "scripting",
       "target": "python",
       "relationship": "prerequisite",
       "weight": 0.86
+    },
+    {
+      "source": "big data",
+      "target": "data lake",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "web services",
+      "target": "nginx",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "terraform",
+      "target": "aws",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "unix",
+      "target": "shell scripting",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "automation",
+      "target": "chef",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "c/c++",
+      "target": "c++",
+      "relationship": "prerequisite",
+      "weight": 0.96
+    },
+    {
+      "source": "scripting",
+      "target": "automation",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "scala",
+      "target": "spark",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "windows",
+      "target": "powershell",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "jira",
+      "target": "agile",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "git",
+      "target": "gitlab",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "devops",
+      "target": "ansible",
+      "relationship": "prerequisite",
+      "weight": 0.84
+    },
+    {
+      "source": "automation",
+      "target": "puppet",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "containerization",
+      "target": "docker",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "devops",
+      "target": "configuration management",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "puppet",
+      "target": "infrastructure as code",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "shell",
+      "target": "shell scripting",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "ci/cd pipeline",
+      "target": "artifactory",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "js",
+      "target": "node",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "devops",
+      "target": "continuous integration",
+      "relationship": "prerequisite",
+      "weight": 0.9
     }
   ]
 }

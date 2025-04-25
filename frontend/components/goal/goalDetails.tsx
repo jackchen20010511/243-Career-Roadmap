@@ -39,7 +39,6 @@ export default function GoalDetails() {
                 })
                 .catch((err) => console.error("Failed to fetch goal:", err))
                 .finally(() => setLoading(false));
-            console.log("start", editedGoal)
         }
     }, []);
 
@@ -77,11 +76,10 @@ export default function GoalDetails() {
     if (!goal) return <div className="text-red-400 p-10">No goal data found.</div>;
 
     return (
-        <div className="w-full h-full overflow-hidden">
-            <div className="mb-5 pt-2 px-3">
-                {/* Flex row: title on left, buttons + message on right */}
+        <div className="bg-white/20 backdrop-blur-md p-8 rounded-2xl shadow-xl w-full">
+            <div className="mb-5">
                 <div className="flex items-start justify-between w-full">
-                    <h2 className="mb-8 text-3xl font-bold text-indigo-200">My Goal</h2>
+                    <h2 className="mb-6 text-3xl font-bold text-indigo-200">My Goal</h2>
                     <div className="flex gap-3">
                         {isEditing && (
                             <button
@@ -103,23 +101,23 @@ export default function GoalDetails() {
                 {/* Job Title + Industry */}
                 <div className="mb-5 flex gap-4">
                     <div className="w-1/2">
-                        <p className="text-left px-3 mb-1 block text-lg text-indigo-200">Career Position</p>
+                        <p className="text-left mb-1 text-lg text-indigo-200">Career Position</p>
                         <input
                             type="text"
                             value={editedGoal.target_position}
                             onChange={(e) => handleChange("target_position", e.target.value)}
                             readOnly={!isEditing}
-                            className="mb-6 mt-2 p-4 w-full border border-gray-600 bg-gray-700 rounded-lg text-lg text-white"
+                            className={`mt-2 p-4 w-full rounded-lg text-lg text-white ${isEditing ? "bg-white/40 cursor-text" : "bg-white/20 cursor-default"} border border-gray-600`}
                         />
                     </div>
                     <div className="w-1/2">
-                        <p className="text-left px-3 mb-1 block text-lg text-indigo-200">Industry</p>
+                        <p className="text-left mb-1 text-lg text-indigo-200">Industry</p>
                         <input
                             type="text"
                             value={editedGoal.industry}
                             onChange={(e) => handleChange("industry", e.target.value)}
                             readOnly={!isEditing}
-                            className="mb-6 mt-2 p-4 w-full border border-gray-600 bg-gray-700 rounded-lg text-lg text-white"
+                            className={`mt-2 p-4 w-full rounded-lg text-lg text-white ${isEditing ? "bg-white/40 cursor-text" : "bg-white/20 cursor-default"} border border-gray-600`}
                         />
                     </div>
                 </div>
@@ -127,12 +125,12 @@ export default function GoalDetails() {
                 {/* Exp Level + Weekly Hours + Duration */}
                 <div className="mb-5 flex gap-4">
                     <div className="w-1/3">
-                        <p className="text-left px-3 mb-1 block text-lg text-indigo-200">Experience Level</p>
+                        <p className="text-left mb-1 text-lg text-indigo-200">Experience Level</p>
                         <select
                             value={editedGoal.exp_level}
                             onChange={(e) => handleChange("exp_level", e.target.value)}
                             disabled={!isEditing}
-                            className="mb-6 mt-2 p-4 w-full border border-gray-600 bg-gray-700 rounded-lg text-lg text-white cursor-pointer"
+                            className={`mt-2 p-4 w-full rounded-lg text-lg text-white ${isEditing ? "bg-white/40 cursor-pointer" : "bg-white/20 cursor-default"} border border-gray-600`}
                         >
                             <option value="" disabled hidden>Choose Experience Level</option>
                             <option value="Internship">Internship</option>
@@ -143,54 +141,52 @@ export default function GoalDetails() {
                             <option value="Executive">Executive</option>
                         </select>
                     </div>
-
                     <div className="w-1/3">
-                        <p className="text-left px-3 mb-1 block text-lg text-indigo-200">Weekly Hours</p>
+                        <p className="text-left mb-1 text-lg text-indigo-200">Weekly Hours</p>
                         <input
                             type="number"
                             value={editedGoal.weekly_hours}
                             onChange={(e) => handleChange("weekly_hours", Number(e.target.value))}
                             readOnly={!isEditing}
-                            className="mb-6 mt-2 p-4 w-full border border-gray-600 bg-gray-700 rounded-lg text-lg text-white"
+                            className={`mt-2 p-4 w-full rounded-lg text-lg text-white ${isEditing ? "bg-white/40 cursor-text" : "bg-white/20 cursor-default"} border border-gray-600`}
                         />
                     </div>
-
                     <div className="w-1/3">
-                        <p className="text-left px-3 mb-1 block text-lg text-indigo-200">Duration Weeks</p>
+                        <p className="text-left mb-1 text-lg text-indigo-200">Duration Weeks</p>
                         <input
                             type="number"
                             value={editedGoal.duration_weeks}
                             onChange={(e) => handleChange("duration_weeks", Number(e.target.value))}
                             readOnly={!isEditing}
-                            className="mb-6 mt-2 p-4 w-full border border-gray-600 bg-gray-700 rounded-lg text-lg text-white"
+                            className={`mt-2 p-4 w-full rounded-lg text-lg text-white ${isEditing ? "bg-white/40 cursor-text" : "bg-white/20 cursor-default"} border border-gray-600`}
                         />
                     </div>
                 </div>
 
                 {/* Weekdays */}
-                <p className="mb-8 text-center px-3 mb-1 block text-lg text-indigo-200">Study Weekdays</p>
-                <div className="mb-5 flex justify-center gap-2 mb-6">
+                <p className="mb-4 text-center text-lg text-indigo-200">Study Weekdays</p>
+                <div className="mb-6 flex justify-center gap-2">
                     {weekdays.map((day) => (
                         <button
                             key={day}
                             onClick={() => isEditing && toggleDay(day)}
-                            className={`px-6 py-4 rounded-full text-lg font-medium border transition cursor-pointer ${editedGoal[day]
+                            className={`px-6 py-4 rounded-full text-lg font-medium border transition ${editedGoal[day]
                                 ? "bg-indigo-500 text-white border-indigo-400"
-                                : "bg-gray-700 text-gray-300 border-gray-600"
-                                } ${isEditing ? "hover:bg-indigo-400 hover:text-white" : "cursor-default"}`}
+                                : "bg-white/20 text-white border-gray-400"
+                                } ${isEditing ? "hover:bg-indigo-400 hover:text-white cursor-pointer" : "cursor-default"}`}
                         >
                             {weekdayLabels[day]}
                         </button>
                     ))}
                 </div>
 
-                {/* Responsibility */}
-                <p className="text-left px-3 mb-1 block text-lg text-indigo-200">Responsibilities</p>
+                {/* Responsibilities */}
+                <p className="text-left mb-1 text-lg text-indigo-200">Responsibilities</p>
                 <textarea
                     value={editedGoal.responsibility ?? ""}
                     onChange={(e) => handleChange("responsibility", e.target.value)}
                     readOnly={!isEditing}
-                    className="mt-2 p-4 w-full h-50 border border-gray-600 bg-gray-700 text-white rounded-lg text-lg resize-none"
+                    className={`mt-2 p-4 w-full h-54 rounded-lg text-lg text-white ${isEditing ? "bg-white/40 cursor-text" : "bg-white/20 cursor-default"} border border-gray-600 resize-none`}
                     placeholder="Empty"
                 />
             </div>

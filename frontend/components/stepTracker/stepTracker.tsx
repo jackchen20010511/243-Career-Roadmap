@@ -34,29 +34,26 @@ export default function StepTracker({
         async function initializeStep() {
             try {
                 const url = await fetchResumeUrl(userId);
-                const resumeExists = !!url;
-                setHasResume(resumeExists);
+                setHasResume(!!url);
 
                 const skills = await fetchLearnSkill(userId);
-                const hasLearnedSkills = skills && skills.length > 0;
-                setHasSkills(hasLearnedSkills);
+                setHasSkills(skills.length > 0);
 
-                const tasks = await fetchScheduledTasks(userId);
-                const hasScheduledTasks = tasks && tasks.length > 0;
-                setHasTasks(hasScheduledTasks);
-                setTasks(tasks.tasks);
+                // <-- FIXED HERE -->
+                const fetchedTasks = await fetchScheduledTasks(userId);
+                setHasTasks(fetchedTasks.length > 0);
+                setTasks(fetchedTasks);
 
-                if (!resumeExists) return setStep(1);
-                if (!hasLearnedSkills) return setStep(2);
-                if (!hasScheduledTasks) return setStep(3);
-                setStep(3);
+                if (!url) return setStep(1);
+                if (!skills.length) return setStep(2);
+                if (!fetchedTasks.length) return setStep(3);
+                setStep(4);
             } catch (error) {
                 console.error("StepTracker init failed:", error);
             } finally {
                 setLoading(false);
             }
         }
-
         initializeStep();
     }, [userId]);
 
@@ -90,7 +87,7 @@ export default function StepTracker({
                 {step > 1 ? (
                     <button
                         onClick={handleBack}
-                        className="mt-5 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 cursor-pointer"
+                        className="mt-5 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg cursor-pointer"
                     >
                         &lt;
                     </button>
@@ -131,7 +128,7 @@ export default function StepTracker({
             )}
             {step === 2 && <StepSkill userId={userId} onChange={() => setHasSkills(true)} />}
             {step === 3 && (
-                <div className="max-w-5xl px-6 mx-auto">
+                <div className="px-6 mx-auto">
                     <StepSchedule
                         userId={userId}
                         onChange={() => setHasTasks(true)}

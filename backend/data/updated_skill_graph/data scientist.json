@@ -3563,88 +3563,70 @@
       "weight": 0.91
     },
     {
-      "source": "cloud",
+      "source": "machine learning",
+      "target": "feature engineering",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "cloud computing",
       "target": "aws",
       "relationship": "prerequisite",
       "weight": 0.89
     },
     {
-      "source": "linux",
-      "target": "shell scripting",
+      "source": "programming",
+      "target": "c#",
       "relationship": "prerequisite",
-      "weight": 0.89
+      "weight": 0.9
     },
     {
-      "source": "python",
-      "target": "data analysis",
+      "source": "programming",
+      "target": "python",
       "relationship": "prerequisite",
       "weight": 0.87
     },
     {
-      "source": "python",
-      "target": "django",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "bash",
-      "target": "shell scripting",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "computer vision",
-      "target": "opencv",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "sql",
-      "target": "sql server",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "database",
-      "target": "mysql",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "database",
-      "target": "oracle",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "sql",
-      "target": "database",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "machine learning",
-      "target": "neural network",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "git",
-      "target": "ci/cd",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "big data",
-      "target": "hadoop",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "numpy",
-      "target": "pytorch",
+      "source": "devops",
+      "target": "kubernetes",
       "relationship": "prerequisite",
       "weight": 0.87
+    },
+    {
+      "source": "agile",
+      "target": "jira",
+      "relationship": "prerequisite",
+      "weight": 0.83
+    },
+    {
+      "source": "js",
+      "target": "react",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "cloud",
+      "target": "gcp",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "aws",
+      "target": "cloud",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "data analytics",
+      "target": "data science",
+      "relationship": "prerequisite",
+      "weight": 0.82
+    },
+    {
+      "source": "deep learning",
+      "target": "cnn",
+      "relationship": "prerequisite",
+      "weight": 0.89
     },
     {
       "source": "machine learning algorithms",
@@ -3653,20 +3635,104 @@
       "weight": 0.86
     },
     {
-      "source": "python",
-      "target": "keras",
+      "source": "ai",
+      "target": "machine learning",
+      "relationship": "prerequisite",
+      "weight": 0.95
+    },
+    {
+      "source": "agile",
+      "target": "devops",
       "relationship": "prerequisite",
       "weight": 0.86
     },
     {
       "source": "cloud technologies",
-      "target": "aws",
+      "target": "gcp",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "postgresql",
+      "target": "database",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "data analytics",
+      "target": "machine learning",
+      "relationship": "prerequisite",
+      "weight": 0.78
+    },
+    {
+      "source": "api",
+      "target": "rest api",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "excel",
+      "target": "data analysis",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "database",
+      "target": "oracle",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "data analysis",
+      "target": "data mining",
+      "relationship": "prerequisite",
+      "weight": 0.83
+    },
+    {
+      "source": "statistics",
+      "target": "statistical techniques",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "computer vision",
+      "target": "opencv",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "cloud computing",
+      "target": "azure",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "business intelligence",
+      "target": "tableau",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "cloud technologies",
+      "target": "azure",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "sql",
+      "target": "sql server",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "programming languages",
+      "target": "python",
       "relationship": "prerequisite",
       "weight": 0.9
     },
     {
-      "source": "data analysis",
-      "target": "tableau",
+      "source": "business intelligence",
+      "target": "power bi",
       "relationship": "prerequisite",
       "weight": 0.86
     },
@@ -3674,49 +3740,205 @@
       "source": "python",
       "target": "flask",
       "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "cloud computing",
-      "target": "azure",
-      "relationship": "prerequisite",
       "weight": 0.89
     },
     {
-      "source": "cloud",
-      "target": "azure",
+      "source": "machine learning algorithms",
+      "target": "random forest",
       "relationship": "prerequisite",
-      "weight": 0.87
+      "weight": 0.88
     },
     {
-      "source": "jira",
-      "target": "agile",
+      "source": "data analysis",
+      "target": "analytics",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "programming languages",
+      "target": "ruby",
+      "relationship": "prerequisite",
+      "weight": 0.84
+    },
+    {
+      "source": "devops",
+      "target": "ci/cd",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "python",
+      "target": "django",
       "relationship": "prerequisite",
       "weight": 0.85
     },
     {
-      "source": "business intelligence",
-      "target": "tableau",
+      "source": "data analysis",
+      "target": "power bi",
       "relationship": "prerequisite",
       "weight": 0.85
     },
     {
       "source": "programming",
-      "target": "python",
+      "target": "java",
+      "relationship": "prerequisite",
+      "weight": 0.83
+    },
+    {
+      "source": "database",
+      "target": "mongodb",
+      "relationship": "prerequisite",
+      "weight": 0.84
+    },
+    {
+      "source": "oracle",
+      "target": "database",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "data analysis",
+      "target": "a/b testing",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "data warehousing",
+      "target": "business intelligence",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "sql",
+      "target": "data analysis",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "azure",
+      "target": "cloud",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "database",
+      "target": "sql",
       "relationship": "prerequisite",
       "weight": 0.91
     },
     {
-      "source": "ai",
-      "target": "machine learning",
+      "source": "ci/cd",
+      "target": "jenkin",
       "relationship": "prerequisite",
-      "weight": 0.95
+      "weight": 0.91
+    },
+    {
+      "source": "business intelligence",
+      "target": "cognos",
+      "relationship": "prerequisite",
+      "weight": 0.84
+    },
+    {
+      "source": "project management",
+      "target": "cloud",
+      "relationship": "prerequisite",
+      "weight": 0.8
+    },
+    {
+      "source": "data warehousing",
+      "target": "etl",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "database",
+      "target": "relational database",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "data mining",
+      "target": "big data",
+      "relationship": "prerequisite",
+      "weight": 0.86
     },
     {
       "source": "cloud",
-      "target": "gcp",
+      "target": "aws",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "data analytics",
+      "target": "deep learning",
+      "relationship": "prerequisite",
+      "weight": 0.75
+    },
+    {
+      "source": "machine learning",
+      "target": "machine learning techniques",
+      "relationship": "prerequisite",
+      "weight": 0.94
+    },
+    {
+      "source": "r",
+      "target": "data analysis",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "big data",
+      "target": "hadoop",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "python",
+      "target": "keras",
       "relationship": "prerequisite",
       "weight": 0.86
+    },
+    {
+      "source": "r",
+      "target": "statistics",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "hadoop",
+      "target": "spark",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "spark",
+      "target": "databricks",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "sql",
+      "target": "data warehousing",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "relational database",
+      "target": "sql",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "bash",
+      "target": "shell scripting",
+      "relationship": "prerequisite",
+      "weight": 0.94
+    },
+    {
+      "source": "database",
+      "target": "sql server",
+      "relationship": "prerequisite",
+      "weight": 0.85
     },
     {
       "source": "cloud computing",
@@ -3725,10 +3947,118 @@
       "weight": 0.89
     },
     {
-      "source": "database",
-      "target": "data modeling",
+      "source": "git",
+      "target": "ci/cd",
       "relationship": "prerequisite",
-      "weight": 0.9
+      "weight": 0.88
+    },
+    {
+      "source": "database",
+      "target": "rdbms",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "big data",
+      "target": "big data technologies",
+      "relationship": "prerequisite",
+      "weight": 0.95
+    },
+    {
+      "source": "database",
+      "target": "postgresql",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "database",
+      "target": "mysql",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "big data",
+      "target": "spark",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "excel",
+      "target": "statistical modeling",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "ai",
+      "target": "artificial intelligence",
+      "relationship": "prerequisite",
+      "weight": 0.97
+    },
+    {
+      "source": "aws",
+      "target": "redshift",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "sql",
+      "target": "database",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "database",
+      "target": "data warehousing",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "machine learning",
+      "target": "neural network",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "data analytics",
+      "target": "big data",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "algorithm",
+      "target": "machine learning algorithms",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "project management",
+      "target": "agile",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "sql",
+      "target": "ssis",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "cloud",
+      "target": "azure",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "linux",
+      "target": "unix/linux",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "data pipeline",
+      "target": "airflow",
+      "relationship": "prerequisite",
+      "weight": 0.87
     },
     {
       "source": "mysql",
@@ -3740,475 +4070,25 @@
       "source": "database",
       "target": "nosql",
       "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "programming languages",
+      "target": "java",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "linux",
+      "target": "shell scripting",
+      "relationship": "prerequisite",
       "weight": 0.87
     },
     {
       "source": "devops",
       "target": "docker",
       "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "data warehousing",
-      "target": "teradata",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "algorithm",
-      "target": "machine learning algorithms",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "statistics",
-      "target": "statistical techniques",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "js",
-      "target": "react",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "programming languages",
-      "target": "ruby",
-      "relationship": "prerequisite",
-      "weight": 0.84
-    },
-    {
-      "source": "database",
-      "target": "sql",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "data pipeline",
-      "target": "airflow",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "api",
-      "target": "rest api",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "programming",
-      "target": "c#",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "css",
-      "target": "js",
-      "relationship": "prerequisite",
-      "weight": 0.82
-    },
-    {
-      "source": "devops",
-      "target": "kubernetes",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "agile",
-      "target": "devops",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "data analysis",
-      "target": "data mining",
-      "relationship": "prerequisite",
-      "weight": 0.83
-    },
-    {
-      "source": "data warehousing",
-      "target": "etl",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "deep learning",
-      "target": "cnn",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "devops",
-      "target": "ci/cd",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "aws",
-      "target": "cloud",
-      "relationship": "prerequisite",
       "weight": 0.88
-    },
-    {
-      "source": "business intelligence",
-      "target": "data warehousing",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "data analytics",
-      "target": "data science",
-      "relationship": "prerequisite",
-      "weight": 0.82
-    },
-    {
-      "source": "project management",
-      "target": "agile",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "project management",
-      "target": "cloud",
-      "relationship": "prerequisite",
-      "weight": 0.8
-    },
-    {
-      "source": "business intelligence",
-      "target": "cognos",
-      "relationship": "prerequisite",
-      "weight": 0.84
-    },
-    {
-      "source": "sql",
-      "target": "data warehousing",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "data modeling",
-      "target": "machine learning models",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "agile",
-      "target": "jira",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "data analysis",
-      "target": "power bi",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "postgresql",
-      "target": "database",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "database",
-      "target": "sql server",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "big data",
-      "target": "spark",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "excel",
-      "target": "data analysis",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "machine learning",
-      "target": "machine learning techniques",
-      "relationship": "prerequisite",
-      "weight": 0.94
-    },
-    {
-      "source": "excel",
-      "target": "statistical modeling",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "scala",
-      "target": "spark",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "r",
-      "target": "data analysis",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "spark",
-      "target": "databricks",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "machine learning",
-      "target": "feature engineering",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "hadoop",
-      "target": "spark",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "programming",
-      "target": "java",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "deep learning",
-      "target": "deep learning frameworks",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "python",
-      "target": "scipy",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "aws",
-      "target": "redshift",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "etl",
-      "target": "ssis",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "azure",
-      "target": "cloud",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "unix",
-      "target": "shell scripting",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "data warehousing",
-      "target": "data modeling",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "linux",
-      "target": "unix/linux",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "programming languages",
-      "target": "python",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "sql",
-      "target": "oracle",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "cloud technologies",
-      "target": "gcp",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "database",
-      "target": "mongodb",
-      "relationship": "prerequisite",
-      "weight": 0.84
-    },
-    {
-      "source": "data analytics",
-      "target": "machine learning",
-      "relationship": "prerequisite",
-      "weight": 0.78
-    },
-    {
-      "source": "data analysis",
-      "target": "analytics",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "database",
-      "target": "rdbms",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "sql server",
-      "target": "database",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "ci/cd",
-      "target": "jenkin",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "project management",
-      "target": "data management",
-      "relationship": "prerequisite",
-      "weight": 0.82
-    },
-    {
-      "source": "cloud computing",
-      "target": "aws",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "sql",
-      "target": "data analysis",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "excel",
-      "target": "vba",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "data warehousing",
-      "target": "business intelligence",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "hadoop",
-      "target": "hbase",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "deep learning",
-      "target": "rnn",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "etl",
-      "target": "data pipeline",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "ai",
-      "target": "artificial intelligence",
-      "relationship": "prerequisite",
-      "weight": 0.97
-    },
-    {
-      "source": "data analytics",
-      "target": "deep learning",
-      "relationship": "prerequisite",
-      "weight": 0.75
-    },
-    {
-      "source": "oracle",
-      "target": "database",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "machine learning algorithms",
-      "target": "random forest",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "big data",
-      "target": "big data technologies",
-      "relationship": "prerequisite",
-      "weight": 0.95
-    },
-    {
-      "source": "relational database",
-      "target": "sql",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "computer vision",
-      "target": "cnn",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "sql",
-      "target": "ssis",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "data analysis",
-      "target": "a/b testing",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "cloud technologies",
-      "target": "azure",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "database",
-      "target": "data warehousing",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "database",
-      "target": "postgresql",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "nlp",
-      "target": "natural language processing (nlp)",
-      "relationship": "prerequisite",
-      "weight": 0.96
-    },
-    {
-      "source": "business intelligence",
-      "target": "power bi",
-      "relationship": "prerequisite",
-      "weight": 0.86
     },
     {
       "source": "data analysis",
@@ -4217,8 +4097,68 @@
       "weight": 0.92
     },
     {
-      "source": "data mining",
-      "target": "big data",
+      "source": "computer vision",
+      "target": "cnn",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "python",
+      "target": "data analysis",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "cloud technologies",
+      "target": "aws",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "data analysis",
+      "target": "tableau",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "etl",
+      "target": "ssis",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "numpy",
+      "target": "pytorch",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "nlp",
+      "target": "natural language processing (nlp)",
+      "relationship": "prerequisite",
+      "weight": 0.96
+    },
+    {
+      "source": "sql",
+      "target": "oracle",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "database",
+      "target": "data modeling",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "hadoop",
+      "target": "hbase",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "unix",
+      "target": "shell scripting",
       "relationship": "prerequisite",
       "weight": 0.86
     },
@@ -4229,16 +4169,52 @@
       "weight": 0.9
     },
     {
-      "source": "r",
-      "target": "statistics",
+      "source": "deep learning",
+      "target": "deep learning frameworks",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "data modeling",
+      "target": "machine learning models",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "sql server",
+      "target": "database",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "business intelligence",
+      "target": "data warehousing",
       "relationship": "prerequisite",
       "weight": 0.89
     },
     {
-      "source": "database",
-      "target": "relational database",
+      "source": "scala",
+      "target": "spark",
       "relationship": "prerequisite",
-      "weight": 0.91
+      "weight": 0.88
+    },
+    {
+      "source": "excel",
+      "target": "vba",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "jira",
+      "target": "agile",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "deep learning",
+      "target": "rnn",
+      "relationship": "prerequisite",
+      "weight": 0.88
     },
     {
       "source": "excel",
@@ -4247,16 +4223,40 @@
       "weight": 0.84
     },
     {
-      "source": "programming languages",
-      "target": "java",
+      "source": "project management",
+      "target": "data management",
       "relationship": "prerequisite",
-      "weight": 0.85
+      "weight": 0.82
     },
     {
-      "source": "data analytics",
-      "target": "big data",
+      "source": "python",
+      "target": "scipy",
       "relationship": "prerequisite",
-      "weight": 0.85
+      "weight": 0.92
+    },
+    {
+      "source": "css",
+      "target": "js",
+      "relationship": "prerequisite",
+      "weight": 0.82
+    },
+    {
+      "source": "etl",
+      "target": "data pipeline",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "data warehousing",
+      "target": "teradata",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "data warehousing",
+      "target": "data modeling",
+      "relationship": "prerequisite",
+      "weight": 0.9
     }
   ]
 }

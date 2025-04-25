@@ -47,7 +47,7 @@ export default function MiniStepTracker({ userId }: { userId: number }) {
     }
 
     if (step === 3) return (
-        <div className="mt-5">
+        <div className="mt-5 mb-30">
             <LearnSkill userId={userId} step={step} />
         </div>
     );
@@ -59,7 +59,7 @@ export default function MiniStepTracker({ userId }: { userId: number }) {
                 {step > 1 ? (
                     <button
                         onClick={handleBack}
-                        className="mt-5 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 cursor-pointer"
+                        className="mt-5 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg cursor-pointer"
                     >
                         &lt;
                     </button>

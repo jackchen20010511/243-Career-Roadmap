@@ -90,7 +90,7 @@ export default function CalendarPanel({ selectedDate, setSelectedDate }: {
     };
 
     return (
-        <div className="p-4 bg-gray-800/80 rounded-xl text-white">
+        <div className="p-4 bg-white/40 rounded-xl text-white">
             {renderHeader()}
             {renderDays()}
             {renderCells()}

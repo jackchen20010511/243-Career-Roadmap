@@ -3636,26 +3636,44 @@
       "weight": 0.9
     },
     {
-      "source": "linux",
-      "target": "shell scripting",
+      "source": "agile",
+      "target": "devops",
       "relationship": "prerequisite",
-      "weight": 0.89
+      "weight": 0.86
+    },
+    {
+      "source": "tdd",
+      "target": "unit testing",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "continuous integration",
+      "target": "ci/cd",
+      "relationship": "prerequisite",
+      "weight": 0.93
     },
     {
       "source": "rest api",
-      "target": "restful api",
+      "target": "restful web service",
       "relationship": "prerequisite",
-      "weight": 0.92
+      "weight": 0.9
     },
     {
-      "source": "rest",
-      "target": "rest api",
+      "source": "android",
+      "target": "java",
       "relationship": "prerequisite",
-      "weight": 0.94
+      "weight": 0.9
     },
     {
-      "source": "git",
-      "target": "ci/cd",
+      "source": "css",
+      "target": "bootstrap",
+      "relationship": "prerequisite",
+      "weight": 0.83
+    },
+    {
+      "source": "service oriented architecture",
+      "target": "microservices",
       "relationship": "prerequisite",
       "weight": 0.88
     },
@@ -3666,22 +3684,10 @@
       "weight": 0.83
     },
     {
-      "source": "rest",
-      "target": "restful api",
+      "source": "c#",
+      "target": ".net",
       "relationship": "prerequisite",
       "weight": 0.92
-    },
-    {
-      "source": "hadoop",
-      "target": "hive",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "jira",
-      "target": "agile",
-      "relationship": "prerequisite",
-      "weight": 0.85
     },
     {
       "source": "angular",
@@ -3690,34 +3696,10 @@
       "weight": 0.9
     },
     {
-      "source": "devops",
-      "target": "docker",
+      "source": "hadoop",
+      "target": "hive",
       "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "java",
-      "target": "jms",
-      "relationship": "prerequisite",
-      "weight": 0.78
-    },
-    {
-      "source": "restful api",
-      "target": "json",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "ci/cd",
-      "target": "continuous integration",
-      "relationship": "prerequisite",
-      "weight": 0.94
-    },
-    {
-      "source": "css",
-      "target": "js",
-      "relationship": "prerequisite",
-      "weight": 0.82
+      "weight": 0.85
     },
     {
       "source": "rest",
@@ -3727,19 +3709,55 @@
     },
     {
       "source": "rest api",
-      "target": "restful web service",
+      "target": "restful api",
       "relationship": "prerequisite",
-      "weight": 0.9
+      "weight": 0.92
     },
     {
-      "source": "agile",
-      "target": "devops",
+      "source": "rest",
+      "target": "restful api",
       "relationship": "prerequisite",
-      "weight": 0.86
+      "weight": 0.92
     },
     {
-      "source": "c#",
-      "target": ".net",
+      "source": "rest",
+      "target": "rest api",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "rest api",
+      "target": "json",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "hadoop",
+      "target": "spark",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "relational database",
+      "target": "sql",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "html",
+      "target": "bootstrap",
+      "relationship": "prerequisite",
+      "weight": 0.81
+    },
+    {
+      "source": "git",
+      "target": "ci/cd",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "ci/cd",
+      "target": "continuous integration",
       "relationship": "prerequisite",
       "weight": 0.93
     },
@@ -3750,70 +3768,22 @@
       "weight": 0.86
     },
     {
-      "source": "android",
-      "target": "java",
+      "source": "java",
+      "target": "jms",
       "relationship": "prerequisite",
-      "weight": 0.9
+      "weight": 0.78
     },
     {
-      "source": "agile methodologies",
-      "target": "tdd",
+      "source": "linux",
+      "target": "shell scripting",
       "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "scala",
-      "target": "spark",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "hadoop",
-      "target": "spark",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "js",
-      "target": "json",
-      "relationship": "prerequisite",
-      "weight": 0.89
+      "weight": 0.87
     },
     {
       "source": "devops",
-      "target": "continuous integration",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "tdd",
-      "target": "unit testing",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "html",
-      "target": "bootstrap",
-      "relationship": "prerequisite",
-      "weight": 0.81
-    },
-    {
-      "source": "service oriented architecture",
-      "target": "microservices",
+      "target": "docker",
       "relationship": "prerequisite",
       "weight": 0.88
-    },
-    {
-      "source": "java",
-      "target": "jdbc",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "css",
-      "target": "bootstrap",
-      "relationship": "prerequisite",
-      "weight": 0.89
     },
     {
       "source": "hadoop",
@@ -3823,33 +3793,63 @@
     },
     {
       "source": "js",
-      "target": "node",
+      "target": "json",
       "relationship": "prerequisite",
       "weight": 0.89
     },
     {
-      "source": "relational database",
-      "target": "sql",
+      "source": "scala",
+      "target": "spark",
       "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "rest api",
-      "target": "json",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "continuous integration",
-      "target": "ci/cd",
-      "relationship": "prerequisite",
-      "weight": 0.93
+      "weight": 0.88
     },
     {
       "source": "unit testing",
       "target": "test driven development",
       "relationship": "prerequisite",
       "weight": 0.89
+    },
+    {
+      "source": "jira",
+      "target": "agile",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "java",
+      "target": "jdbc",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "agile methodologies",
+      "target": "tdd",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "css",
+      "target": "js",
+      "relationship": "prerequisite",
+      "weight": 0.82
+    },
+    {
+      "source": "restful api",
+      "target": "json",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "js",
+      "target": "node",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "devops",
+      "target": "continuous integration",
+      "relationship": "prerequisite",
+      "weight": 0.9
     }
   ]
 }

@@ -4205,70 +4205,10 @@
       "weight": 0.9
     },
     {
-      "source": "linux",
-      "target": "shell scripting",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "bash",
-      "target": "shell scripting",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "java",
-      "target": "hibernate",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "database",
-      "target": "mysql",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "database",
-      "target": "oracle",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "j2ee",
-      "target": "jsp",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "kafka",
-      "target": "rabbitmq",
+      "source": "git",
+      "target": "svn",
       "relationship": "prerequisite",
       "weight": 0.82
-    },
-    {
-      "source": "agile",
-      "target": "agile development",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "sql",
-      "target": "database",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": ".net",
-      "target": ".net core",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "git",
-      "target": "ci/cd",
-      "relationship": "prerequisite",
-      "weight": 0.88
     },
     {
       "source": "api",
@@ -4277,244 +4217,16 @@
       "weight": 0.91
     },
     {
-      "source": "spring",
-      "target": "spring frameworks",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "java",
-      "target": "j2ee",
-      "relationship": "prerequisite",
-      "weight": 0.83
-    },
-    {
-      "source": "java",
-      "target": "tomcat",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "web services",
-      "target": "nginx",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "linux",
-      "target": "bash",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "java",
-      "target": "spring",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "rest",
-      "target": "restful api",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "microservices",
-      "target": "spring boot",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "agile",
-      "target": "agile methodologies",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "c#",
-      "target": "visual studio",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "json",
-      "target": "rest",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "java",
-      "target": "core java",
-      "relationship": "prerequisite",
-      "weight": 0.96
-    },
-    {
-      "source": "hadoop",
-      "target": "hive",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "j2ee",
-      "target": "jms",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "python",
-      "target": "tensorflow",
-      "relationship": "prerequisite",
-      "weight": 0.82
-    },
-    {
-      "source": "j2ee",
-      "target": "jpa",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "jira",
-      "target": "agile",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "continuous integration",
-      "target": "jenkins",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "c/c++",
-      "target": "c",
-      "relationship": "prerequisite",
-      "weight": 0.95
-    },
-    {
-      "source": "java",
-      "target": "xml",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "sdlc",
-      "target": "agile",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "agile",
-      "target": "agile methodology",
-      "relationship": "prerequisite",
-      "weight": 0.95
-    },
-    {
-      "source": "core java",
-      "target": "data structures",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "database",
-      "target": "data modeling",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "mysql",
-      "target": "database",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "git",
+      "source": "version control",
       "target": "svn",
       "relationship": "prerequisite",
-      "weight": 0.82
-    },
-    {
-      "source": "core java",
-      "target": "multithreading",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "devops",
-      "target": "docker",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "hibernate",
-      "target": "jpa",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "software development",
-      "target": "sdlc",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "machine learning",
-      "target": "tensorflow",
-      "relationship": "prerequisite",
-      "weight": 0.84
-    },
-    {
-      "source": "java",
-      "target": "jms",
-      "relationship": "prerequisite",
-      "weight": 0.78
-    },
-    {
-      "source": "sql",
-      "target": "hibernate",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "restful api",
-      "target": "json",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "ci/cd",
-      "target": "continuous integration",
-      "relationship": "prerequisite",
-      "weight": 0.94
-    },
-    {
-      "source": "sql",
-      "target": "pl/sql",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "css",
-      "target": "js",
-      "relationship": "prerequisite",
-      "weight": 0.82
-    },
-    {
-      "source": "core java",
-      "target": "scala",
-      "relationship": "prerequisite",
-      "weight": 0.82
-    },
-    {
-      "source": "rest",
-      "target": "soap",
-      "relationship": "prerequisite",
       "weight": 0.85
     },
     {
-      "source": "data structures",
-      "target": "algorithm",
+      "source": "go",
+      "target": "golang",
       "relationship": "prerequisite",
-      "weight": 0.92
+      "weight": 0.95
     },
     {
       "source": "devops",
@@ -4523,22 +4235,16 @@
       "weight": 0.87
     },
     {
+      "source": "service oriented architecture",
+      "target": "soa",
+      "relationship": "prerequisite",
+      "weight": 0.95
+    },
+    {
       "source": "agile",
-      "target": "devops",
+      "target": "jira",
       "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "core java",
-      "target": "eclipse",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "core java",
-      "target": "c++",
-      "relationship": "prerequisite",
-      "weight": 0.78
+      "weight": 0.83
     },
     {
       "source": "agile",
@@ -4547,142 +4253,22 @@
       "weight": 0.88
     },
     {
-      "source": "version control",
-      "target": "svn",
+      "source": "kafka",
+      "target": "rabbitmq",
       "relationship": "prerequisite",
-      "weight": 0.85
+      "weight": 0.83
     },
     {
-      "source": "c#",
-      "target": ".net",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "js",
-      "target": "jest",
-      "relationship": "prerequisite",
-      "weight": 0.78
-    },
-    {
-      "source": "spring",
-      "target": "spring mvc",
+      "source": "java",
+      "target": "spring",
       "relationship": "prerequisite",
       "weight": 0.9
-    },
-    {
-      "source": "c#",
-      "target": "wcf",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "http",
-      "target": "rest api",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "html/css",
-      "target": "responsive design",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "elasticsearch",
-      "target": "solr",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "js",
-      "target": "angular js",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "unit testing",
-      "target": "junit",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "agile",
-      "target": "jira",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "j2ee",
-      "target": "ejb",
-      "relationship": "prerequisite",
-      "weight": 0.88
     },
     {
       "source": "linux",
-      "target": "unix",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "http",
-      "target": "web service",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "postgresql",
-      "target": "database",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "database",
-      "target": "sql server",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "software development",
-      "target": "git",
+      "target": "bash",
       "relationship": "prerequisite",
       "weight": 0.87
-    },
-    {
-      "source": "core java",
-      "target": "object oriented programming",
-      "relationship": "prerequisite",
-      "weight": 0.94
-    },
-    {
-      "source": "c#",
-      "target": "linq",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "android",
-      "target": "java",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "xml",
-      "target": "web service",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "ajax",
-      "target": "html",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "agile methodologies",
-      "target": "tdd",
-      "relationship": "prerequisite",
-      "weight": 0.86
     },
     {
       "source": "soap",
@@ -4691,38 +4277,32 @@
       "weight": 0.82
     },
     {
-      "source": "software development",
+      "source": "sql",
+      "target": "db2",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "continuous integration",
       "target": "jenkins",
       "relationship": "prerequisite",
-      "weight": 0.84
+      "weight": 0.91
     },
     {
-      "source": "scala",
-      "target": "spark",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "hadoop",
-      "target": "spark",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "service oriented architecture",
-      "target": "soa",
+      "source": "agile",
+      "target": "agile methodologies",
       "relationship": "prerequisite",
       "weight": 0.93
     },
     {
-      "source": "rest",
-      "target": "microservices",
+      "source": "sql",
+      "target": "pl/sql",
       "relationship": "prerequisite",
-      "weight": 0.86
+      "weight": 0.89
     },
     {
-      "source": "tdd",
-      "target": "junit",
+      "source": "core java",
+      "target": "multithreading",
       "relationship": "prerequisite",
       "weight": 0.91
     },
@@ -4733,22 +4313,22 @@
       "weight": 0.89
     },
     {
-      "source": "js",
-      "target": "webpack",
+      "source": "agile",
+      "target": "devops",
       "relationship": "prerequisite",
-      "weight": 0.82
+      "weight": 0.86
     },
     {
-      "source": "web service",
-      "target": "json",
+      "source": "postgresql",
+      "target": "database",
       "relationship": "prerequisite",
-      "weight": 0.88
+      "weight": 0.91
     },
     {
-      "source": "devops",
-      "target": "continuous integration",
+      "source": "spring",
+      "target": "spring frameworks",
       "relationship": "prerequisite",
-      "weight": 0.9
+      "weight": 0.92
     },
     {
       "source": "tdd",
@@ -4757,82 +4337,10 @@
       "weight": 0.93
     },
     {
-      "source": "machine learning",
-      "target": "nlp",
+      "source": "java",
+      "target": "junit",
       "relationship": "prerequisite",
       "weight": 0.85
-    },
-    {
-      "source": "etl",
-      "target": "ssis",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "spring",
-      "target": "spring boot",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "html",
-      "target": "bootstrap",
-      "relationship": "prerequisite",
-      "weight": 0.81
-    },
-    {
-      "source": "unix",
-      "target": "shell scripting",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "c/c++",
-      "target": "c++",
-      "relationship": "prerequisite",
-      "weight": 0.96
-    },
-    {
-      "source": "mq",
-      "target": "jms",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "linux",
-      "target": "unix/linux",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "c#",
-      "target": "entity framework",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "service oriented architecture",
-      "target": "microservices",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "java",
-      "target": "jboss",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "c",
-      "target": "c++",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": ".net",
-      "target": "asp.net",
-      "relationship": "prerequisite",
-      "weight": 0.91
     },
     {
       "source": "core java",
@@ -4841,118 +4349,22 @@
       "weight": 0.92
     },
     {
-      "source": "rest",
-      "target": "api",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "database",
-      "target": "mongodb",
+      "source": "c#",
+      "target": "wpf",
       "relationship": "prerequisite",
       "weight": 0.84
     },
     {
-      "source": "core java",
-      "target": "jms",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "web services",
-      "target": "apache",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
       "source": "database",
-      "target": "rdbms",
+      "target": "oracle",
       "relationship": "prerequisite",
-      "weight": 0.91
+      "weight": 0.86
     },
     {
-      "source": "object-oriented design",
-      "target": "design pattern",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "sql server",
-      "target": "database",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "java",
-      "target": "junit",
+      "source": "continuous integration",
+      "target": "ci/cd",
       "relationship": "prerequisite",
       "weight": 0.93
-    },
-    {
-      "source": "ci/cd",
-      "target": "jenkin",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "ios",
-      "target": "objective c",
-      "relationship": "prerequisite",
-      "weight": 0.84
-    },
-    {
-      "source": "c#",
-      "target": "nunit",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "api",
-      "target": "soap",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "test driven development",
-      "target": "junit",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "soa",
-      "target": "web service",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "sql",
-      "target": "jpa",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "oracle",
-      "target": "database",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "sql",
-      "target": "ssrs",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "web services",
-      "target": "restful api",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "web services",
-      "target": "rest api",
-      "relationship": "prerequisite",
-      "weight": 0.88
     },
     {
       "source": "c++",
@@ -4961,20 +4373,194 @@
       "weight": 0.95
     },
     {
-      "source": "relational database",
-      "target": "sql",
+      "source": "sql",
+      "target": "hibernate",
       "relationship": "prerequisite",
-      "weight": 0.91
+      "weight": 0.9
+    },
+    {
+      "source": "c/c++",
+      "target": "c",
+      "relationship": "prerequisite",
+      "weight": 0.95
+    },
+    {
+      "source": "flask",
+      "target": "web service",
+      "relationship": "prerequisite",
+      "weight": 0.89
     },
     {
       "source": "sql",
-      "target": "ssis",
+      "target": "jpa",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "sql",
+      "target": "stored procedure",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "rest",
+      "target": "api",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "android",
+      "target": "java",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "agile",
+      "target": "agile methodology",
+      "relationship": "prerequisite",
+      "weight": 0.95
+    },
+    {
+      "source": "c#",
+      "target": "wcf",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "rest",
+      "target": "microservices",
       "relationship": "prerequisite",
       "weight": 0.86
     },
     {
-      "source": "http",
-      "target": "http protocol",
+      "source": "json",
+      "target": "rest",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "service oriented architecture",
+      "target": "microservices",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "software development",
+      "target": "sdlc",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "database",
+      "target": "mongodb",
+      "relationship": "prerequisite",
+      "weight": 0.84
+    },
+    {
+      "source": "oracle",
+      "target": "database",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "web service",
+      "target": "json",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "java",
+      "target": "j2ee",
+      "relationship": "prerequisite",
+      "weight": 0.83
+    },
+    {
+      "source": "c#",
+      "target": "entity framework",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "core java",
+      "target": "jms",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "ci/cd",
+      "target": "jenkin",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "c#",
+      "target": ".net",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "hadoop",
+      "target": "hive",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "rest",
+      "target": "soap",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "linux",
+      "target": "unix",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "database",
+      "target": "relational database",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "java",
+      "target": "maven",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "rest",
+      "target": "restful api",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": ".net",
+      "target": "asp.net",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "spring",
+      "target": "spring mvc",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "java",
+      "target": "hibernate",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "sdlc",
+      "target": "software development",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "core java",
+      "target": "data structures",
       "relationship": "prerequisite",
       "weight": 0.93
     },
@@ -4985,86 +4571,50 @@
       "weight": 0.87
     },
     {
-      "source": "flask",
-      "target": "web service",
+      "source": "web services",
+      "target": "apache",
       "relationship": "prerequisite",
-      "weight": 0.89
+      "weight": 0.88
     },
     {
-      "source": "sql",
-      "target": "db2",
+      "source": "hadoop",
+      "target": "spark",
       "relationship": "prerequisite",
-      "weight": 0.87
+      "weight": 0.88
     },
     {
-      "source": "sql",
-      "target": "t-sql",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "ruby",
-      "target": "rails",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "c#",
-      "target": "wpf",
-      "relationship": "prerequisite",
-      "weight": 0.84
-    },
-    {
-      "source": "sdlc",
-      "target": "software development",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "database",
-      "target": "postgresql",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "continuous integration",
-      "target": "ci/cd",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "sql",
-      "target": "stored procedure",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "ios",
-      "target": "swift",
+      "source": "relational database",
+      "target": "sql",
       "relationship": "prerequisite",
       "weight": 0.91
     },
     {
-      "source": "js",
-      "target": "jasmine",
+      "source": "core java",
+      "target": "eclipse",
       "relationship": "prerequisite",
-      "weight": 0.76
+      "weight": 0.88
     },
     {
-      "source": "java",
-      "target": "maven",
+      "source": "bash",
+      "target": "shell scripting",
       "relationship": "prerequisite",
-      "weight": 0.87
+      "weight": 0.94
     },
     {
-      "source": ".net",
-      "target": ".net frameworks",
+      "source": "database",
+      "target": "sql server",
       "relationship": "prerequisite",
-      "weight": 0.93
+      "weight": 0.85
     },
     {
-      "source": "unit testing",
-      "target": "test driven development",
+      "source": "html",
+      "target": "bootstrap",
+      "relationship": "prerequisite",
+      "weight": 0.81
+    },
+    {
+      "source": "microservices",
+      "target": "spring boot",
       "relationship": "prerequisite",
       "weight": 0.89
     },
@@ -5075,14 +4625,296 @@
       "weight": 0.86
     },
     {
-      "source": "go",
-      "target": "golang",
+      "source": "git",
+      "target": "ci/cd",
       "relationship": "prerequisite",
-      "weight": 0.95
+      "weight": 0.88
+    },
+    {
+      "source": ".net",
+      "target": ".net core",
+      "relationship": "prerequisite",
+      "weight": 0.9
     },
     {
       "source": "database",
-      "target": "relational database",
+      "target": "rdbms",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "database",
+      "target": "postgresql",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "database",
+      "target": "mysql",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "software development",
+      "target": "jenkins",
+      "relationship": "prerequisite",
+      "weight": 0.84
+    },
+    {
+      "source": "machine learning",
+      "target": "tensorflow",
+      "relationship": "prerequisite",
+      "weight": 0.84
+    },
+    {
+      "source": "machine learning",
+      "target": "nlp",
+      "relationship": "prerequisite",
+      "weight": 0.82
+    },
+    {
+      "source": "elasticsearch",
+      "target": "solr",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "html/css",
+      "target": "responsive design",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "web services",
+      "target": "restful api",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "js",
+      "target": "mocha",
+      "relationship": "prerequisite",
+      "weight": 0.75
+    },
+    {
+      "source": "sql",
+      "target": "database",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "software development",
+      "target": "git",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "core java",
+      "target": "c++",
+      "relationship": "prerequisite",
+      "weight": 0.78
+    },
+    {
+      "source": "java",
+      "target": "tomcat",
+      "relationship": "prerequisite",
+      "weight": 0.81
+    },
+    {
+      "source": "agile",
+      "target": "agile development",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "ci/cd",
+      "target": "continuous integration",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "c",
+      "target": "c++",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "sql",
+      "target": "ssis",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "linux",
+      "target": "unix/linux",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "api",
+      "target": "soap",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "c#",
+      "target": "nunit",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "sql",
+      "target": "t-sql",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "python",
+      "target": "tensorflow",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "mysql",
+      "target": "database",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "j2ee",
+      "target": "ejb",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "http",
+      "target": "rest api",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "java",
+      "target": "jms",
+      "relationship": "prerequisite",
+      "weight": 0.78
+    },
+    {
+      "source": "spring",
+      "target": "spring boot",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "xml",
+      "target": "web service",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "linux",
+      "target": "shell scripting",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "c#",
+      "target": "linq",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "soa",
+      "target": "web service",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "devops",
+      "target": "docker",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "web services",
+      "target": "rest api",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "mq",
+      "target": "jms",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "java",
+      "target": "jboss",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "sql",
+      "target": "ssrs",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "etl",
+      "target": "ssis",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "http",
+      "target": "web service",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "js",
+      "target": "webpack",
+      "relationship": "prerequisite",
+      "weight": 0.82
+    },
+    {
+      "source": "tdd",
+      "target": "junit",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "database",
+      "target": "data modeling",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "core java",
+      "target": "scala",
+      "relationship": "prerequisite",
+      "weight": 0.82
+    },
+    {
+      "source": "j2ee",
+      "target": "jsp",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "hibernate",
+      "target": "jpa",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "object-oriented design",
+      "target": "design pattern",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "ios",
+      "target": "swift",
       "relationship": "prerequisite",
       "weight": 0.91
     },
@@ -5093,10 +4925,178 @@
       "weight": 0.85
     },
     {
-      "source": "js",
-      "target": "mocha",
+      "source": "j2ee",
+      "target": "jpa",
       "relationship": "prerequisite",
-      "weight": 0.75
+      "weight": 0.89
+    },
+    {
+      "source": "web services",
+      "target": "nginx",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "data structures",
+      "target": "algorithm",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "unix",
+      "target": "shell scripting",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "ruby",
+      "target": "rails",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "ios",
+      "target": "objective c",
+      "relationship": "prerequisite",
+      "weight": 0.84
+    },
+    {
+      "source": "c#",
+      "target": "visual studio",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "c/c++",
+      "target": "c++",
+      "relationship": "prerequisite",
+      "weight": 0.96
+    },
+    {
+      "source": "sql server",
+      "target": "database",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "test driven development",
+      "target": "junit",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "scala",
+      "target": "spark",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "java",
+      "target": "core java",
+      "relationship": "prerequisite",
+      "weight": 0.96
+    },
+    {
+      "source": "unit testing",
+      "target": "junit",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "unit testing",
+      "target": "test driven development",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "java",
+      "target": "xml",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "j2ee",
+      "target": "jms",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "http",
+      "target": "http protocol",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "sdlc",
+      "target": "agile",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "jira",
+      "target": "agile",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "js",
+      "target": "jest",
+      "relationship": "prerequisite",
+      "weight": 0.78
+    },
+    {
+      "source": "agile methodologies",
+      "target": "tdd",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": ".net",
+      "target": ".net frameworks",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "js",
+      "target": "jasmine",
+      "relationship": "prerequisite",
+      "weight": 0.76
+    },
+    {
+      "source": "js",
+      "target": "angular js",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "css",
+      "target": "js",
+      "relationship": "prerequisite",
+      "weight": 0.82
+    },
+    {
+      "source": "restful api",
+      "target": "json",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "ajax",
+      "target": "html",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "core java",
+      "target": "object oriented programming",
+      "relationship": "prerequisite",
+      "weight": 0.94
+    },
+    {
+      "source": "devops",
+      "target": "continuous integration",
+      "relationship": "prerequisite",
+      "weight": 0.9
     }
   ]
 }

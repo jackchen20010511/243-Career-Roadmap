@@ -9,7 +9,7 @@ import WeeklyHours from "@/components/dashboard/weekly-hours";
 import StepNavigation from "@/components/dashboard/step-navigation";
 import AuthProtected from "@/components/auth-protected";
 import { fetchUserGoal, saveResumeFile, updateUserGoal } from "@/utils/api"; // ✅ Use API utility
-import HeaderNoNav from "@/components/ui/headerNoNav";
+import HeaderDashboard from "@/components/ui/headerDashboard";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -118,14 +118,39 @@ export default function Dashboard() {
       {!isSetupComplete ? (
 
         <AuthProtected>
-          <HeaderNoNav />
-          <div className="relative flex flex-col items-center justify-start min-h-screen text-white overflow-hidden w-full pt-5">
-            <section className="text-center bg-gray-800/80 bg-opacity-80 p-10 rounded-xl shadow-xl max-w-3xl w-[90%] mt-10">
-              {step === 1 && <CareerGoal jobTitle={jobTitle} setJobTitle={setJobTitle} industry={industry} setIndustry={setIndustry}
-                exp_level={exp_level} setExpLevel={setExpLevel} responsibility={responsibility} setResponsibility={setResponsibility} />}
-              {step === 2 && <LearningDuration duration={duration} setDuration={setDuration} durationUnit={durationUnit} setDurationUnit={setDurationUnit} />}
-              {step === 3 && <WeeklyHours weeklyHours={weeklyHours} setWeeklyHours={setWeeklyHours} studyDays={studyDays} setStudyDays={setStudyDays} />}
-              {/* ✅ ALWAYS Render StepNavigation for Buttons */}
+          <HeaderDashboard />
+          <div className="relative flex flex-col items-center justify-start min-h-screen text-white overflow-hidden w-full pt-5 px-4">
+            <section className="text-center bg-gray-500/50 backdrop-blur-md bg-opacity-80 p-8 md:p-10 rounded-2xl shadow-2xl max-w-3xl w-full mt-10 transition-all duration-300">
+              {step === 1 && (
+                <CareerGoal
+                  jobTitle={jobTitle}
+                  setJobTitle={setJobTitle}
+                  industry={industry}
+                  setIndustry={setIndustry}
+                  exp_level={exp_level}
+                  setExpLevel={setExpLevel}
+                  responsibility={responsibility}
+                  setResponsibility={setResponsibility}
+                />
+              )}
+              {step === 2 && (
+                <LearningDuration
+                  duration={duration}
+                  setDuration={setDuration}
+                  durationUnit={durationUnit}
+                  setDurationUnit={setDurationUnit}
+                />
+              )}
+              {step === 3 && (
+                <WeeklyHours
+                  weeklyHours={weeklyHours}
+                  setWeeklyHours={setWeeklyHours}
+                  studyDays={studyDays}
+                  setStudyDays={setStudyDays}
+                />
+              )}
+
+              {/* ✅ Step Navigation Always Visible */}
               <StepNavigation
                 step={step}
                 handlePrevStep={handlePrevStep}
@@ -146,6 +171,7 @@ export default function Dashboard() {
             </section>
           </div>
         </AuthProtected>
+
 
 
       ) : (

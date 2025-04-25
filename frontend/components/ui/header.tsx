@@ -27,18 +27,17 @@ export default function Header() {
 
 
   return (
-    <header className="z-50 w-full bg-gray-900/60 backdrop-blur-md shadow-md overflow-visible">
+    <header className="z-50 w-full bg-gray-500/10 backdrop-blur-md shadow-md overflow-visible">
       <div className="mx-auto px-4 sm:px-6">
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Logo />
-            <div className="px-2 ml-2 text-indigo-200 font-semibold">Bear Career</div>
           </div>
 
           {!user ? (
             <ul className="flex flex-1 items-center justify-end gap-3">
               <li>
-                <Link href="/auth/signin" className="btn-sm bg-gray-700 text-gray-300 px-4 py-2 rounded hover:bg-gray-700 transition cursor-pointer">
+                <Link href="/auth/signin" className="btn-sm bg-gray-700 text-gray-300 px-4 py-2 rounded hover:bg-gray-900 transition cursor-pointer">
                   Sign In
                 </Link>
               </li>

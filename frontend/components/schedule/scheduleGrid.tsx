@@ -76,16 +76,21 @@ export default function ScheduleGrid({
         return new Date(year, month - 1, day);
     }
 
-    const filterTasksForWeek = (tasks: ScheduledTask[], selectedDate: Date): ScheduledTask[] => {
+    const filterTasksForWeek = (
+        tasks: ScheduledTask[] = [],    // default to empty array
+        selectedDate: Date
+    ): ScheduledTask[] => {
         const weekStart = getStartOfWeek(selectedDate);
         const weekEnd = getEndOfWeek(weekStart);
-        return tasks.filter((task) => {
-            const taskDate = parseLocalDateOnly(task.date);
-            return taskDate >= weekStart && taskDate < weekEnd;
-        });
+
+        return tasks
+            .filter((task) => {
+                const taskDate = parseLocalDateOnly(task.date);
+                return taskDate >= weekStart && taskDate < weekEnd;
+            });
     };
 
-    const weekTasks = filterTasksForWeek(tasks, selectedDate);
+    const weekTasks = filterTasksForWeek(tasks ?? [], selectedDate);
 
     return (
         <div className="flex w-full">
@@ -98,16 +103,6 @@ export default function ScheduleGrid({
 
             {/* Grid Columns + Tasks */}
             <div className="flex-1">
-                {/* Current Time Line */}
-                {timeOffset !== null && isTodayInSameWeek(selectedDate) && (
-                    <div
-                        className="relative w-[calc(100%/7)] border-t-3 border-red-400 z-20 transition-all duration-300 ease-in-out"
-                        style={{
-                            top: `${timeOffset}px`,
-                            left: `calc((100% / 7) * ${getTodayColumnIndex()})`
-                        }}
-                    />
-                )}
 
                 {/* Headers */}
                 <div className="grid grid-cols-7 text-center text-indigo-200 text-lg font-semibold mb-1">
@@ -125,7 +120,7 @@ export default function ScheduleGrid({
                                 {Array.from({ length: 13 }).map((_, hourIdx) => (
                                     <div
                                         key={hourIdx}
-                                        className="h-[60px] border border-gray-400 bg-white/20"
+                                        className="h-[60px] border border-gray-400 bg-white/30"
                                     />
                                 ))}
                             </div>
@@ -162,7 +157,7 @@ export default function ScheduleGrid({
                                 >
                                     {/* Background thumbnail at 60% opacity and top-center aligned */}
                                     <div
-                                        className="absolute inset-0 bg-cover bg-no-repeat bg-top opacity-60"
+                                        className="absolute inset-0 bg-cover bg-no-repeat bg-top opacity-80"
                                         style={{
                                             backgroundImage: `url(${task.thumbnail_url})`,
                                         }}
@@ -181,7 +176,22 @@ export default function ScheduleGrid({
                             </a>
                         );
                     })}
-
+                    {/* Current Time Line */}
+                    {timeOffset !== null && isTodayInSameWeek(selectedDate) && (
+                        <div
+                            className="
+                                        absolute
+                                        w-[calc(100%/7)]
+                                        border-t-3 border-red-400
+                                        z-50
+                                        transition-all duration-300 ease-in-out
+                                        "
+                            style={{
+                                top: `${timeOffset}px`,
+                                left: `calc((100% / 7) * ${getTodayColumnIndex()})`
+                            }}
+                        />
+                    )}
                 </div>
             </div>
         </div>

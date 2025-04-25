@@ -2407,46 +2407,16 @@
       "weight": 0.81
     },
     {
-      "source": "c#",
-      "target": "asp.net",
+      "source": "git",
+      "target": "svn",
       "relationship": "prerequisite",
-      "weight": 0.91
+      "weight": 0.82
     },
     {
-      "source": "linux",
-      "target": "shell scripting",
+      "source": "cloud computing",
+      "target": "aws",
       "relationship": "prerequisite",
       "weight": 0.89
-    },
-    {
-      "source": "python",
-      "target": "data analysis",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "web service",
-      "target": "rest",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "bash",
-      "target": "shell scripting",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "sql",
-      "target": "sql server",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "communication skills",
-      "target": "project management",
-      "relationship": "prerequisite",
-      "weight": 0.91
     },
     {
       "source": "docker",
@@ -2455,28 +2425,46 @@
       "weight": 0.87
     },
     {
-      "source": "scripting languages",
-      "target": "python",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "windows server",
-      "target": "group policy",
+      "source": "devops",
+      "target": "kubernetes",
       "relationship": "prerequisite",
       "weight": 0.87
     },
     {
-      "source": "database",
-      "target": "mysql",
+      "source": "communication skills",
+      "target": "business analysis",
       "relationship": "prerequisite",
-      "weight": 0.86
+      "weight": 0.92
     },
     {
-      "source": "database",
-      "target": "oracle",
+      "source": "js",
+      "target": "react",
       "relationship": "prerequisite",
-      "weight": 0.86
+      "weight": 0.91
+    },
+    {
+      "source": "windows server",
+      "target": "active directory",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "html",
+      "target": "js",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "linux",
+      "target": "bash",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "scripting languages",
+      "target": "perl",
+      "relationship": "prerequisite",
+      "weight": 0.85
     },
     {
       "source": "networking",
@@ -2486,273 +2474,15 @@
     },
     {
       "source": "sql",
-      "target": "mysql",
+      "target": "db2",
       "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "agile",
-      "target": "agile development",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "sql",
-      "target": "database",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "sql",
-      "target": "postgresql",
-      "relationship": "prerequisite",
-      "weight": 0.82
-    },
-    {
-      "source": "business analysis",
-      "target": "crm",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "web server",
-      "target": "apache",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "big data",
-      "target": "hadoop",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "java",
-      "target": "j2ee",
-      "relationship": "prerequisite",
-      "weight": 0.83
-    },
-    {
-      "source": "java",
-      "target": "tomcat",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "microsoft office",
-      "target": "data analysis",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "linux",
-      "target": "bash",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "data analysis",
-      "target": "tableau",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "r",
-      "target": "data visualization",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "js",
-      "target": "typescript",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "data visualization",
-      "target": "tableau",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "c#",
-      "target": "visual studio",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "json",
-      "target": "rest",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "cloud computing",
-      "target": "azure",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "linux",
-      "target": "networking",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "data modeling",
-      "target": "data warehousing",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "linux",
-      "target": "virtualization",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "scripting languages",
-      "target": "bash",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "jira",
-      "target": "agile",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "html",
-      "target": "js",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "business intelligence",
-      "target": "tableau",
-      "relationship": "prerequisite",
-      "weight": 0.85
+      "weight": 0.87
     },
     {
       "source": "continuous integration",
       "target": "jenkins",
       "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "java",
-      "target": "xml",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "web server",
-      "target": "iis",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "agile",
-      "target": "agile methodology",
-      "relationship": "prerequisite",
-      "weight": 0.95
-    },
-    {
-      "source": "cloud computing",
-      "target": "gcp",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "database",
-      "target": "data modeling",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "mysql",
-      "target": "database",
-      "relationship": "prerequisite",
       "weight": 0.91
-    },
-    {
-      "source": "database",
-      "target": "nosql",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "js",
-      "target": "angular",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "git",
-      "target": "svn",
-      "relationship": "prerequisite",
-      "weight": 0.82
-    },
-    {
-      "source": "devops",
-      "target": "docker",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "virtualization",
-      "target": "vmware",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "data analysis",
-      "target": "machine learning",
-      "relationship": "prerequisite",
-      "weight": 0.79
-    },
-    {
-      "source": "software development",
-      "target": "sdlc",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "perl",
-      "target": "scripting",
-      "relationship": "prerequisite",
-      "weight": 0.84
-    },
-    {
-      "source": "js",
-      "target": "react",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "database",
-      "target": "sql",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "virtualization",
-      "target": "docker",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "security",
-      "target": "active directory",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "business analysis",
-      "target": "salesforce",
-      "relationship": "prerequisite",
-      "weight": 0.82
     },
     {
       "source": "sql",
@@ -2761,34 +2491,10 @@
       "weight": 0.89
     },
     {
-      "source": "css",
-      "target": "js",
-      "relationship": "prerequisite",
-      "weight": 0.82
-    },
-    {
-      "source": "security",
-      "target": "network security",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "firewall",
-      "target": "network security",
+      "source": "js",
+      "target": "jquery",
       "relationship": "prerequisite",
       "weight": 0.9
-    },
-    {
-      "source": "business intelligence",
-      "target": "ssrs",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "devops",
-      "target": "kubernetes",
-      "relationship": "prerequisite",
-      "weight": 0.87
     },
     {
       "source": "agile",
@@ -2797,14 +2503,38 @@
       "weight": 0.86
     },
     {
+      "source": "postgresql",
+      "target": "database",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "data analytics",
+      "target": "machine learning",
+      "relationship": "prerequisite",
+      "weight": 0.78
+    },
+    {
       "source": "scripting languages",
-      "target": "perl",
+      "target": "python",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "business analysis",
+      "target": "crm",
       "relationship": "prerequisite",
       "weight": 0.85
     },
     {
-      "source": "storage",
-      "target": "san",
+      "source": "c#",
+      "target": "asp.net",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "database",
+      "target": "oracle",
       "relationship": "prerequisite",
       "weight": 0.86
     },
@@ -2815,34 +2545,94 @@
       "weight": 0.83
     },
     {
-      "source": "data warehousing",
-      "target": "etl",
+      "source": "security",
+      "target": "network security",
       "relationship": "prerequisite",
-      "weight": 0.91
+      "weight": 0.9
     },
     {
-      "source": "c#",
-      "target": ".net",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "business intelligence",
-      "target": "data warehousing",
+      "source": "cloud computing",
+      "target": "azure",
       "relationship": "prerequisite",
       "weight": 0.89
     },
     {
-      "source": "sql",
-      "target": "data warehousing",
+      "source": "business intelligence",
+      "target": "tableau",
       "relationship": "prerequisite",
-      "weight": 0.85
+      "weight": 0.87
     },
     {
-      "source": "linux",
-      "target": "unix",
+      "source": "html",
+      "target": "css",
       "relationship": "prerequisite",
-      "weight": 0.85
+      "weight": 0.93
+    },
+    {
+      "source": "sql",
+      "target": "sql server",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "business analysis",
+      "target": "salesforce",
+      "relationship": "prerequisite",
+      "weight": 0.82
+    },
+    {
+      "source": "virtualization",
+      "target": "vmware",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "firewall",
+      "target": "network security",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "virtualization",
+      "target": "docker",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "devops",
+      "target": "puppet",
+      "relationship": "prerequisite",
+      "weight": 0.82
+    },
+    {
+      "source": "data analysis",
+      "target": "business analysis",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "agile",
+      "target": "agile methodology",
+      "relationship": "prerequisite",
+      "weight": 0.95
+    },
+    {
+      "source": "windows server",
+      "target": "iis",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "json",
+      "target": "rest",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "software development",
+      "target": "sdlc",
+      "relationship": "prerequisite",
+      "weight": 0.92
     },
     {
       "source": "scripting",
@@ -2851,62 +2641,80 @@
       "weight": 0.85
     },
     {
-      "source": "security",
-      "target": "firewall",
+      "source": "data visualization",
+      "target": "tableau",
       "relationship": "prerequisite",
       "weight": 0.88
     },
     {
-      "source": "postgresql",
+      "source": "oracle",
       "target": "database",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "data warehousing",
+      "target": "business intelligence",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "sql",
+      "target": "data analysis",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "web service",
+      "target": "json",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "java",
+      "target": "j2ee",
+      "relationship": "prerequisite",
+      "weight": 0.83
+    },
+    {
+      "source": "database",
+      "target": "sql",
       "relationship": "prerequisite",
       "weight": 0.91
     },
     {
-      "source": "database",
-      "target": "sql server",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "software development",
-      "target": "git",
+      "source": "powershell",
+      "target": "windows server",
       "relationship": "prerequisite",
       "weight": 0.87
     },
     {
-      "source": "big data",
-      "target": "spark",
+      "source": "troubleshooting",
+      "target": "problem solving",
       "relationship": "prerequisite",
       "weight": 0.91
     },
     {
-      "source": "networking",
-      "target": "firewall",
+      "source": "c#",
+      "target": ".net",
       "relationship": "prerequisite",
-      "weight": 0.88
+      "weight": 0.92
     },
     {
       "source": "html",
       "target": "html5",
       "relationship": "prerequisite",
-      "weight": 0.95
+      "weight": 0.94
     },
     {
-      "source": "python",
-      "target": "scripting",
+      "source": "microsoft office",
+      "target": "data analysis",
       "relationship": "prerequisite",
-      "weight": 0.89
+      "weight": 0.88
     },
     {
-      "source": "security",
-      "target": "vpn",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "xml",
-      "target": "web service",
+      "source": "data mining",
+      "target": "machine learning",
       "relationship": "prerequisite",
       "weight": 0.87
     },
@@ -2917,172 +2725,16 @@
       "weight": 0.93
     },
     {
-      "source": "software development",
-      "target": "jenkins",
+      "source": "data warehousing",
+      "target": "etl",
       "relationship": "prerequisite",
-      "weight": 0.84
-    },
-    {
-      "source": "r",
-      "target": "data analysis",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "hadoop",
-      "target": "spark",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "html",
-      "target": "css",
-      "relationship": "prerequisite",
-      "weight": 0.95
+      "weight": 0.91
     },
     {
       "source": "js",
-      "target": "json",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "windows server",
-      "target": "iis",
+      "target": "angular",
       "relationship": "prerequisite",
       "weight": 0.88
-    },
-    {
-      "source": "web service",
-      "target": "json",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "devops",
-      "target": "continuous integration",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "etl",
-      "target": "ssis",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "unix",
-      "target": "shell scripting",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "data warehousing",
-      "target": "data modeling",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "linux",
-      "target": "unix/linux",
-      "relationship": "prerequisite",
-      "weight": 0.93
-    },
-    {
-      "source": "java",
-      "target": "jboss",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": ".net",
-      "target": "asp.net",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "sql",
-      "target": "oracle",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "data analytics",
-      "target": "machine learning",
-      "relationship": "prerequisite",
-      "weight": 0.78
-    },
-    {
-      "source": "sql server",
-      "target": "database",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "communication skills",
-      "target": "business analysis",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "business analysis",
-      "target": "sap",
-      "relationship": "prerequisite",
-      "weight": 0.83
-    },
-    {
-      "source": "js",
-      "target": "jquery",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "cloud computing",
-      "target": "aws",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "data visualization",
-      "target": "communication skills",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "sql",
-      "target": "data analysis",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "data warehousing",
-      "target": "business intelligence",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "soa",
-      "target": "web service",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "windows server",
-      "target": "active directory",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "oracle",
-      "target": "database",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "sql",
-      "target": "ssrs",
-      "relationship": "prerequisite",
-      "weight": 0.85
     },
     {
       "source": "linux",
@@ -3091,22 +2743,70 @@
       "weight": 0.85
     },
     {
-      "source": "crm",
-      "target": "salesforce",
+      "source": "linux",
+      "target": "unix",
       "relationship": "prerequisite",
-      "weight": 0.9
+      "weight": 0.85
     },
     {
-      "source": "business analysis",
-      "target": "erp",
+      "source": "database",
+      "target": "relational database",
       "relationship": "prerequisite",
-      "weight": 0.84
+      "weight": 0.91
     },
     {
-      "source": "js",
-      "target": "node",
+      "source": "web service",
+      "target": "rest",
       "relationship": "prerequisite",
       "weight": 0.89
+    },
+    {
+      "source": "data modeling",
+      "target": "data warehousing",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "java",
+      "target": "websphere",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "sql",
+      "target": "postgresql",
+      "relationship": "prerequisite",
+      "weight": 0.82
+    },
+    {
+      "source": "data mining",
+      "target": "big data",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": ".net",
+      "target": "asp.net",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "data visualization",
+      "target": "communication skills",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "r",
+      "target": "data analysis",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "big data",
+      "target": "hadoop",
+      "relationship": "prerequisite",
+      "weight": 0.9
     },
     {
       "source": "data analysis",
@@ -3115,52 +2815,58 @@
       "weight": 0.92
     },
     {
+      "source": "hadoop",
+      "target": "spark",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "sql",
+      "target": "data warehousing",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
       "source": "relational database",
       "target": "sql",
       "relationship": "prerequisite",
       "weight": 0.91
     },
     {
-      "source": "devops",
-      "target": "puppet",
+      "source": "bash",
+      "target": "shell scripting",
       "relationship": "prerequisite",
-      "weight": 0.82
+      "weight": 0.94
     },
     {
-      "source": "sql",
-      "target": "ssis",
+      "source": "database",
+      "target": "sql server",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "cloud computing",
+      "target": "gcp",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "software development",
+      "target": "agile",
       "relationship": "prerequisite",
       "weight": 0.86
     },
     {
       "source": "sql",
-      "target": "db2",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "sql",
-      "target": "t-sql",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "data analysis",
-      "target": "business analysis",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "erp",
-      "target": "sap",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "database",
-      "target": "data warehousing",
+      "target": "mysql",
       "relationship": "prerequisite",
       "weight": 0.88
+    },
+    {
+      "source": "web server",
+      "target": "iis",
+      "relationship": "prerequisite",
+      "weight": 0.86
     },
     {
       "source": "networking",
@@ -3175,32 +2881,20 @@
       "weight": 0.85
     },
     {
-      "source": "data mining",
-      "target": "machine learning",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "troubleshooting",
-      "target": "problem solving",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "data analysis",
-      "target": "data analytics",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "data mining",
-      "target": "big data",
+      "source": "database",
+      "target": "mysql",
       "relationship": "prerequisite",
       "weight": 0.86
     },
     {
-      "source": "powershell",
-      "target": "windows server",
+      "source": "software development",
+      "target": "jenkins",
+      "relationship": "prerequisite",
+      "weight": 0.84
+    },
+    {
+      "source": "big data",
+      "target": "spark",
       "relationship": "prerequisite",
       "weight": 0.87
     },
@@ -3211,16 +2905,100 @@
       "weight": 0.89
     },
     {
-      "source": "software development",
-      "target": "agile",
+      "source": "security",
+      "target": "active directory",
       "relationship": "prerequisite",
       "weight": 0.86
     },
     {
+      "source": "sql",
+      "target": "database",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "scripting languages",
+      "target": "bash",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "software development",
+      "target": "git",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "js",
+      "target": "typescript",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "linux",
+      "target": "networking",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "database",
+      "target": "data warehousing",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "business analysis",
+      "target": "sap",
+      "relationship": "prerequisite",
+      "weight": 0.83
+    },
+    {
       "source": "java",
-      "target": "websphere",
+      "target": "tomcat",
+      "relationship": "prerequisite",
+      "weight": 0.81
+    },
+    {
+      "source": "agile",
+      "target": "agile development",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "business intelligence",
+      "target": "ssrs",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "data analytics",
+      "target": "big data",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "sql",
+      "target": "ssis",
       "relationship": "prerequisite",
       "weight": 0.86
+    },
+    {
+      "source": "linux",
+      "target": "unix/linux",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "sql",
+      "target": "t-sql",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "mysql",
+      "target": "database",
+      "relationship": "prerequisite",
+      "weight": 0.91
     },
     {
       "source": "network security",
@@ -3229,20 +3007,98 @@
       "weight": 0.89
     },
     {
-      "source": "networking",
-      "target": "vpn",
+      "source": "database",
+      "target": "nosql",
       "relationship": "prerequisite",
-      "weight": 0.86
+      "weight": 0.88
     },
     {
-      "source": "database",
-      "target": "relational database",
+      "source": "xml",
+      "target": "web service",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "linux",
+      "target": "shell scripting",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "crm",
+      "target": "salesforce",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "soa",
+      "target": "web service",
       "relationship": "prerequisite",
       "weight": 0.91
     },
     {
-      "source": "excel",
-      "target": "data visualization",
+      "source": "devops",
+      "target": "docker",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "data analysis",
+      "target": "data analytics",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "java",
+      "target": "jboss",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "python",
+      "target": "data analysis",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "data analysis",
+      "target": "tableau",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "sql",
+      "target": "ssrs",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "etl",
+      "target": "ssis",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "business analysis",
+      "target": "erp",
+      "relationship": "prerequisite",
+      "weight": 0.84
+    },
+    {
+      "source": "sql",
+      "target": "oracle",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "database",
+      "target": "data modeling",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "perl",
+      "target": "scripting",
       "relationship": "prerequisite",
       "weight": 0.84
     },
@@ -3253,10 +3109,154 @@
       "weight": 0.86
     },
     {
-      "source": "data analytics",
-      "target": "big data",
+      "source": "security",
+      "target": "firewall",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "storage",
+      "target": "san",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "linux",
+      "target": "virtualization",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "unix",
+      "target": "shell scripting",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "js",
+      "target": "json",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "windows server",
+      "target": "group policy",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "networking",
+      "target": "vpn",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "erp",
+      "target": "sap",
+      "relationship": "prerequisite",
+      "weight": 0.92
+    },
+    {
+      "source": "c#",
+      "target": "visual studio",
       "relationship": "prerequisite",
       "weight": 0.85
+    },
+    {
+      "source": "r",
+      "target": "data visualization",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "sql server",
+      "target": "database",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "business intelligence",
+      "target": "data warehousing",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "data analysis",
+      "target": "machine learning",
+      "relationship": "prerequisite",
+      "weight": 0.79
+    },
+    {
+      "source": "java",
+      "target": "xml",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "python",
+      "target": "scripting",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "web server",
+      "target": "apache",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "jira",
+      "target": "agile",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "excel",
+      "target": "data visualization",
+      "relationship": "prerequisite",
+      "weight": 0.84
+    },
+    {
+      "source": "communication skills",
+      "target": "project management",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "css",
+      "target": "js",
+      "relationship": "prerequisite",
+      "weight": 0.82
+    },
+    {
+      "source": "networking",
+      "target": "firewall",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "data warehousing",
+      "target": "data modeling",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "js",
+      "target": "node",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "devops",
+      "target": "continuous integration",
+      "relationship": "prerequisite",
+      "weight": 0.9
+    },
+    {
+      "source": "security",
+      "target": "vpn",
+      "relationship": "prerequisite",
+      "weight": 0.87
     }
   ]
 }

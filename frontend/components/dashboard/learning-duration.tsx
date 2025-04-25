@@ -13,25 +13,33 @@ export default function LearningDuration({ duration, setDuration, durationUnit, 
             <h2 className="mb-8 animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-gray-200),var(--color-indigo-200),var(--color-gray-50),var(--color-indigo-300),var(--color-gray-200))] bg-[length:200%_auto] bg-clip-text pb-4 font-nacelle text-3xl font-semibold text-transparent md:text-4xl">
                 Total Duration of Learning
             </h2>
+
             <div className="flex space-x-4">
                 <input
                     type="number"
                     value={duration}
                     onChange={(e) => setDuration(e.target.value)}
-                    className="p-4 border border-gray-600 bg-gray-700 text-white rounded-lg text-lg w-2/3 no-spinner"
+                    className="w-2/3 p-4 rounded-lg bg-gray-800/40 text-white placeholder-white/70 text-lg border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 no-spinner cursor-text"
                     placeholder="Enter a number"
                 />
                 <select
                     value={durationUnit}
                     onChange={(e) => setDurationUnit(e.target.value)}
-                    className="p-4 border border-gray-600 bg-gray-700 text-white rounded-lg text-lg w-1/3"
+                    className="w-1/3 p-4 rounded-lg bg-gray-800/40 text-white text-lg border-none focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
                 >
                     <option value="weeks">Weeks</option>
                     <option value="months">Months</option>
                     <option value="years">Years</option>
                 </select>
             </div>
-            <p className="mt-3 text-gray-400">This is approximately <span className="font-semibold">{convertToWeeks(duration, durationUnit)}</span> weeks.</p>
+
+            <p className="mt-3 text-indigo-200/70">
+                This is approximately{" "}
+                <span className="font-semibold text-indigo-100">
+                    {convertToWeeks(duration, durationUnit)}
+                </span>{" "}
+                weeks.
+            </p>
         </>
     );
 }

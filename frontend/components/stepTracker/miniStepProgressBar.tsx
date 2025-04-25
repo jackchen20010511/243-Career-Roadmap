@@ -21,7 +21,7 @@ export default function MiniStepProgressBar({ currentStep }: { currentStep: numb
                                 <div
                                     className={`w-40 h-10 flex items-center justify-center rounded-full border-2 text-md text-center font-bold
                                     ${isCompleted ? "bg-indigo-500 text-white border-indigo-500" : ""}
-                                    ${isCurrent ? "bg-blue-600 text-white border-indigo-600 ring-2 ring-indigo-300" : ""}
+                                    ${isCurrent ? "bg-indigo-600 text-white border-indigo-600 ring-2 ring-indigo-300" : ""}
                                     ${!isCompleted && !isCurrent ? "bg-gray-700 text-white border-gray-500" : ""}`}
                                 >
                                     {label}

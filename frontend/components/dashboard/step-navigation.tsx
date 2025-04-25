@@ -82,7 +82,7 @@ export default function StepNavigation({
                         {resumeFile && (
                             <p className="mt-3 text-green-400">✔ {resumeFile.name} uploaded successfully!</p>
                         )}
-                        <p className="mb-5 mt-3 text-gray-400">Accepted format: PDF, DOCX, TXT</p>
+                        <p className="mb-5 mt-3 text-gray-300">Accepted format: PDF, DOCX, TXT</p>
 
                         {/* ✅ Not Ready Yet Checkbox */}
                         <label className="mt-4 flex items-center text-white text-lg">

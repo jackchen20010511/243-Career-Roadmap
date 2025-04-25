@@ -3735,144 +3735,6 @@
       "weight": 0.89
     },
     {
-      "source": "database",
-      "target": "mysql",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "distributed system",
-      "target": "kafka",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "sql",
-      "target": "mysql",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "software development",
-      "target": "software engineering",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "git",
-      "target": "ci/cd",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "data science",
-      "target": "python",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "r",
-      "target": "data visualization",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "python",
-      "target": "flask",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "data visualization",
-      "target": "tableau",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "scikit learn",
-      "target": "clustering",
-      "relationship": "prerequisite",
-      "weight": 0.88
-    },
-    {
-      "source": "html",
-      "target": "js",
-      "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "terraform",
-      "target": "aws",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "data engineering",
-      "target": "gcp",
-      "relationship": "prerequisite",
-      "weight": 0.78
-    },
-    {
-      "source": "database",
-      "target": "data modeling",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "mysql",
-      "target": "database",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "database",
-      "target": "nosql",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "data science",
-      "target": "data visualization",
-      "relationship": "prerequisite",
-      "weight": 0.85
-    },
-    {
-      "source": "devops",
-      "target": "docker",
-      "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "machine learning",
-      "target": "tensorflow",
-      "relationship": "prerequisite",
-      "weight": 0.84
-    },
-    {
-      "source": "js",
-      "target": "react",
-      "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "database",
-      "target": "sql",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "data pipeline",
-      "target": "airflow",
-      "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "sql",
-      "target": "data engineering",
-      "relationship": "prerequisite",
-      "weight": 0.84
-    },
-    {
       "source": "data engineering",
       "target": "spark",
       "relationship": "prerequisite",
@@ -3885,28 +3747,34 @@
       "weight": 0.87
     },
     {
-      "source": "agile",
-      "target": "devops",
+      "source": "js",
+      "target": "react",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "data science",
+      "target": "data visualization",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "html",
+      "target": "js",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "data engineering",
+      "target": "hadoop",
       "relationship": "prerequisite",
       "weight": 0.86
     },
     {
-      "source": "devops",
-      "target": "ci/cd",
+      "source": "r",
+      "target": "statistical modeling",
       "relationship": "prerequisite",
-      "weight": 0.92
-    },
-    {
-      "source": "data engineering",
-      "target": "aws",
-      "relationship": "prerequisite",
-      "weight": 0.8
-    },
-    {
-      "source": "statistics",
-      "target": "regression",
-      "relationship": "prerequisite",
-      "weight": 0.89
+      "weight": 0.88
     },
     {
       "source": "data analytics",
@@ -3915,22 +3783,58 @@
       "weight": 0.82
     },
     {
+      "source": "agile",
+      "target": "devops",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "data analytics",
+      "target": "machine learning",
+      "relationship": "prerequisite",
+      "weight": 0.78
+    },
+    {
+      "source": "c++",
+      "target": "c/c++",
+      "relationship": "prerequisite",
+      "weight": 0.95
+    },
+    {
+      "source": "software development",
+      "target": "software engineering",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "data engineering",
+      "target": "aws",
+      "relationship": "prerequisite",
+      "weight": 0.8
+    },
+    {
+      "source": "python",
+      "target": "flask",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "devops",
+      "target": "ci/cd",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
       "source": "python",
       "target": "pyspark",
       "relationship": "prerequisite",
       "weight": 0.79
     },
     {
-      "source": "software development",
-      "target": "git",
+      "source": "data visualization",
+      "target": "tableau",
       "relationship": "prerequisite",
-      "weight": 0.87
-    },
-    {
-      "source": "scikit learn",
-      "target": "classification",
-      "relationship": "prerequisite",
-      "weight": 0.89
+      "weight": 0.88
     },
     {
       "source": "data engineering",
@@ -3939,19 +3843,43 @@
       "weight": 0.78
     },
     {
-      "source": "containerization",
-      "target": "docker",
+      "source": "database",
+      "target": "sql",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "data mining",
+      "target": "machine learning",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "database",
+      "target": "relational database",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "data mining",
+      "target": "big data",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "data analytics",
+      "target": "deep learning",
+      "relationship": "prerequisite",
+      "weight": 0.75
+    },
+    {
+      "source": "r",
+      "target": "statistics",
       "relationship": "prerequisite",
       "weight": 0.89
     },
     {
-      "source": "data structures and algorithms",
-      "target": "data structure",
-      "relationship": "prerequisite",
-      "weight": 0.94
-    },
-    {
-      "source": "scala",
+      "source": "hadoop",
       "target": "spark",
       "relationship": "prerequisite",
       "weight": 0.88
@@ -3963,22 +3891,70 @@
       "weight": 0.91
     },
     {
-      "source": "hadoop",
-      "target": "spark",
+      "source": "machine learning",
+      "target": "pytorch",
+      "relationship": "prerequisite",
+      "weight": 0.84
+    },
+    {
+      "source": "relational database",
+      "target": "sql",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "software development",
+      "target": "agile",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "git",
+      "target": "ci/cd",
       "relationship": "prerequisite",
       "weight": 0.88
     },
     {
-      "source": "r",
-      "target": "statistical modeling",
+      "source": "sql",
+      "target": "mysql",
       "relationship": "prerequisite",
       "weight": 0.88
     },
     {
-      "source": "data science",
-      "target": "r",
+      "source": "data engineering",
+      "target": "gcp",
       "relationship": "prerequisite",
-      "weight": 0.83
+      "weight": 0.78
+    },
+    {
+      "source": "database",
+      "target": "mysql",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "sql",
+      "target": "data engineering",
+      "relationship": "prerequisite",
+      "weight": 0.84
+    },
+    {
+      "source": "machine learning",
+      "target": "tensorflow",
+      "relationship": "prerequisite",
+      "weight": 0.84
+    },
+    {
+      "source": "software development",
+      "target": "git",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "terraform",
+      "target": "azure",
+      "relationship": "prerequisite",
+      "weight": 0.86
     },
     {
       "source": "c",
@@ -3988,63 +3964,21 @@
     },
     {
       "source": "data analytics",
-      "target": "machine learning",
-      "relationship": "prerequisite",
-      "weight": 0.78
-    },
-    {
-      "source": "data engineering",
-      "target": "hadoop",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "terraform",
-      "target": "gcp",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "machine learning",
-      "target": "pytorch",
-      "relationship": "prerequisite",
-      "weight": 0.84
-    },
-    {
-      "source": "etl",
-      "target": "data pipeline",
-      "relationship": "prerequisite",
-      "weight": 0.91
-    },
-    {
-      "source": "data analytics",
-      "target": "deep learning",
-      "relationship": "prerequisite",
-      "weight": 0.75
-    },
-    {
-      "source": "data engineering",
       "target": "big data",
       "relationship": "prerequisite",
-      "weight": 0.87
+      "weight": 0.85
     },
     {
-      "source": "c++",
-      "target": "c/c++",
+      "source": "r",
+      "target": "statistical analysis",
       "relationship": "prerequisite",
-      "weight": 0.95
+      "weight": 0.9
     },
     {
-      "source": "js",
-      "target": "node",
+      "source": "data science",
+      "target": "r",
       "relationship": "prerequisite",
-      "weight": 0.89
-    },
-    {
-      "source": "relational database",
-      "target": "sql",
-      "relationship": "prerequisite",
-      "weight": 0.91
+      "weight": 0.83
     },
     {
       "source": "devops",
@@ -4053,8 +3987,74 @@
       "weight": 0.85
     },
     {
-      "source": "data mining",
-      "target": "machine learning",
+      "source": "data pipeline",
+      "target": "airflow",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "mysql",
+      "target": "database",
+      "relationship": "prerequisite",
+      "weight": 0.91
+    },
+    {
+      "source": "database",
+      "target": "nosql",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "data engineering",
+      "target": "big data",
+      "relationship": "prerequisite",
+      "weight": 0.87
+    },
+    {
+      "source": "data science",
+      "target": "python",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "scikit learn",
+      "target": "clustering",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "devops",
+      "target": "docker",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "database",
+      "target": "data modeling",
+      "relationship": "prerequisite",
+      "weight": 0.93
+    },
+    {
+      "source": "terraform",
+      "target": "gcp",
+      "relationship": "prerequisite",
+      "weight": 0.86
+    },
+    {
+      "source": "statistics",
+      "target": "regression",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "scikit learn",
+      "target": "classification",
+      "relationship": "prerequisite",
+      "weight": 0.89
+    },
+    {
+      "source": "terraform",
+      "target": "aws",
       "relationship": "prerequisite",
       "weight": 0.87
     },
@@ -4065,46 +4065,46 @@
       "weight": 0.91
     },
     {
-      "source": "data mining",
-      "target": "big data",
+      "source": "distributed system",
+      "target": "kafka",
       "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "terraform",
-      "target": "azure",
-      "relationship": "prerequisite",
-      "weight": 0.86
-    },
-    {
-      "source": "software development",
-      "target": "agile",
-      "relationship": "prerequisite",
-      "weight": 0.86
+      "weight": 0.85
     },
     {
       "source": "r",
-      "target": "statistics",
+      "target": "data visualization",
+      "relationship": "prerequisite",
+      "weight": 0.85
+    },
+    {
+      "source": "scala",
+      "target": "spark",
+      "relationship": "prerequisite",
+      "weight": 0.88
+    },
+    {
+      "source": "data structures and algorithms",
+      "target": "data structure",
+      "relationship": "prerequisite",
+      "weight": 0.94
+    },
+    {
+      "source": "containerization",
+      "target": "docker",
       "relationship": "prerequisite",
       "weight": 0.89
     },
     {
-      "source": "database",
-      "target": "relational database",
+      "source": "etl",
+      "target": "data pipeline",
       "relationship": "prerequisite",
       "weight": 0.91
     },
     {
-      "source": "r",
-      "target": "statistical analysis",
+      "source": "js",
+      "target": "node",
       "relationship": "prerequisite",
-      "weight": 0.9
-    },
-    {
-      "source": "data analytics",
-      "target": "big data",
-      "relationship": "prerequisite",
-      "weight": 0.85
+      "weight": 0.89
     }
   ]
 }

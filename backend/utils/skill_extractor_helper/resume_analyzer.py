@@ -5,6 +5,7 @@ from typing import Dict, List, Any, Optional, Tuple
 import fitz  # PyMuPDF
 import hashlib
 from llama_cpp import Llama
+import torch
 
 class LocalLLMResumeAnalyzer:
     """
@@ -12,39 +13,24 @@ class LocalLLMResumeAnalyzer:
     assign confidence scores, and categorize by domain.
     """
     
-    def __init__(self, model_path=None, use_cache=True):
-        """
-        Initialize the local LLM resume analyzer
-        
-        Args:
-            model_path: Path to the GGUF model file
-            use_cache: Whether to cache results to avoid redundant processing
-        """
-        self.use_cache = use_cache
-        self.cache_dir = ".resume_cache"
-        
-        # Set default model path or use provided one
+    def __init__(self, model_path=None, use_cache=False):
         self.model_path = model_path or "Nous-Hermes-2-Mistral-7B-DPO.Q4_K_M.gguf"
-        
-        # Initialize the model
         self._initialize_model()
-        
-        # Create cache directory if it doesn't exist
-        if self.use_cache and not os.path.exists(self.cache_dir):
-            os.makedirs(self.cache_dir)
-    
+
     def _initialize_model(self):
-        """Initialize the local LLM"""
+        """Initialize the local LLM with CPU-only settings."""
         try:
             self.llm = Llama(
                 model_path=self.model_path,
-                n_ctx=8192,  # Context window size
-                n_threads=8,  # Adjust based on your CPU
-                n_gpu_layers=0  # Set higher if you have GPU
+                n_ctx=3000,          # reduce context window (faster, less memory)
+                n_threads=os.cpu_count(),  # auto-assign based on CPU
+                use_mmap=False,      # faster load, especially on SSD
+                use_mlock=False,     # allow paging for better memory efficiency
+                verbose=False
             )
-            print(f"Model initialized: {self.model_path}")
+            print(f"[LLM] Initialized on CPU: {self.model_path}")
         except Exception as e:
-            print(f"Error initializing model: {e}")
+            print(f"[LLM] Initialization error: {e}")
             self.llm = None
     
     def extract_text_from_pdf(self, file_bytes) -> str:
@@ -87,65 +73,19 @@ class LocalLLMResumeAnalyzer:
             except:
                 return ""
     
-    def _generate_cache_key(self, text: str) -> str:
-        """Generate a cache key based on the text content"""
-        return hashlib.md5(text.encode()).hexdigest()
-    
-    def _get_from_cache(self, cache_key: str) -> Optional[Dict]:
-        """Get cached results if available"""
-        if not self.use_cache:
-            return None
-            
-        cache_file = os.path.join(self.cache_dir, f"{cache_key}.json")
-        if os.path.exists(cache_file):
-            try:
-                with open(cache_file, 'r') as f:
-                    return json.load(f)
-            except:
-                return None
-        return None
-    
-    def _save_to_cache(self, cache_key: str, data: Dict) -> None:
-        """Save results to cache"""
-        if not self.use_cache:
-            return
-            
-        cache_file = os.path.join(self.cache_dir, f"{cache_key}.json")
-        try:
-            with open(cache_file, 'w') as f:
-                json.dump(data, f)
-        except Exception as e:
-            print(f"Error saving to cache: {e}")
-    
     def _call_local_llm(self, prompt: str) -> str:
-        """Call the local LLM"""
         if not self.llm:
-            raise ValueError("LLM model not initialized successfully.")
+            raise RuntimeError("Model not initialized.")
+        system = "You are an expert resume analyzer."
+        instr  = f"[INST] {system}\n{prompt} [/INST]"
+        resp = self.llm(
+            instr,            # pass a string, not bytes
+            max_tokens=512,
+            temperature=0.1,
+            top_p=0.9,
+        )
+        return resp["choices"][0]["text"]
         
-        try:
-            # Use a template with system prompt first
-            system_prompt = "You are an expert resume analyzer focused on identifying technical skills with high precision."
-            
-            # Format for instruct models
-            complete_prompt = f"""<s>[INST] {system_prompt}
-
-{prompt} [/INST]
-"""
-            
-            # Call the model
-            output = self.llm(
-                complete_prompt,
-                max_tokens=4000,
-                temperature=0.1,
-                top_p=0.9,
-                stop=["</s>"]
-            )
-            
-            return output["choices"][0]["text"]
-        except Exception as e:
-            print(f"Error calling local LLM: {e}")
-            return ""
-    
     def _parse_json_response(self, response: str) -> List[Dict]:
         """Parse the JSON response from the LLM"""
         # Find JSON content in the response (it might be embedded in text)
@@ -190,7 +130,7 @@ class LocalLLMResumeAnalyzer:
         unique_skills = list(skill_dict.values())
         return sorted(unique_skills, key=lambda x: x.get('confidence', 0), reverse=True)
     
-    def extract_skills_with_llm(self, resume_text: str) -> List[Dict[str, Any]]:
+    def extract_skills_with_llm(self, skill_list, resume_text: str) -> List[Dict[str, Any]]:
         """
         Extract technical skills from resume text using a local LLM
         
@@ -200,57 +140,55 @@ class LocalLLMResumeAnalyzer:
         Returns:
             List of skills with confidence scores and domains
         """
-        # Check cache first
-        cache_key = self._generate_cache_key(resume_text)
-        cached_result = self._get_from_cache(cache_key)
-        
-        if cached_result:
-            return cached_result
         
         # Create prompt for skill extraction
+
         prompt = f"""
 TASK:
-Extract technical skills from the resume below. For each skill:
-1. Provide a confidence score (1.0-5.0, where 5.0 is highest)
-2. Categorize into one of these domains: "Software Engineering", "Data Science", "Machine Learning", "DevOps", "Web Development", or "Other"
+You are an expert AI tasked with analyzing resumes to evaluate the candidate's demonstrated proficiency in each technical skill from a predefined list.
+Your objective is to assign a **confidence score between 0.0 and 100.0** for each skill in the SKILL LIST, reflecting how well that skill is evidenced in the RESUME.
+No explanations or commentary are allowed — **output only the JSON array**.
 
-GUIDELINES:
-- Focus on specific technical skills (programming languages, frameworks, tools, platforms)
-- Ignore soft skills, generic terms, and non-technical abilities
-- Merge related skills (e.g., "Python programming" and "Python" should be just "Python")
-- Use canonical forms of skills (e.g., "React.js" should be "React")
-- Only include skills that appear to be part of the person's genuine expertise
-- Assign confidence based on context (expertise claims, years of experience, projects, etc.)
-- Exclude overly generic terms like "programming", "software", "tools", etc.
-- Avoid duplicating skills in your response - each skill should appear exactly once
+SCORING GUIDELINES (for each skill):
+**100.0** - Extensive, clearly demonstrated expertise (e.g. multiple job roles, advanced projects, certifications, tools or libraries tied to the skill)
+**75.0 - 99.9** - Strong, practical usage (e.g. used in key projects, listed in responsibilities, paired with related tools or platforms)
+**50.0 - 74.9** - Moderate or partial exposure (e.g. mentioned once or used as a supporting tool, course or internship)
+**25.0 - 49.9** - Light familiarity or vague mention (e.g. in a course list, minor project, or soft skill grouping)
+**0.0 - 24.9** - No evidence or only superficial mention (e.g. resume includes unrelated topics or lacks any mention)
 
-RESPONSE FORMAT:
-Respond with a valid JSON array of objects with these properties:
-- skill: The canonical skill name
-- confidence: Numeric score from 1.0 to 5.0
-- domain: One of the domain categories
+EVIDENCE TO CONSIDER:
+- **Direct mentions**: skills listed explicitly in work experience, education, certifications, or project descriptions
+- **Indirect indicators**: tools or frameworks tightly associated with a skill (e.g. “Pandas” implies some Python; “Spring Boot” implies Java)
+- **Depth signals**: frequency of mention, job title relevance (e.g. “Data Scientist” implies Python + ML), verbs like *built, led, optimized*
+- **Recency and context**: Recent and active usage counts more than passive learning or outdated experience
+- Avoid guessing. If a skill appears indirectly, give partial confidence — do not assume full proficiency unless clearly justified by the resume.
+
+SKILL LIST:
+{skill_list}
 
 RESUME:
 {resume_text}
 
-Remember to only return a valid JSON array with NO DUPLICATE SKILLS.
+RESPONSE FORMAT:
+Respond with a single valid JSON array of objects with these properties:
+- skill: The canonical skill name
+- confidence: Numeric score from 0.0 to 100.0
+
+Remember to only return a valid JSON array.
 """
+
         
         # Call LLM
         response = self._call_local_llm(prompt)
-        
         # Parse response
         skills = self._parse_json_response(response)
         
         # Remove any duplicates that might still be present
         unique_skills = self._remove_duplicates(skills)
         
-        # Save to cache
-        self._save_to_cache(cache_key, unique_skills)
-        
         return unique_skills
     
-    def analyze_resume(self, file_bytes, file_type="pdf") -> List[Dict[str, Any]]:
+    def analyze_resume(self, skill_list, file_bytes, file_type="pdf") -> List[Dict[str, Any]]:
         """
         Analyze a resume file and extract technical skills with confidence scores
         
@@ -263,12 +201,11 @@ Remember to only return a valid JSON array with NO DUPLICATE SKILLS.
         """
         # Extract text from resume
         text = self.extract_text_from_file(file_bytes, file_type)
-        
         if not text:
             return []
         
         # Extract skills using LLM
-        skills = self.extract_skills_with_llm(text)
+        skills = self.extract_skills_with_llm(skill_list, text)
         
         # Additional check to ensure no duplicates (in case LLM includes them despite instructions)
         unique_skills = self._remove_duplicates(skills)
@@ -296,7 +233,7 @@ Remember to only return a valid JSON array with NO DUPLICATE SKILLS.
             # Skip duplicates (case-insensitive)
             if skill_name.lower() in seen_skills:
                 continue
-                
+        
             seen_skills.add(skill_name.lower())
             
             # Add to the list
@@ -345,51 +282,23 @@ Remember to only return a valid JSON array with NO DUPLICATE SKILLS.
         return "\n".join(lines)
 
 
-def analyze_resume_file(file_path, file_type="pdf", include_domain=False, model_path=None, as_tuples=False):
+def analyze_resume_file(file_path, file_type="pdf", skill_list=[], model_path=None):
     """
     Analyze a resume file and extract technical skills using a local LLM
     
     Args:
         file_path: Path to the resume file
         file_type: File type ('pdf', 'docx', or 'txt')
-        include_domain: Whether to include domain information in output
+        skill_list: Skill list from job market
         model_path: Path to the GGUF model file
-        as_tuples: Whether to return skills as a list of tuples
     
     Returns:
         Formatted string of skills with confidence scores or a list of tuples
     """
-    analyzer = LocalLLMResumeAnalyzer(model_path=model_path)
+    analyzer = LocalLLMResumeAnalyzer(model_path=model_path, use_cache=False)
     
     with open(file_path, "rb") as f:
         file_bytes = f.read()
-        
-    skills = analyzer.analyze_resume(file_bytes, file_type)
-    
-    if as_tuples:
-        return analyzer.get_skills_as_tuples(skills)
-    else:
-        return analyzer.format_output(skills, include_domain)
+    skills = analyzer.analyze_resume(skill_list, file_bytes, file_type)
 
-
-if __name__ == "__main__":
-    import argparse
-    
-    parser = argparse.ArgumentParser(description='Analyze technical skills in a resume using a local LLM.')
-    parser.add_argument('file_path', help='Path to the resume file')
-    parser.add_argument('--file_type', default='pdf', help='File type (pdf, docx, txt)')
-    parser.add_argument('--include_domain', action='store_true', help='Include domain information in output')
-    parser.add_argument('--model_path', help='Path to the GGUF model file')
-    parser.add_argument('--as_tuples', action='store_true', help='Output skills as a list of tuples')
-    
-    args = parser.parse_args()
-    
-    result = analyze_resume_file(
-        args.file_path, 
-        args.file_type, 
-        args.include_domain,
-        args.model_path,
-        args.as_tuples
-    )
-    
-    print(result)
+    return analyzer.get_skills_as_tuples(skills)

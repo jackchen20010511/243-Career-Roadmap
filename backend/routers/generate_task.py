@@ -11,7 +11,7 @@ from database import get_db
 from models import Scheduled_Tasks, Learn_Skill, User_Goal
 
 # Adjust imports according to your helper path
-from utils.schedule_generator_helper.match_job_domain import matchJobDomain
+from utils.skill_extractor_helper.match_job_domain import matchJobDomain
 from utils.schedule_generator_helper.embedding_model import embedding_model
 from utils.schedule_generator_helper.module_generator import build_prereq_graph_from_edges, parse_prerequisite_edges, generate_modules
 from utils.schedule_generator_helper.course_selection import suggest_courses
@@ -19,7 +19,7 @@ from utils.schedule_generator_helper.task_generator import schedule_all_modules
 
 router = APIRouter(tags=["Generate Tasks"])
 
-COURSE_DIR = "data/courses/courses.csv"
+COURSE_DIR = "data/courses/"
 DOMAIN_SKILL_DIR = "data/job_domain_skills.json"
 SKILL_GRAPH_DIR = "data/skill_graph"
 
@@ -59,25 +59,21 @@ async def generate_scheduled_tasks(req: GenerateScheduleRequest, db: Session = D
             else datetime.today() + timedelta(days=1)
         )
 
+        domain = matchJobDomain(target_position).lower()
+        print(f"matched domain: {domain}")
+
         # Load course dataset
-        course_df = pd.read_csv(COURSE_DIR)
-
-        with open(DOMAIN_SKILL_DIR, "r", encoding="utf-8") as f:
-            job_domains = json.load(f)
-
-        domain = matchJobDomain(embedding_model, job_domains, target_position, skill_list)["matched_domain"].lower()
-
+        course_df = pd.read_csv(f"{COURSE_DIR}/{domain}.csv")
+        
         # Load skill graph for the given domain
         skill_graph_path = os.path.join(SKILL_GRAPH_DIR, f"{domain}.json")
         if not os.path.exists(skill_graph_path):
             raise FileNotFoundError(f"Skill graph not found for domain: {domain}")
 
         prereq_graph = build_prereq_graph_from_edges(parse_prerequisite_edges(skill_graph_path, skill_list))
-        modules = generate_modules(skill_graph_path, domain, skill_list, total_weeks, weekly_hours)
+        modules = generate_modules(skill_graph_path, domain, skill_list, total_weeks, weekly_hours, 0.4, 0.7)
         courses = suggest_courses(embedding_model, course_df, skill_list, total_weeks, weekly_hours,
-                                  domain, modules, prereq_graph, portion=1)
-        print(courses)
-        
+                                  domain, modules, prereq_graph, portion=1)        
         tasks = schedule_all_modules(modules, start_date, weekly_hours, learning_days, courses, req.user_id)
         # Insert into DB
         for task in tasks:
@@ -97,7 +93,7 @@ async def generate_scheduled_tasks(req: GenerateScheduleRequest, db: Session = D
 
         db.commit()
 
-        return {"message": f"Scheduled {len(tasks)} tasks for user {req.user_id}", "tasks": tasks, "modules": modules}
+        return {"message": f"Scheduled {len(tasks)} tasks for user {req.user_id}", "tasks": tasks, "modules": modules, "courses": courses}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

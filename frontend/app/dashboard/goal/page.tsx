@@ -23,7 +23,9 @@ export default function Goal() {
 
                 {/* Right: Your career goal components go here */}
                 <div className="w-[50%]">
-                    <GoalDetails />
+                    <div className="w-[96%]">
+                        <GoalDetails />
+                    </div>
                 </div>
             </main>
         </AuthProtected>

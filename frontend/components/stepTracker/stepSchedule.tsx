@@ -33,7 +33,7 @@ export default function StepSchedule({
     const [loading, setLoading] = useState(true);
     const [generating, setGenerating] = useState(false);
     const [generatedModules, setGeneratedModules] = useState([]);
-    const [previewReady, setPreviewReady] = useState(true);
+    const [previewReady, setPreviewReady] = useState(false);
 
     useEffect(() => {
         fetchScheduledTasks(userId)
@@ -70,48 +70,102 @@ export default function StepSchedule({
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                     </svg>
-                    <p className="text-lg">Generating your personalized schedule...</p>
-                    <p className="text-sm text-indigo-300">This may take 20-30 seconds. Hang tight! ⏳</p>
+                    <p className="text-2xl">Generating your personalized schedule...</p>
+                    <p className="text-lg text-indigo-300">This may take 20-30 seconds. Hang tight! ⏳</p>
                 </div>
             ) : tasks.length === 0 ? (
-                <div className="mt-10 flex flex-col items-center justify-center w-[95%] h-[65vh] aspect-[595/600] mx-auto border-2 border-dashed border-gray-400 rounded-lg text-indigo-200 text-lg p-6 space-y-4">
-                    <button
-                        onClick={handleGenerate}
-                        className="px-4 py-2 rounded-lg text-white bg-indigo-500 hover:bg-indigo-600 text-white cursor-pointer"
-                    >
-                        Generate Schedule
-                    </button>
+                <div className="max-w-5xl px-6 mx-auto">
+                    <div className="mt-10 flex flex-col items-center justify-center w-[95%] h-[65vh] aspect-[595/600] mx-auto border-2 border-dashed border-indigo-300 rounded-xl bg-white/10 backdrop-blur-md text-indigo-100 p-8 text-center space-y-6">
+
+                        {/* Icon */}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                            className="lucide lucide-brain-circuit-icon lucide-brain-circuit">
+                            <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
+                            <path d="M9 13a4.5 4.5 0 0 0 3-4" /><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5" />
+                            <path d="M3.477 10.896a4 4 0 0 1 .585-.396" /><path d="M6 18a4 4 0 0 1-1.967-.516" />
+                            <path d="M12 13h4" /><path d="M12 18h6a2 2 0 0 1 2 2v1" /><path d="M12 8h8" />
+                            <path d="M16 8V5a2 2 0 0 1 2-2" /><circle cx="16" cy="13" r=".5" /><circle cx="18" cy="3" r=".5" />
+                            <circle cx="20" cy="21" r=".5" /><circle cx="20" cy="8" r=".5" /></svg>
+
+                        {/* Title */}
+                        <h2 className="text-2xl font-semibold text-indigo-200">
+                            Let's Find Your Perosnalized Learning Path!
+                        </h2>
+
+                        {/* Description */}
+                        <p className="text-indigo-100/80 max-w-[300px]">
+                            You are one click away from a schedule designed just for you.
+                        </p>
+
+                        {/* Stylish Circular CTA Button */}
+                        <button
+                            onClick={handleGenerate}
+                            className="mt-6 cursor-pointer h-35 w-35 flex items-center justify-center rounded-full bg-indigo-500 hover:bg-indigo-600 text-white text-2xl font-bold shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
+                            title="Analyze Skills"
+                        >
+                            <svg className="pl-1 cursor-pointer lucide lucide-play-icon lucide-play" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="6 3 20 12 6 21 6 3" /></svg>
+                        </button>
+                    </div>
                 </div>
             ) : (
                 <>
-                    {generatedModules.length > 0 && (
-                        <div className="mt-6 p-4 rounded-lg bg-indigo-200 text-gray-900 shadow">
-                            <h3 className="text-xl font-bold mb-2">📘 Modules Included</h3>
-                            <ul className="list-disc ml-6 space-y-1 text-sm">
-                                {generatedModules.map((mod, idx) => (
-                                    <li key={idx}>
-                                        <span className="font-semibold">Module {mod.module}:</span> {mod.skills.join(", ")} {" "}
-                                        <span className="text-gray-600">(Total: {mod.duration.reduce((a, b) => a + b, 0)} hrs)</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
                     {previewReady && (
-                        <div className="mt-6 p-4 rounded-lg bg-indigo-100 text-gray-800 shadow">
+                        <div className="mt-6 w-full px-4 lg:px-8">
+                            <h2 className="ml-2 mb-5 text-3xl font-bold text-indigo-200">Module Overview</h2>
 
-                            <h3 className="text-xl font-bold mb-2">📅 Your Learning Plan Preview</h3>
-                            <ul className="list-disc ml-6 space-y-1 text-sm">
-                                {tasks.slice(0, 5).map((task, i) => (
-                                    <li key={i}>
-                                        {task.date} | {task.start}–{task.end} → {task.resource_name}
-                                    </li>
-                                ))}
-                            </ul>
-                            <p className="text-sm mt-2 text-gray-600">...and more scheduled tasks</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full">
+                                {generatedModules.map((mod) => {
+                                    const modTasks = tasks.filter((t) => t.module === mod.module);
+                                    return (
+                                        <div
+                                            key={mod.module}
+                                            className="relative h-[340px] flex flex-col p-6 bg-indigo-100/50 backdrop-blur-sm rounded-lg shadow-lg transition-transform duration-300 ease-in-out 
+                                                        hover:scale-105 
+                                                        hover:shadow-2xl
+                                                        cursor-pointer"
+                                        >
+                                            {/* 1) Big module number, top-right */}
+                                            <span className="absolute -top-4 right-3 text-[120px] font-extrabold text-indigo-600 opacity-50 pointer-events-none">
+                                                {mod.module}
+                                            </span>
+
+                                            {/* 2) Skill blocks: flex-1 so they share vertical space equally */}
+                                            <div className="flex-1 flex flex-col gap-2 mr-5">
+                                                {mod.skills.map((skill) => {
+                                                    const count = modTasks.filter((t) => t.skill === skill).length;
+                                                    return (
+                                                        <div
+                                                            key={skill}
+                                                            className="flex-1 bg-white/70 p-1 rounded-md shadow-sm flex flex-col justify-center"
+                                                        >
+                                                            {/* skill name top */}
+                                                            <span className="pl-3 font-semibold text-2xl text-gray-900 capitalize">{skill}</span>
+                                                            {/* course count below */}
+                                                            <span className="pl-3 text-sm text-gray-800">
+                                                                {count} course{count !== 1 && "s"}
+                                                            </span>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+
+                                            {/* 3) Footer */}
+                                            <div className="ml-3 mt-2 text-sm text-gray-700">
+                                                <span className="font-medium">Total:</span>{" "}
+                                                {mod.duration.reduce((a, b) => a + b, 0).toFixed(1)} hrs
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
                     )}
+
+
                 </>
+
 
             )}
         </div>

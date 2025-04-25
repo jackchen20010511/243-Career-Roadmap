@@ -147,13 +147,13 @@ def assign_module_durations(skill_groups, input_skills, total_hours):
         })
     return modules
 
-def generate_modules(graph_path, matched_domain, input_skills, total_weeks, weekly_hours):
+def generate_modules(graph_path, matched_domain, input_skills, total_weeks, weekly_hours, threshold = 0.42, conf_weight=0.5):
     total_hours = total_weeks * weekly_hours
     
 
     input_skill_set = set(s[0].lower() for s in input_skills)
     prereq_edges = parse_prerequisite_edges(graph_path, input_skill_set)
-    assoc_scores = parse_association_weights(graph_path, input_skill_set, threshold=0.42, conf_weight=0.5)
+    assoc_scores = parse_association_weights(graph_path, input_skill_set, threshold, conf_weight)
     prereq_graph = build_prereq_graph_from_edges(prereq_edges)
     ordered_skills = topological_sort_with_priorities(prereq_graph, input_skill_set)
     skill_groups = group_skills_by_association(
