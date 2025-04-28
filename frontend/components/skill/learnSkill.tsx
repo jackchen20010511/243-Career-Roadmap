@@ -101,7 +101,7 @@ export default function LearnSkill({ userId, step }: { userId: number; step: num
                             )}
                             <button
                                 onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
-                                className="cursor-pointer px-4 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-400 text-white font-semibold"
+                                className="cursor-pointer px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold"
                             >
                                 {isEditing ? "Save" : "Edit"}
                             </button>
@@ -137,7 +137,7 @@ export default function LearnSkill({ userId, step }: { userId: number; step: num
                                         {isEditing && (
                                             <button
                                                 onClick={() => handleDelete(index)}
-                                                className="absolute top-1 right-2.5 text-red-400 hover:text-white cursor-pointer"
+                                                className="absolute top-1 right-2.5 text-red-500 font-bold hover:text-white cursor-pointer"
                                                 title="Remove"
                                             >
                                                 ✕

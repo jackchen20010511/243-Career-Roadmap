@@ -90,10 +90,10 @@ export default function ResumePreview({ userId }: ResumePreviewProps) {
     return (
         <div className="p-4 bg-white/20 backdrop-blur-md border border-gray-400 rounded-xl shadow-md text-white">
             <div className="mb-5 flex items-start justify-between">
-                <h2 className="text-2xl font-bold text-indigo-200">Resume Preview</h2>
+                <h2 className="text-3xl font-bold text-indigo-200">Resume Preview</h2>
                 <div className="flex flex-col items-end space-y-2">
                     <div className="flex gap-2">
-                        <label className="cursor-pointer px-4 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-400 text-white font-semibold">
+                        <label className="cursor-pointer px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold">
                             Update Resume
                             <input
                                 type="file"
@@ -116,7 +116,7 @@ export default function ResumePreview({ userId }: ResumePreviewProps) {
                     {showSuccessMessage && resumeFile && (
                         <p className="text-green-400 text-sm">✔ {resumeFile.name} uploaded successfully!</p>
                     )}
-                    <p className="text-sm text-indigo-100/60">Accepted format: PDF, DOCX, TXT</p>
+                    <p className="text-sm text-indigo-100/80">Accepted format: PDF, DOCX, TXT</p>
                 </div>
             </div>
 

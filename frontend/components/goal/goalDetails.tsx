@@ -76,7 +76,7 @@ export default function GoalDetails() {
     if (!goal) return <div className="text-red-400 p-10">No goal data found.</div>;
 
     return (
-        <div className="bg-white/20 backdrop-blur-md p-8 rounded-2xl shadow-xl w-full">
+        <div className="p-4 bg-white/20 backdrop-blur-md border border-gray-400 rounded-xl shadow-md text-white">
             <div className="mb-5">
                 <div className="flex items-start justify-between w-full">
                     <h2 className="mb-6 text-3xl font-bold text-indigo-200">My Goal</h2>
@@ -84,14 +84,14 @@ export default function GoalDetails() {
                         {isEditing && (
                             <button
                                 onClick={handleCancel}
-                                className="px-4 py-2 bg-gray-500 hover:bg-gray-400 text-white rounded-lg text-sm cursor-pointer"
+                                className="px-4 py-2 bg-gray-600 hover:bg-gray-500 text-white rounded-lg cursor-pointer"
                             >
                                 Cancel
                             </button>
                         )}
                         <button
                             onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
-                            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm cursor-pointer"
+                            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg cursor-pointer"
                         >
                             {isEditing ? "Save" : "Edit"}
                         </button>
@@ -171,9 +171,9 @@ export default function GoalDetails() {
                             key={day}
                             onClick={() => isEditing && toggleDay(day)}
                             className={`px-6 py-4 rounded-full text-lg font-medium border transition ${editedGoal[day]
-                                ? "bg-indigo-500 text-white border-indigo-400"
+                                ? "bg-indigo-600 text-white border-indigo-400"
                                 : "bg-white/20 text-white border-gray-400"
-                                } ${isEditing ? "hover:bg-indigo-400 hover:text-white cursor-pointer" : "cursor-default"}`}
+                                } ${isEditing ? "hover:bg-indigo-500 hover:text-white cursor-pointer" : "cursor-default"}`}
                         >
                             {weekdayLabels[day]}
                         </button>
@@ -186,7 +186,7 @@ export default function GoalDetails() {
                     value={editedGoal.responsibility ?? ""}
                     onChange={(e) => handleChange("responsibility", e.target.value)}
                     readOnly={!isEditing}
-                    className={`mt-2 p-4 w-full h-54 rounded-lg text-lg text-white ${isEditing ? "bg-white/40 cursor-text" : "bg-white/20 cursor-default"} border border-gray-600 resize-none`}
+                    className={`-mb-7 mt-2 p-4 w-full h-54 rounded-lg text-lg placeholder-white text-white ${isEditing ? "bg-white/40 cursor-text" : "bg-white/20 cursor-default"} border border-gray-600 resize-none`}
                     placeholder="Empty"
                 />
             </div>

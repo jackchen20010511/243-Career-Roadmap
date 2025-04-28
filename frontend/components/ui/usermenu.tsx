@@ -44,16 +44,16 @@ export default function UserMenu({ user }: { user: User }) {
             {/* ✅ Avatar Button */}
             <button
                 onClick={() => setShowMenu((prev) => !prev)}
-                className="mt-1 ml-2 rounded-full hover:bg-gray-700 transition cursor-pointer"
+                className="ml-2 -mt-1 rounded-full hover:bg-gray-700 transition cursor-pointer"
             >
-                <Image src={userIcon} alt="User Menu" width={50} height={50} />
+                <Image src={userIcon} alt="User Menu" width={30} height={30} />
             </button>
 
             {/* ✅ Dropdown Menu (uses `useRef`) */}
             {showMenu && (
                 <div
                     ref={menuRef} // ✅ Attach ref here
-                    className="absolute top-full right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg text-white z-50
+                    className="absolute top-full right-0 mt-2 w-48 bg-white/30 rounded-md shadow-lg text-white font-bold z-50
                     opacity-100 scale-100 transition-all transform origin-top pointer-events-auto overflow-visible"
                 >
                     <div className="px-4 py-2 border-b border-gray-700">

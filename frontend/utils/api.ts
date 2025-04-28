@@ -230,3 +230,41 @@ export async function generateLearnSkill(userId: number) {
     return await response.json().then(res => res.skills);
 }
 
+
+
+export interface MapPoint {
+    name: string;
+    avgSalary: number;
+    lat: number;
+    lng: number;
+}
+
+/**
+ * Fetches aggregated map points from the backend.
+ *
+ * @param mode      "CITY" or "STATE" geography
+ * @param minSalary minimum salary filter
+ * @param maxSalary maximum salary filter
+ * @param q         optional job‐title keyword for semantic filtering
+ */
+export async function fetchMapData(
+    mode: "CITY" | "STATE",
+    minSalary: number,
+    maxSalary: number,
+    q?: string
+): Promise<MapPoint[]> {
+    const params = new URLSearchParams({
+        mode,
+        minSalary: minSalary.toString(),
+        maxSalary: maxSalary.toString(),
+    });
+    if (q && q.trim() !== "") {
+        params.set("q", q.trim());
+    }
+    const res = await fetch(`${API_BASE_URL}/map/?${params.toString()}`);
+    if (!res.ok) {
+        const err = await res.text();
+        throw new Error(`Map fetch failed: ${err}`);
+    }
+    return res.json();
+}

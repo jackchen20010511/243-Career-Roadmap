@@ -3,8 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from requests import Session
 from database import engine, Base
-from routers import user_login, user_goal, learn_skill, scheduled_tasks, generate_task, generate_skills  # ✅ Ensure correct imports
-import fitz
+from routers import user_login, user_goal, learn_skill, scheduled_tasks, generate_task, generate_skills, map  # ✅ Ensure correct imports
 
 app = FastAPI()
 
@@ -28,6 +27,8 @@ app.include_router(learn_skill.router, prefix="/learn-skill")
 app.include_router(scheduled_tasks.router, prefix="/scheduled-tasks")
 app.include_router(generate_task.router, prefix="/generate-scheduled-tasks")
 app.include_router(generate_skills.router, prefix="/generate-learn-skills")
+app.include_router(map.router, prefix="/map")
+
 
 # ✅ Root Endpoint (Optional)
 @app.get("/")

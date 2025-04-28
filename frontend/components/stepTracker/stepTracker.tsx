@@ -87,7 +87,7 @@ export default function StepTracker({
                 {step > 1 ? (
                     <button
                         onClick={handleBack}
-                        className="mt-5 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg cursor-pointer"
+                        className="mt-5 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg cursor-pointer"
                     >
                         &lt;
                     </button>
@@ -107,7 +107,7 @@ export default function StepTracker({
                         (step === 2 && !hasSkills) ||
                         (step === 3 && !hasTasks)
                         ? "bg-gray-500 text-white cursor-not-allowed"
-                        : "bg-indigo-500 hover:bg-indigo-600 text-white cursor-pointer"
+                        : "bg-indigo-600 hover:bg-indigo-500 text-white cursor-pointer"
                         }`}
                     disabled={
                         (step === 1 && !hasResume) ||

@@ -148,7 +148,7 @@ export default function SignUp() {
 
           <button
             type="submit"
-            className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 rounded-md transition"
+            className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 rounded-md transition cursor-pointer"
           >
             Register
           </button>

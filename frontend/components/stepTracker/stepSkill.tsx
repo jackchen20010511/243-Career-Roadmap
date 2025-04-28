@@ -152,7 +152,7 @@ export default function StepSkill({ userId, onChange }: { userId: number; onChan
                         {/* Stylish Circular CTA Button */}
                         <button
                             onClick={handleGenerate}
-                            className="mt-6 h-35 cursor-pointer w-35 flex items-center justify-center rounded-full bg-indigo-500 hover:bg-indigo-600 text-white text-2xl font-bold shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
+                            className="mt-6 h-35 cursor-pointer w-35 flex items-center justify-center rounded-full bg-indigo-600 hover:bg-indigo-500 text-white text-2xl font-bold shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
                             title="Analyze Skills"
                         >
                             <svg className="pl-1 cursor-pointer lucide lucide-play-icon lucide-play" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24"

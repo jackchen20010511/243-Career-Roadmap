@@ -10,6 +10,8 @@ import StepNavigation from "@/components/dashboard/step-navigation";
 import AuthProtected from "@/components/auth-protected";
 import { fetchUserGoal, saveResumeFile, updateUserGoal } from "@/utils/api"; // ✅ Use API utility
 import HeaderDashboard from "@/components/ui/headerDashboard";
+import SalaryMap from "@/components/dashboard/salaryMap";
+import dynamic from "next/dynamic";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -112,6 +114,10 @@ export default function Dashboard() {
       console.error("Error saving goal:", error);
     }
   };
+  const SalaryMap = dynamic(
+    () => import('@/components/dashboard/salaryMap'),
+    { ssr: false }
+  )
 
   return (
     <>
@@ -177,9 +183,21 @@ export default function Dashboard() {
       ) : (
         <AuthProtected>
           <Header />
-          <div className="relative flex flex-col items-center justify-start min-h-screen text-white overflow-hidden w-full pt-5">
-            <h1 className="text-4xl font-bold mt-20">Dashboard</h1>
-          </div>
+          <main className="mt-8 flex flex-row w-full min-h-screen p-3 gap-6">
+            {/* Left: Resume */}
+            <div className="w-[50%] flex justify-center">
+              <div className="w-[91%]">
+                <SalaryMap />
+              </div>
+            </div>
+
+            {/* Right: Your career goal components go here */}
+            <div className="w-[50%]">
+              <div className="w-[96%]">
+
+              </div>
+            </div>
+          </main>
         </AuthProtected>
       )
       }

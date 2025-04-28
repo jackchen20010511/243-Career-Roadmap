@@ -35,11 +35,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Background image for all pages */}
         <div className="fixed inset-0 -z-10 bg-black">
           <img
-            src="/images/backgroundcanyon.png" // Make sure it's in public/images/
+            src="/images/background.jpg" // Make sure it's in public/images/
             alt="Background"
             className="w-full h-full object-cover opacity-80"
           />
         </div>
+        <div className="absolute inset-0 bg-black/20 z-10" />
 
         {/* Page Content */}
         <main className="relative z-10 flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
