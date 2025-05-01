@@ -6,6 +6,8 @@ import { fetchMapData, MapPoint } from "@/utils/api";
 import { useDebounce } from "@/utils/debounce";
 import "leaflet/dist/leaflet.css";
 import React from "react";
+import { LeafletMouseEvent } from "leaflet";
+import { CircleMarker as LeafletCircleMarker } from "leaflet"; // important
 
 const MapContainer = dynamic(
     () => import("react-leaflet").then((m) => m.MapContainer),
@@ -155,8 +157,14 @@ export default function SalaryMap() {
                                         stroke: false,
                                     }}
                                     eventHandlers={{
-                                        mouseover: (e) => e.target.openPopup(),
-                                        mouseout: (e) => e.target.closePopup(),
+                                        mouseover: (e: LeafletMouseEvent) => {
+                                            const layer = e.target as LeafletCircleMarker;
+                                            layer.openPopup();
+                                        },
+                                        mouseout: (e: LeafletMouseEvent) => {
+                                            const layer = e.target as LeafletCircleMarker;
+                                            layer.closePopup();
+                                        }
                                     }}
                                 >
                                     <Popup>

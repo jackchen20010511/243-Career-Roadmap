@@ -9,9 +9,9 @@ import WeeklyHours from "@/components/dashboard/weekly-hours";
 import StepNavigation from "@/components/dashboard/step-navigation";
 import AuthProtected from "@/components/auth-protected";
 import { fetchUserGoal, saveResumeFile, updateUserGoal } from "@/utils/api"; // ✅ Use API utility
-import SalaryMap from "@/components/dashboard/salaryMap";
+import SalaryMap from "@/components/dashboard/salary-map";
 import dynamic from "next/dynamic";
-import ModuleProgressPanel from "@/components/dashboard/moduleProgress";
+import ModuleProgressPanel from "@/components/dashboard/module-progress";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -29,7 +29,17 @@ export default function Dashboard() {
   const [duration, setDuration] = useState("");
   const [durationUnit, setDurationUnit] = useState("weeks");
   const [weeklyHours, setWeeklyHours] = useState("");
-  const [studyDays, setStudyDays] = useState({
+  type StudyDays = {
+    isMonday: boolean;
+    isTuesday: boolean;
+    isWednesday: boolean;
+    isThursday: boolean;
+    isFriday: boolean;
+    isSaturday: boolean;
+    isSunday: boolean;
+  };
+
+  const initialStudyDays: StudyDays = {
     isMonday: false,
     isTuesday: false,
     isWednesday: false,
@@ -37,8 +47,10 @@ export default function Dashboard() {
     isFriday: false,
     isSaturday: false,
     isSunday: false,
-  });
-  const [resumeFile, setResumeFile] = useState(null);
+  };
+
+  const [studyDays, setStudyDays] = useState<StudyDays>(initialStudyDays);
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [notReadyChecked, setNotReadyChecked] = useState(false);
 
   // ✅ Check if User is Authenticated and Fetch Goal
@@ -117,7 +129,7 @@ export default function Dashboard() {
     }
   };
   const SalaryMap = dynamic(
-    () => import('@/components/dashboard/salaryMap'),
+    () => import('@/components/dashboard/salary-map'),
     { ssr: false }
   )
 

@@ -1,6 +1,16 @@
 "use client";
-
-export default function LearningDuration({ duration, setDuration, durationUnit, setDurationUnit }) {
+interface LearningDurationProps {
+    duration: string;
+    setDuration: (value: string) => void;
+    durationUnit: string;
+    setDurationUnit: (unit: string) => void;
+}
+export default function LearningDuration({
+    duration,
+    setDuration,
+    durationUnit,
+    setDurationUnit,
+}: LearningDurationProps) {
     const convertToWeeks = (value: string, unit: string) => {
         let totalWeeks = parseInt(value) || 0;
         if (unit === "months") totalWeeks *= 4;

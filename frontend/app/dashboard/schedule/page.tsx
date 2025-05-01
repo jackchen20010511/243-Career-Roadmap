@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import AuthProtected from "@/components/auth-protected";
 import Header from "@/components/ui/header";
-import StepTracker from "@/components/stepTracker/stepTracker";
+import StepTracker from "@/components/stepTracker/step-tracker";
 
 export default function SchedulePage() {
     const [selectedDate, setSelectedDate] = useState(new Date());

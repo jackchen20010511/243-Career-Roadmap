@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { ScheduledTask } from "@/components/stepTracker/stepSchedule";
+import { ScheduledTask } from "@/components/stepTracker/step-schedule";
 import { updateScheduledTaskStatus } from "@/utils/api";
 
 export default function ScheduleGrid({

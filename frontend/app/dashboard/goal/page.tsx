@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import ResumePreview from "@/components/goal/resumePreview";
+import ResumePreview from "@/components/goal/resume-preview";
 import Header from "@/components/ui/header";
 import AuthProtected from "@/components/auth-protected";
-import GoalDetails from "@/components/goal/goalDetails";
+import GoalDetails from "@/components/goal/goal-details";
 import { updateUserGoal } from "@/utils/api";
 
 export default function Goal() {

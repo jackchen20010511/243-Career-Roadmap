@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import Header from "@/components/ui/header";
 import AuthProtected from "@/components/auth-protected";
-import MiniStepTracker from "@/components/stepTracker/miniStepTracker";
+import MiniStepTracker from "@/components/stepTracker/mini-step-tracker";
 
 export default function SkillPage() {
     const [userId, setUserId] = useState<number | null>(null);

@@ -1,9 +1,31 @@
 "use client";
 
 import { useState } from "react";
+type StudyDays = {
+    isMonday: boolean;
+    isTuesday: boolean;
+    isWednesday: boolean;
+    isThursday: boolean;
+    isFriday: boolean;
+    isSaturday: boolean;
+    isSunday: boolean;
+};
 
-export default function WeeklyHours({ weeklyHours, setWeeklyHours, studyDays, setStudyDays }) {
-    const daysOfWeek = [
+interface Props {
+    studyDays: StudyDays;
+    setStudyDays: React.Dispatch<React.SetStateAction<StudyDays>>;
+    weeklyHours: string;
+    setWeeklyHours: (value: string) => void;
+}
+
+
+export default function WeeklyHours({
+    weeklyHours,
+    setWeeklyHours,
+    studyDays,
+    setStudyDays,
+}: Props) {
+    const daysOfWeek: { name: string; key: keyof StudyDays }[] = [
         { name: "Monday", key: "isMonday" },
         { name: "Tuesday", key: "isTuesday" },
         { name: "Wednesday", key: "isWednesday" },
@@ -13,10 +35,10 @@ export default function WeeklyHours({ weeklyHours, setWeeklyHours, studyDays, se
         { name: "Sunday", key: "isSunday" },
     ];
 
-    const handleDayToggle = (dayKey) => {
-        setStudyDays((prevDays) => ({
-            ...prevDays,
-            [dayKey]: !prevDays[dayKey],
+    const handleDayToggle = (dayKey: keyof StudyDays) => {
+        setStudyDays((prev) => ({
+            ...prev,
+            [dayKey]: !prev[dayKey],
         }));
     };
 
@@ -31,7 +53,9 @@ export default function WeeklyHours({ weeklyHours, setWeeklyHours, studyDays, se
                     type="number"
                     value={weeklyHours}
                     onChange={(e) =>
-                        setWeeklyHours(Math.min(105, isNaN(parseInt(e.target.value)) ? 0 : parseInt(e.target.value)))
+                        setWeeklyHours(
+                            Math.min(77, isNaN(parseInt(e.target.value)) ? 0 : parseInt(e.target.value)).toString()
+                        )
                     }
                     className="p-3 w-24 rounded-lg bg-gray-800/40 text-white placeholder-white/70 text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-text"
                     placeholder="0"

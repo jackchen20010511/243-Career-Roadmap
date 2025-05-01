@@ -4,17 +4,21 @@ import { useEffect, useState } from "react";
 import { fetchUserGoal, updateUserGoal, fetchLearnSkill, fetchScheduledTasks, updateLearnSkill, updateScheduledTasks } from "@/utils/api";
 import WarningModal from "@/components/ui/warning";
 
-const weekdays = [
-    "isMonday",
-    "isTuesday",
-    "isWednesday",
-    "isThursday",
-    "isFriday",
-    "isSaturday",
-    "isSunday",
+const weekdays: WeekdayKey[] = [
+    "isMonday", "isTuesday", "isWednesday", "isThursday",
+    "isFriday", "isSaturday", "isSunday"
 ];
 
-const weekdayLabels = {
+type WeekdayKey =
+    | "isMonday"
+    | "isTuesday"
+    | "isWednesday"
+    | "isThursday"
+    | "isFriday"
+    | "isSaturday"
+    | "isSunday";
+
+const weekdayLabels: Record<WeekdayKey, string> = {
     isMonday: "M",
     isTuesday: "T",
     isWednesday: "W",
@@ -24,9 +28,25 @@ const weekdayLabels = {
     isSunday: "S",
 };
 
+interface Goal {
+    target_position: string;
+    industry: string;
+    exp_level: string;
+    weekly_hours: number;
+    duration_weeks: number;
+    responsibility?: string | null;
+    isMonday: boolean;
+    isTuesday: boolean;
+    isWednesday: boolean;
+    isThursday: boolean;
+    isFriday: boolean;
+    isSaturday: boolean;
+    isSunday: boolean;
+}
+
 export default function GoalDetails() {
-    const [goal, setGoal] = useState(null);
-    const [editedGoal, setEditedGoal] = useState(null);
+    const [goal, setGoal] = useState<Goal | null>(null);
+    const [editedGoal, setEditedGoal] = useState<Goal | null>(null);
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -34,7 +54,6 @@ export default function GoalDetails() {
     const [warningMessage, setWarningMessage] = useState("");
     const [hasSkills, setHasSkills] = useState(false);
     const [hasSchedule, setHasSchedule] = useState(false);
-    const [pendingSave, setPendingSave] = useState(false);
 
     useEffect(() => {
         const userId = localStorage.getItem("user_id");
@@ -54,15 +73,15 @@ export default function GoalDetails() {
 
     const handleChange = (field: string, value: any) => {
         setEditedGoal((prev) => ({
-            ...prev,
+            ...prev!,
             [field]: value,
         }));
     };
 
-    const toggleDay = (day: string) => {
+    const toggleDay = (day: WeekdayKey) => {
         setEditedGoal((prev) => ({
-            ...prev,
-            [day]: !prev[day],
+            ...prev!,
+            [day]: !prev![day],
         }));
     };
 
@@ -81,7 +100,6 @@ export default function GoalDetails() {
             console.error("Failed to save goal:", error);
         } finally {
             setShowWarning(false);
-            setPendingSave(false);
         }
     };
 
@@ -95,7 +113,6 @@ export default function GoalDetails() {
                     : "You've already generated a schedule. Modifying goal will delete your current schedule and learning progress. Do you want to continue?";
             setWarningMessage(msg);
             setShowWarning(true);
-            setPendingSave(true);
         } else {
             confirmAndSave(); // No need for warning
         }

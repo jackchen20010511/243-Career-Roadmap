@@ -1,7 +1,32 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { API_BASE_URL } from "@/utils/api";
+interface StepNavigationProps {
+    step: number;
+    handlePrevStep: () => void;
+    handleNextStep: () => void;
+    handleConfirmSetup: () => void;
+    jobTitle: string;
+    industry: string;
+    exp_level: string;
+    duration: string;
+    durationUnit: string;
+    weeklyHours: string;
+    studyDays: {
+        isMonday: boolean;
+        isTuesday: boolean;
+        isWednesday: boolean;
+        isThursday: boolean;
+        isFriday: boolean;
+        isSaturday: boolean;
+        isSunday: boolean;
+    };
+    resumeFile: File | null;
+    setResumeFile: (file: File | null) => void;
+    notReadyChecked: boolean;
+    setNotReadyChecked: (checked: boolean) => void;
+}
+
 
 export default function StepNavigation({
     step,
@@ -18,11 +43,13 @@ export default function StepNavigation({
     resumeFile,
     setResumeFile,
     notReadyChecked,
-    setNotReadyChecked
-}) {
-    const handleFileUpload = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
+    setNotReadyChecked,
+}: StepNavigationProps) {
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (!files || files.length === 0) return;
+
+        const file = files[0];
         setResumeFile(file);
         setNotReadyChecked(false);
     };

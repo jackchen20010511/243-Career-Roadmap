@@ -26,7 +26,7 @@ export default function LearnSkill({ userId, step }: { userId: number; step: num
             const fetchData = async () => {
                 try {
                     const skillData = await fetchLearnSkill(userId);
-                    const cloned = skillData.map(s => ({ ...s }));
+                    const cloned = skillData.map((s: LearnSkill) => ({ ...s }));
                     setSkills(cloned);
                     setOriginalSkills(cloned);
 

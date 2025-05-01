@@ -1,5 +1,16 @@
 "use client";
 
+interface CareerGoalProps {
+    jobTitle: string;
+    setJobTitle: (title: string) => void;
+    industry: string;
+    setIndustry: (industry: string) => void;
+    exp_level: string;
+    setExpLevel: (level: string) => void;
+    responsibility: string;
+    setResponsibility: (value: string) => void;
+}
+
 export default function CareerGoal({
     jobTitle,
     setJobTitle,
@@ -9,7 +20,8 @@ export default function CareerGoal({
     setExpLevel,
     responsibility,
     setResponsibility,
-}) {
+}: CareerGoalProps) {
+
     return (
         <>
             <h2 className="mb-8 animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-gray-200),var(--color-indigo-200),var(--color-gray-50),var(--color-indigo-300),var(--color-gray-200))] bg-[length:200%_auto] bg-clip-text pb-4 font-nacelle text-3xl font-semibold text-transparent md:text-4xl">

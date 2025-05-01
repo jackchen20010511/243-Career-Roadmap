@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { fetchScheduledTasks } from "@/utils/api";
-import { ScheduledTask } from "@/components/stepTracker/stepSchedule";
+import { ScheduledTask } from "@/components/stepTracker/step-schedule";
 
 export default function ModuleProgressPanel({ userId }: { userId: number }) {
     const [tasks, setTasks] = useState<ScheduledTask[] | null>(null);
@@ -26,7 +26,11 @@ export default function ModuleProgressPanel({ userId }: { userId: number }) {
 
     if (loading) return <div className="text-white">Loading module progress...</div>;
     if (error) return <div className="text-red-400">{error}</div>;
-    if (!tasks || tasks.length === 0) return <div className="text-yellow-300">Schedule not generated yet.</div>;
+    if (!tasks || tasks.length === 0) return (
+        <div className="w-full h-[82.9vh] p-6 bg-white/20 backdrop-blur-md border border-gray-400 rounded-xl text-indigo-200 flex flex-col items-center justify-center space-y-4">
+            <h2 className="text-2xl font-semibold">No modules generateded yet.</h2>
+        </div>
+    );
 
     const modules = Array.from(new Set(tasks.map(t => t.module)));
     const grouped: { [module: number]: ScheduledTask[] } = {};

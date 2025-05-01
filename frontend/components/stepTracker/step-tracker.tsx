@@ -1,19 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import StepProgressBar from "@/components/stepTracker/stepProgressBar";
-import StepResume from "@/components/stepTracker/stepResume";
-import StepSkill from "@/components/stepTracker/stepSkill";
-import StepSchedule, { ScheduledTask } from "@/components/stepTracker/stepSchedule";
+import StepProgressBar from "@/components/stepTracker/step-progress-bar";
+import StepResume from "@/components/stepTracker/step-resume";
+import StepSkill from "@/components/stepTracker/step-skill";
+import StepSchedule, { ScheduledTask } from "@/components/stepTracker/step-schedule";
 import {
     fetchUserGoal,
     fetchLearnSkill,
     fetchScheduledTasks,
     fetchResumeUrl,
 } from "@/utils/api";
-import CalendarPanel from "../schedule/calendarPanel";
-import ScheduleGrid from "../schedule/scheduleGrid";
-import MiniModulePanel from "../schedule/miniModulePanel";
+import CalendarPanel from "../schedule/calendar-panel";
+import ScheduleGrid from "../schedule/schedule-grid";
+import MiniModulePanel from "../schedule/mini-module-panel";
 
 
 export default function StepTracker({

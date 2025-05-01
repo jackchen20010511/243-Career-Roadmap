@@ -12,7 +12,7 @@ import { API_BASE_URL } from "@/utils/api";
 export default function StepResume({ userId, onChange }: { userId: number; onChange: () => void }) {
     const [resumeUrl, setResumeUrl] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
-    const [resumeFile, setResumeFile] = useState(null);
+    const [resumeFile, setResumeFile] = useState<File | null>(null);
     const [isNextDisabled, setIsNextDisabled] = useState(true);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
@@ -23,8 +23,8 @@ export default function StepResume({ userId, onChange }: { userId: number; onCha
             .finally(() => setLoading(false));
     }, [userId]);
 
-    const handleFileUpload = async (e) => {
-        const file = e.target.files[0];
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
         if (!file) return;
         setResumeFile(file);
         setIsNextDisabled(false);
@@ -79,8 +79,8 @@ export default function StepResume({ userId, onChange }: { userId: number; onCha
                 <button
                     onClick={handleConfirmUpload}
                     className={`px-4 py-2 rounded-lg text-white font-medium transition ${isNextDisabled
-                            ? "bg-gray-500 cursor-not-allowed"
-                            : "bg-indigo-500 hover:bg-indigo-600 cursor-pointer"
+                        ? "bg-gray-500 cursor-not-allowed"
+                        : "bg-indigo-500 hover:bg-indigo-600 cursor-pointer"
                         }`}
                     disabled={isNextDisabled}
                 >
@@ -112,8 +112,8 @@ export default function StepResume({ userId, onChange }: { userId: number; onCha
                             <button
                                 onClick={handleConfirmUpload}
                                 className={`px-4 py-2 rounded-lg font-semibold transition ${isNextDisabled
-                                        ? "bg-gray-500 cursor-not-allowed"
-                                        : "bg-indigo-500 hover:bg-indigo-600 text-white cursor-pointer"
+                                    ? "bg-gray-500 cursor-not-allowed"
+                                    : "bg-indigo-500 hover:bg-indigo-600 text-white cursor-pointer"
                                     }`}
                                 disabled={isNextDisabled}
                             >

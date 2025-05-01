@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { fetchResumeUrl, fetchUserGoal, updateUserGoal, saveResumeFile } from "@/utils/api";
-import { useRouter } from "next/navigation";
 
 interface ResumePreviewProps {
     userId?: number;
@@ -11,7 +10,7 @@ interface ResumePreviewProps {
 export default function ResumePreview({ userId }: ResumePreviewProps) {
     const [resumeUrl, setResumeUrl] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
-    const [resumeFile, setResumeFile] = useState(null);
+    const [resumeFile, setResumeFile] = useState<File | null>(null);
     const [isNextDisabled, setIsNextDisabled] = useState(true);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
@@ -25,8 +24,8 @@ export default function ResumePreview({ userId }: ResumePreviewProps) {
             .finally(() => setLoading(false));
     }, [userId]);
 
-    const handleFileUpload = async (e) => {
-        const file = e.target.files[0];
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
         if (!file) return;
         setResumeFile(file);
         setIsNextDisabled(false);

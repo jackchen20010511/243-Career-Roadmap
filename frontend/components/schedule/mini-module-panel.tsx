@@ -1,6 +1,6 @@
 "use client";
 
-import { ScheduledTask } from "@/components/stepTracker/stepSchedule";
+import { ScheduledTask } from "@/components/stepTracker/step-schedule";
 
 export default function MiniModulePanel({
     tasks,

@@ -2,11 +2,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import StepResume from "@/components/stepTracker/stepResume";
-import StepSkill from "@/components/stepTracker/stepSkill";
+import StepResume from "@/components/stepTracker/step-resume";
+import StepSkill from "@/components/stepTracker/step-skill";
 import { fetchUserGoal, fetchLearnSkill, fetchResumeUrl } from "@/utils/api";
-import MiniStepProgressBar from "./miniStepProgressBar";
-import LearnSkill from "../skill/learnSkill";
+import MiniStepProgressBar from "./mini-step-progress-bar";
+import LearnSkill from "../skill/learn-skill";
 
 export default function MiniStepTracker({ userId }: { userId: number }) {
     const [step, setStep] = useState(1);
@@ -59,7 +59,7 @@ export default function MiniStepTracker({ userId }: { userId: number }) {
                 {step > 1 ? (
                     <button
                         onClick={handleBack}
-                        className="mt-5 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg cursor-pointer"
+                        className="mt-7 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg cursor-pointer"
                     >
                         &lt;
                     </button>
@@ -75,16 +75,14 @@ export default function MiniStepTracker({ userId }: { userId: number }) {
                 {/* Next Button */}
                 <button
                     onClick={handleNext}
-                    className={`mt-5 px-4 py-2 font-bold rounded-lg ${(step === 1 && !hasResume) ||
-                        (step === 2 && !hasSkills) ||
-                        (step === 3 && !hasTasks)
+                    className={`mt-7 px-4 py-2 font-bold rounded-lg ${(step === 1 && !hasResume) ||
+                        (step === 2 && !hasSkills)
                         ? "bg-gray-500 text-white cursor-not-allowed"
                         : "bg-indigo-600 hover:bg-indigo-500 text-white cursor-pointer"
                         }`}
                     disabled={
                         (step === 1 && !hasResume) ||
-                        (step === 2 && !hasSkills) ||
-                        (step === 3 && !hasTasks)
+                        (step === 2 && !hasSkills)
                     }
                 >
                     &gt;

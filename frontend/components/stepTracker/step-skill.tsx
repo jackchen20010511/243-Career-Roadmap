@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { fetchLearnSkill, generateLearnSkill, updateLearnSkill } from "@/utils/api";
-import LearnSkill from "../skill/learnSkill";
+import LearnSkill from "../skill/learn-skill";
 
 interface LearnSkill {
     skill_name: string;
@@ -21,7 +21,7 @@ export default function StepSkill({ userId, onChange }: { userId: number; onChan
     useEffect(() => {
         fetchLearnSkill(userId)
             .then((data) => {
-                const cloned = data.map((skill) => ({ ...skill }));
+                const cloned = data.map((skill: LearnSkill) => ({ ...skill }));
                 setSkills(cloned);
                 setOriginalSkills(cloned); // clean backup
             })
