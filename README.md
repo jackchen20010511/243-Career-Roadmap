@@ -1,4 +1,4 @@
-# 243-Career-Roadmap
+# Career-Craft
 
 ## Our project builds a personalized career learning roadmap system that helps users transition into their dream job. Users begin by uploading their resume and selecting a target job title. The system analyzes their current skill set, identifies skill gaps using job-specific knowledge graphs, and recommends targeted skills with focus and confidence scores. Based on this, we curate learning modules with relevant online resources and generate a weekly schedule tailored to the user's availability. The platform supports continuous progress tracking and dynamic updates as the user advances. Ultimately, we aim to bridge the gap between career aspirations and actionable learning paths through intelligent planning and personalized guidance.
 
