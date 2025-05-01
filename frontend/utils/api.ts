@@ -268,3 +268,15 @@ export async function fetchMapData(
     }
     return res.json();
 }
+
+export async function updateScheduledTaskStatus(taskId: number, status: string): Promise<void> {
+    const res = await fetch(`${API_BASE_URL}/scheduled-tasks/${taskId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+    });
+
+    if (!res.ok) {
+        throw new Error(`Failed to update status for task ${taskId}`);
+    }
+}

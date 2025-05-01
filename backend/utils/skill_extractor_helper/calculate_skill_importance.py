@@ -7,7 +7,6 @@ import argparse
 from .job_domain_classifier import JobTitleClassifier
 from sentence_transformers import SentenceTransformer
 
-
 def load_all_skill_graphs():
 
     domain_graph_mapping = {
@@ -30,7 +29,7 @@ def load_all_skill_graphs():
             with open(f"data/skill_graph/{graph}", "r") as f:
                 skill_graphs[domain_name] = json.load(f)
         except FileNotFoundError:
-            print(f"Warning: Skill graph for domain {graph} ({domain_name}) not found")
+            print(f"Warning: Skill graph for domain {domain_name} not found")
     return skill_graphs
 
 def extract_skills_from_text(text):
@@ -49,12 +48,13 @@ def extract_skills_from_text(text):
                 skill_name = skill_line.replace("(nice-to-have)", "").strip()
             else:
                 is_required = True
-                skill_name = skill_line
             
             if "(association)" in skill_line:
                 skill_name = skill_line.replace("(association)", "").strip()
-            if "(prerequisite)" in skill_line:
+            elif "(prerequisite)" in skill_line:
                 skill_name = skill_line.replace("(prerequisite)", "").strip()
+            else:
+                skill_name = skill_line
             
             # Get application and type
             application = ""
@@ -110,13 +110,14 @@ def get_skill_metrics(skill_name, skill_graph):
                 all_skill_names.append(skill_graph_name)
                 name_to_skill[skill_graph_name] = skill
         
-        matches = get_close_matches(skill_name_lower, all_skill_names, n=1, cutoff=0.7)
+        matches = get_close_matches(skill_name_lower, all_skill_names, n=1, cutoff=0.75)
         
         if matches:
             match = matches[0]
             skill_data = name_to_skill[match]
             frequency = skill_data.get("frequency", 0)
             skill_type = skill_data.get("type", "")
+            print("Fuzzy: ", skill_data)
     
     # Handle multi-part skills
     if not skill_data and ('/' in skill_name_lower or '-' in skill_name_lower or '&' in skill_name_lower):
@@ -138,6 +139,7 @@ def get_skill_metrics(skill_name, skill_graph):
             skill_data = max(matched_skills, key=lambda s: s.get("frequency", 0))
             frequency = skill_data.get("frequency", 0)
             skill_type = skill_data.get("type", "")
+            print("Multi: ", skill_data)
     
     # Special case handling
     if not skill_data:
@@ -272,9 +274,27 @@ def calculate_importance_score(skill, skill_graph, seniority_level):
         base_score *= years_factor
     
     normalized_score = min(round(base_score * 4, 1), 100)
-    return normalized_score
+
+    if metrics["skill_data"]:
+        skill_name = metrics["skill_data"]["name"]
+    else:
+        skill_name = None
+
+    return skill_name, normalized_score
+
+def remove_duplicates_by_score(skills: list[tuple[str, float]]) -> list[tuple[str, float]]:
+    skill_map = {}
+
+    for skill, score in skills:
+        key = skill.strip().lower()
+        if key not in skill_map or score > skill_map[key][1]:
+            skill_map[key] = (skill, score)
+
+    return list(skill_map.values())
 
 def calculate_skill_importance(skill_text, job_title, seniority_level):
+
+    skill_graphs = load_all_skill_graphs()
 
     logging.getLogger('sentence_transformers').setLevel(logging.WARNING)
     model = SentenceTransformer('all-mpnet-base-v2')
@@ -309,15 +329,14 @@ def calculate_skill_importance(skill_text, job_title, seniority_level):
     domain = results["domain"]
     
     skills = extract_skills_from_text(skill_text)
-    skill_graphs = load_all_skill_graphs()
     skill_graph = skill_graphs[domain]
 
     skill_scores = []
     for skill in skills:
-        score = calculate_importance_score(skill, skill_graph, seniority_level)
-        skill_scores.append((skill["name"], score))
+        skill_name, score = calculate_importance_score(skill, skill_graph, seniority_level)
+        if skill_name:
+            skill_scores.append((skill_name, score))
     
     skill_scores.sort(key=lambda x: x[1], reverse=True)
     
-    return {"skill_scores":skill_scores, "domain": results["domain"]}
-
+    return remove_duplicates_by_score(skill_scores)

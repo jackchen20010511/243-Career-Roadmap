@@ -26,6 +26,7 @@ class TaskRequest(BaseModel):
     status: str
 
 class TaskResponse(BaseModel):
+    id: int                     # ✅ Include the primary key!
     user_id: int
     module: int
     skill: str
@@ -72,3 +73,23 @@ def update_scheduled_tasks(user_id: int, request: List[TaskRequest], db: Session
         "user_id": user_id,
         "tasks_added": len(new_tasks)
     }
+
+
+class TaskStatusUpdate(BaseModel):
+    status: str
+
+@router.patch("/{task_id}")
+def update_task_status(
+    task_id: int,
+    update: TaskStatusUpdate,
+    db: Session = Depends(get_db)
+):
+    task = db.query(Scheduled_Tasks).filter(Scheduled_Tasks.id == task_id).first()
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+
+    task.status = update.status
+    db.commit()
+
+    clear_task_cache(task.user_id)
+    return {"message": "Status updated", "task_id": task_id, "new_status": update.status}

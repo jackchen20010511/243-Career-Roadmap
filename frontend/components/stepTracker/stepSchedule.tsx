@@ -111,38 +111,38 @@ export default function StepSchedule({
                 </div>
             ) : (
                 <>
-                    {previewReady && (
+                    {previewReady && tasks.length > 0 && (
                         <div className="mt-6 w-full px-4 lg:px-8">
                             <h2 className="ml-2 mb-5 text-3xl font-bold text-indigo-200">Module Overview</h2>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full">
-                                {generatedModules.map((mod) => {
-                                    const modTasks = tasks.filter((t) => t.module === mod.module);
+                                {Array.from(new Set(tasks.map((t) => t.module))).map((mod) => {
+                                    const modTasks = tasks.filter((t) => t.module === mod);
+                                    const skills = Array.from(new Set(modTasks.map((t) => t.skill)));
+
                                     return (
                                         <div
-                                            key={mod.module}
+                                            key={mod}
                                             className="relative h-[340px] flex flex-col p-6 bg-indigo-100/50 backdrop-blur-sm rounded-lg shadow-lg transition-transform duration-300 ease-in-out 
-                                                        hover:scale-105 
-                                                        hover:shadow-2xl
-                                                        cursor-pointer"
+                                       hover:scale-105 
+                                       hover:shadow-2xl
+                                       cursor-pointer"
                                         >
-                                            {/* 1) Big module number, top-right */}
+                                            {/* Module number */}
                                             <span className="absolute -top-4 right-3 text-[120px] font-extrabold text-indigo-600 opacity-50 pointer-events-none">
-                                                {mod.module}
+                                                {mod}
                                             </span>
 
-                                            {/* 2) Skill blocks: flex-1 so they share vertical space equally */}
+                                            {/* Skill blocks */}
                                             <div className="flex-1 flex flex-col gap-2 mr-5">
-                                                {mod.skills.map((skill) => {
+                                                {skills.map((skill) => {
                                                     const count = modTasks.filter((t) => t.skill === skill).length;
                                                     return (
                                                         <div
                                                             key={skill}
                                                             className="flex-1 bg-white/70 p-1 rounded-md shadow-sm flex flex-col justify-center"
                                                         >
-                                                            {/* skill name top */}
                                                             <span className="pl-3 font-semibold text-2xl text-gray-900 capitalize">{skill}</span>
-                                                            {/* course count below */}
                                                             <span className="pl-3 text-sm text-gray-800">
                                                                 {count} course{count !== 1 && "s"}
                                                             </span>
@@ -151,10 +151,10 @@ export default function StepSchedule({
                                                 })}
                                             </div>
 
-                                            {/* 3) Footer */}
+                                            {/* Footer */}
                                             <div className="ml-3 mt-2 text-sm text-gray-700">
                                                 <span className="font-medium">Total:</span>{" "}
-                                                {mod.duration.reduce((a, b) => a + b, 0).toFixed(1)} hrs
+                                                {modTasks.length} task{modTasks.length !== 1 && "s"}
                                             </div>
                                         </div>
                                     );
@@ -162,9 +162,8 @@ export default function StepSchedule({
                             </div>
                         </div>
                     )}
-
-
                 </>
+
 
 
             )}

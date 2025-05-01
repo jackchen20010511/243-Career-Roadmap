@@ -353,7 +353,9 @@ def schedule_all_modules(final_modules, start_date, weekly_hours, learning_days,
     all_sessions = []
     current_date = start_date
 
+    offset = 0
     for module in final_modules:
+        module["module"] = module["module"] - offset
         module_sessions = schedule_module(
             module=module,
             start_date=current_date,
@@ -368,5 +370,7 @@ def schedule_all_modules(final_modules, start_date, weekly_hours, learning_days,
             last_date_str = module_sessions[-1]['date']
             last_date = datetime.strptime(last_date_str, "%Y-%m-%d")
             current_date = last_date + timedelta(days=1)
+        else:
+            offset += 1
 
     return all_sessions

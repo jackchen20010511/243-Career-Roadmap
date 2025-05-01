@@ -12,7 +12,7 @@ import os
 # Helpers
 from utils.skill_extractor_helper.calculate_skill_importance import calculate_skill_importance
 from utils.skill_extractor_helper.goal_skill_extractor import extractGoalSkills
-from utils.skill_extractor_helper.resume_analyzer import analyze_resume_file
+from utils.skill_extractor_helper.resume_skill_extractor import analyze_resume_file
 
 router = APIRouter(tags=["Generate Skills"])
 
@@ -21,6 +21,7 @@ router = APIRouter(tags=["Generate Skills"])
 load_dotenv()
 
 SPACE_URL = os.getenv("SPACE_URL")
+GEMINI_KEY = os.getenv("GEMINI_API_KEY")
 
 MODEL_DIR = "utils/skill_extractor_helper/Nous-Hermes-2-Mistral-7B-DPO.Q4_K_M.gguf"
 
@@ -73,8 +74,6 @@ def calculateFocus(job_skill_scores, resume_skill_scores):
     return gaps
 
 
-
-
 @router.post("/")
 def generate_skills(req: GenerateSkillsRequest, db: Session = Depends(get_db)):
     try:
@@ -89,12 +88,11 @@ def generate_skills(req: GenerateSkillsRequest, db: Session = Depends(get_db)):
 
         print("------------------------------job skill extract begin------------------")
         start_time = time.time()
+        print(f"target_position: {target_position}\n seniority_level: {seniority_level}\n industry(as part of responsibility): {industry}\n responsibility: {responsibility}")
         job_skills = extractGoalSkills(SPACE_URL, target_position, seniority_level, industry, responsibility)
-
-        result = calculate_skill_importance(job_skills, target_position, seniority_level)
-        job_skill_scores = result["skill_scores"]
-        domain = result["domain"]
-        print(job_skill_scores)
+        # print(f"llm output: {job_skills}")
+        job_skill_scores = calculate_skill_importance(job_skills, target_position, seniority_level)
+        print(f"job skill scores: {job_skill_scores}")
         
         end_time = time.time()
         print(f"Execution time: {end_time - start_time:.4f} seconds")
@@ -115,15 +113,25 @@ def generate_skills(req: GenerateSkillsRequest, db: Session = Depends(get_db)):
             print("------------------------------resume skill extract begin---------------------------")
             start_time = time.time()
 
-            resume_skill_scores = analyze_resume_file(resume_path, file_type, job_skill_list, MODEL_DIR)
+            resume_output = analyze_resume_file(resume_path, file_type, job_skill_list, GEMINI_KEY)
             
             end_time = time.time()
-            print(resume_skill_scores)
             print(f"Execution time: {end_time - start_time:.4f} seconds")
             print("------------------------------resume skill extract finished---------------------------")
         else:
             raise FileNotFoundError(f"Resume file not found for user: {req.user_id}")
         
+        resume_skill_scores = []
+        for (skill_name, importance) in job_skill_scores:
+            found = False
+            for (name, confidence) in resume_output:
+                if skill_name == name:
+                    resume_skill_scores.append((skill_name, confidence))
+                    found = True
+                    break
+            if not found:
+                resume_skill_scores.append((skill_name, 0))
+        print(resume_skill_scores,"---------------------")
         normalized_skills = calculateFocus(job_skill_scores, resume_skill_scores)
 
         db.query(Learn_Skill).filter(Learn_Skill.user_id == req.user_id).delete()

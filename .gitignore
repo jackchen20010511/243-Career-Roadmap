@@ -28,3 +28,4 @@ frontend/.env.local
 # Ignore learning schedule output
 backend/others/
 backend/utils/skill_extractor_helper/Nous-Hermes-2-Mistral-7B-DPO.Q4_K_M.gguf
+backend/data/job_map.csv

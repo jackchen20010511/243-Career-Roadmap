@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchUserGoal, updateUserGoal } from "@/utils/api";
+import { fetchUserGoal, updateUserGoal, fetchLearnSkill, fetchScheduledTasks, updateLearnSkill, updateScheduledTasks } from "@/utils/api";
+import WarningModal from "@/components/ui/warning";
 
 const weekdays = [
     "isMonday",
@@ -29,6 +30,12 @@ export default function GoalDetails() {
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(true);
 
+    const [showWarning, setShowWarning] = useState(false);
+    const [warningMessage, setWarningMessage] = useState("");
+    const [hasSkills, setHasSkills] = useState(false);
+    const [hasSchedule, setHasSchedule] = useState(false);
+    const [pendingSave, setPendingSave] = useState(false);
+
     useEffect(() => {
         const userId = localStorage.getItem("user_id");
         if (userId) {
@@ -39,6 +46,9 @@ export default function GoalDetails() {
                 })
                 .catch((err) => console.error("Failed to fetch goal:", err))
                 .finally(() => setLoading(false));
+
+            fetchLearnSkill(Number(userId)).then(skills => setHasSkills(skills.length > 0));
+            fetchScheduledTasks(Number(userId)).then(tasks => setHasSchedule(tasks.length > 0));
         }
     }, []);
 
@@ -56,14 +66,38 @@ export default function GoalDetails() {
         }));
     };
 
-    const handleSave = async () => {
-        const userId = localStorage.getItem("user_id");
+    const confirmAndSave = async () => {
+        const userId = Number(localStorage.getItem("user_id"));
         try {
-            await updateUserGoal(Number(userId), editedGoal);
+            await updateUserGoal(userId, editedGoal);
+
+            // Clear skills and/or schedule after goal change
+            if (hasSkills) await updateLearnSkill(userId, []);
+            if (hasSchedule) await updateScheduledTasks(userId, []);
+
             setGoal(editedGoal);
             setIsEditing(false);
         } catch (error) {
             console.error("Failed to save goal:", error);
+        } finally {
+            setShowWarning(false);
+            setPendingSave(false);
+        }
+    };
+
+
+    const handleSave = () => {
+        if (hasSkills || hasSchedule) {
+            const msg = hasSkills && hasSchedule
+                ? "You've already generated skills and a schedule. Modifying goal will delete your current skills, schedule and learning progress. Do you want to continue?"
+                : hasSkills
+                    ? "You've already generated skills. Modifying goal will delete your current skills. Do you want to continue?"
+                    : "You've already generated a schedule. Modifying goal will delete your current schedule and learning progress. Do you want to continue?";
+            setWarningMessage(msg);
+            setShowWarning(true);
+            setPendingSave(true);
+        } else {
+            confirmAndSave(); // No need for warning
         }
     };
 
@@ -186,10 +220,17 @@ export default function GoalDetails() {
                     value={editedGoal.responsibility ?? ""}
                     onChange={(e) => handleChange("responsibility", e.target.value)}
                     readOnly={!isEditing}
-                    className={`-mb-7 mt-2 p-4 w-full h-54 rounded-lg text-lg placeholder-white text-white ${isEditing ? "bg-white/40 cursor-text" : "bg-white/20 cursor-default"} border border-gray-600 resize-none`}
+                    className={`-mb-7 mt-2 p-4 w-full h-68 rounded-lg text-lg placeholder-white text-white ${isEditing ? "bg-white/40 cursor-text" : "bg-white/20 cursor-default"} border border-gray-600 resize-none`}
                     placeholder="Empty"
                 />
             </div>
+            <WarningModal
+                isOpen={showWarning}
+                onCancel={() => setShowWarning(false)}
+                onConfirm={confirmAndSave}
+                message={warningMessage}
+            />
         </div>
+
     );
 }

@@ -3,7 +3,6 @@
 
 import { useEffect, useState } from "react";
 import { fetchLearnSkill, generateLearnSkill, updateLearnSkill } from "@/utils/api";
-import FlowButton from "../ui/flowButton";
 import LearnSkill from "../skill/learnSkill";
 
 interface LearnSkill {
@@ -16,9 +15,7 @@ export default function StepSkill({ userId, onChange }: { userId: number; onChan
     const [skills, setSkills] = useState<LearnSkill[]>([]);
     const [loading, setLoading] = useState(true);
     const [generating, setGenerating] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
     const [originalSkills, setOriginalSkills] = useState<LearnSkill[]>([]);
-    const [editValues, setEditValues] = useState<Record<number, { focus: string; confidence: string }>>({});
 
 
     useEffect(() => {
@@ -46,71 +43,6 @@ export default function StepSkill({ userId, onChange }: { userId: number; onChan
         }
     };
 
-    const handleEdit = () => {
-        const initialValues = skills.reduce((acc, skill, index) => {
-            acc[index] = {
-                focus: skill.focus_score.toFixed(2),
-                confidence: skill.confidence_score.toFixed(2),
-            };
-            return acc;
-        }, {} as Record<number, { focus: string; confidence: string }>);
-
-        setEditValues(initialValues);
-        setIsEditing(true);
-    };
-
-    const handleCancel = () => {
-        const reset = originalSkills.map((skill) => ({ ...skill }));
-        setSkills(reset);
-        setIsEditing(false);
-    };
-
-    const normalizeFocusScores = (skills: LearnSkill[]): LearnSkill[] => {
-        const totalFocus = skills.reduce((sum, skill) => sum + (isNaN(skill.focus_score) ? 0 : skill.focus_score), 0);
-        const maxConfidence = Math.max(...skills.map(skill => isNaN(skill.confidence_score) ? 0 : skill.confidence_score), 0);
-
-        return skills.map(skill => {
-            const focus = isNaN(skill.focus_score) ? 0 : skill.focus_score;
-            const confidence = isNaN(skill.confidence_score) ? 0 : skill.confidence_score;
-
-            return {
-                ...skill,
-                focus_score: totalFocus > 0 ? parseFloat((focus / totalFocus).toFixed(2)) : 0.0,
-                confidence_score: maxConfidence > 0 ? parseFloat((confidence / maxConfidence).toFixed(2)) : 0.0,
-            };
-        });
-    };
-
-    const handleSave = async () => {
-        try {
-            const updated = skills.map((skill, index) => {
-                const focus = parseFloat(editValues[index]?.focus || "0");
-                const confidence = parseFloat(editValues[index]?.confidence || "0");
-                return {
-                    ...skill,
-                    focus_score: isNaN(focus) ? 0 : focus,
-                    confidence_score: isNaN(confidence) ? 0 : confidence,
-                };
-            });
-
-            const normalized = normalizeFocusScores(updated);
-
-            await updateLearnSkill(userId, normalized);
-            setSkills(normalized.map(s => ({ ...s })));
-            setOriginalSkills(normalized.map(s => ({ ...s })));
-            setIsEditing(false);
-            setEditValues({});
-            if (onChange) onChange();
-        } catch (error) {
-            console.error("Error saving skills:", error);
-        }
-    };
-
-    const handleDelete = (index: number) => {
-        const updated = skills.filter((_, i) => i !== index);
-        setSkills(updated);
-    };
-
     if (loading) return <div className="text-center text-white">Loading skills...</div>;
 
     return (
@@ -122,7 +54,7 @@ export default function StepSkill({ userId, onChange }: { userId: number; onChan
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                     </svg>
                     <p className="text-2xl">Analyzing your resume skills in the job market...</p>
-                    <p className="text-lg text-indigo-300">This may take 2-3 minutes. Hang tight! ⏳</p>
+                    <p className="text-lg text-indigo-300">This may take 30-40 seconds. Hang tight! ⏳</p>
                 </div>
             ) : skills.length === 0 ? (
                 <div className="max-w-5xl px-6 mx-auto">

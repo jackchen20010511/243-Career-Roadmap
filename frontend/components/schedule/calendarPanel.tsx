@@ -15,7 +15,7 @@ export default function CalendarPanel({ selectedDate, setSelectedDate }: {
                 onClick={() =>
                     setCurrentMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1))
                 }
-                className="rounded-lg text-indigo-1000 bg-indigo-500/70 round hover:text-white text-2xl px-2 transition cursor-pointer"
+                className="rounded-lg text-indigo-1000 bg-indigo-600 round hover:text-white text-2xl px-2 transition cursor-pointer"
             >
                 &lt;
             </button>
@@ -26,7 +26,7 @@ export default function CalendarPanel({ selectedDate, setSelectedDate }: {
                 onClick={() =>
                     setCurrentMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1))
                 }
-                className="rounded-lg text-indigo-1000 bg-indigo-500/70 hover:text-white text-2xl px-2 transition cursor-pointer"
+                className="rounded-lg text-indigo-1000 bg-indigo-600 hover:text-white text-2xl px-2 transition cursor-pointer"
             >
                 &gt;
             </button>
@@ -36,7 +36,7 @@ export default function CalendarPanel({ selectedDate, setSelectedDate }: {
     const renderDays = () => {
         const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         return (
-            <div className="grid grid-cols-7 text-center text-lg text-indigo-200 mb-2">
+            <div className="grid grid-cols-7 font-bold text-center text-lg text-indigo-200 mb-2">
                 {days.map(day => (
                     <div key={day}>{day}</div>
                 ))}
@@ -68,7 +68,7 @@ export default function CalendarPanel({ selectedDate, setSelectedDate }: {
                         className={`p-2 text-lg text-center cursor-pointer rounded-full transition-all hover:bg-indigo-500/30
                             ${isCurrentMonth ? "text-white" : "text-gray-500"}
                             ${isSelected ? "bg-indigo-600 text-white" : ""}
-                            ${isToday && !isSelected ? "border border-indigo-400" : ""}
+                            ${isToday && !isSelected ? "bg-indigo-400/60" : ""}
                         `}
                         onClick={() => setSelectedDate(cloneDay)}
                     >

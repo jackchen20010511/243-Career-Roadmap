@@ -13,6 +13,8 @@ import {
 } from "@/utils/api";
 import CalendarPanel from "../schedule/calendarPanel";
 import ScheduleGrid from "../schedule/scheduleGrid";
+import MiniModulePanel from "../schedule/miniModulePanel";
+
 
 export default function StepTracker({
     userId,
@@ -66,15 +68,22 @@ export default function StepTracker({
 
     if (step === 4) {
         return (
-            <main className="flex flex-row w-full min-h-screen p-3 gap-6">
-                {/* Left: Calendar */}
-                <div className="pt-5 w-[25%]">
+            <main className="flex flex-row w-full min-h-screen p-5 gap-6">
+                {/* Left: Calendar + MiniModulePanel */}
+                <div className="pl-3 pt-5 w-[25%] space-y-6">
                     <CalendarPanel selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+                    <MiniModulePanel
+                        tasks={tasks}
+                        onSelectModule={(date) => setSelectedDate(date)}
+                    />
                 </div>
                 {/* Right: Schedule */}
                 <div className="w-[75%]">
-                    <ScheduleGrid selectedDate={selectedDate} tasks={tasks} />
-                </div>
+                    <ScheduleGrid
+                        selectedDate={selectedDate}
+                        tasks={tasks}
+                        setTasks={setTasks}
+                    />                </div>
             </main>
         );
     }

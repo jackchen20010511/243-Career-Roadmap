@@ -70,7 +70,7 @@ export default function SalaryMap() {
             <div className="flex flex-wrap gap-6 items-baseline justify-center mb-6">
                 {/* Group By */}
                 <div className="self-end">
-                    <div className="inline-flex mb-6 rounded-md bg-gray-700">
+                    <div className="inline-flex mb-[26px] rounded-md bg-gray-700">
                         {["CITY", "STATE"].map((m) => (
                             <button
                                 key={m}
@@ -91,14 +91,14 @@ export default function SalaryMap() {
 
                 {/* Salary Range */}
                 <div className="flex flex-col">
-                    <span className="block text-lg mb-2 text-indigo-200 font-medium">
+                    <span className="block mb-1 text-sm text-indigo-200 font-medium">
                         Annual Dollar Salary
                     </span>
                     <div className="flex items-center space-x-2">
                         <input
                             type="number"
                             min={0}
-                            max={200000}
+                            max={650000}
                             step={1000}
                             value={minSalary}
                             onChange={(e) => setMinSalary(Number(e.target.value))}
@@ -108,7 +108,7 @@ export default function SalaryMap() {
                         <input
                             type="number"
                             min={0}
-                            max={200000}
+                            max={650000}
                             step={1000}
                             value={maxSalary}
                             onChange={(e) => setMaxSalary(Number(e.target.value))}
@@ -119,7 +119,7 @@ export default function SalaryMap() {
 
                 {/* Job Title */}
                 <div className="flex-1 min-w-[200px]">
-                    <label className="block mb-2 text-lg text-indigo-200 font-medium">
+                    <label className="block mb-1 text-sm text-indigo-200 font-medium">
                         Search Job Title
                     </label>
                     <input
@@ -129,7 +129,7 @@ export default function SalaryMap() {
                         onChange={(e) => setQuery(e.target.value)}
                         className="w-full p-2 placeholder-white bg-white/40 text-white rounded"
                     />
-                    <p className="mt-1 text-xs text-indigo-200">
+                    <p className="mt-1 text-xs text-white">
                         Searching 5s after you stop typing…
                     </p>
                 </div>

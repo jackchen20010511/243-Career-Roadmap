@@ -2,132 +2,162 @@
 
 import React, { useEffect, useState } from "react";
 import { ScheduledTask } from "@/components/stepTracker/stepSchedule";
+import { updateScheduledTaskStatus } from "@/utils/api";
 
 export default function ScheduleGrid({
     selectedDate,
-    tasks
+    tasks,
+    setTasks
 }: {
     selectedDate: Date;
     tasks: ScheduledTask[];
+    setTasks: React.Dispatch<React.SetStateAction<ScheduledTask[]>>;
 }) {
     const [timeOffset, setTimeOffset] = useState<number | null>(null);
-    const hourHeight = 60; // px per hour
+    const hourHeight = 60;
 
-    useEffect(() => {
-        const updateTime = () => {
-            const now = new Date();
-            const hour = now.getHours();
-            const minute = now.getMinutes();
-
-            if (hour >= 8 && hour < 21) {
-                const minutesSinceStart = (hour - 8) * 60 + minute;
-                const offset = (minutesSinceStart / 60) * hourHeight;
-                setTimeOffset(offset);
-            } else {
-                setTimeOffset(null);
-            }
-        };
-
-        updateTime();
-        const interval = setInterval(updateTime, 60000);
-        return () => clearInterval(interval);
-    }, []);
-
-    function getTodayColumnIndex() {
-        const day = new Date().getDay();
-        return day === 0 ? 6 : day - 1;
+    function parseLocalDateOnly(dateStr: string): Date {
+        const [year, month, day] = dateStr.split("-").map(Number);
+        return new Date(year, month - 1, day);
     }
-
-    function isTodayInSameWeek(selectedDate: Date): boolean {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        const selected = new Date(selectedDate);
-        selected.setHours(0, 0, 0, 0);
-
-        const selectedDay = selected.getDay();
-        const weekStart = new Date(selected);
-        weekStart.setDate(selected.getDate() - (selectedDay === 0 ? 6 : selectedDay - 1));
-
-        const weekEnd = new Date(weekStart);
-        weekEnd.setDate(weekStart.getDate() + 6);
-
-        return today >= weekStart && today <= weekEnd;
-    }
-
     function getStartOfWeek(date: Date) {
-        const day = date.getDay();
+        const d = new Date(date);
+        const day = d.getDay();
         const offset = day === 0 ? -6 : 1 - day;
-        const start = new Date(date);
-        start.setDate(date.getDate() + offset);
-        start.setHours(0, 0, 0, 0);
-        return start;
+        d.setDate(d.getDate() + offset);
+        d.setHours(0, 0, 0, 0);
+        return d;
     }
-
     function getEndOfWeek(start: Date) {
         const end = new Date(start);
         end.setDate(start.getDate() + 7);
         end.setHours(0, 0, 0, 0);
         return end;
     }
-
-    function parseLocalDateOnly(dateStr: string): Date {
-        const [year, month, day] = dateStr.split("-").map(Number);
-        return new Date(year, month - 1, day);
+    function isTodayInSameWeek(selected: Date) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const weekStart = getStartOfWeek(selected);
+        const weekEnd = getEndOfWeek(weekStart);
+        return today >= weekStart && today < weekEnd;
+    }
+    function getTodayColumnIndex() {
+        const day = new Date().getDay();
+        return day === 0 ? 6 : day - 1;
     }
 
-    const filterTasksForWeek = (
-        tasks: ScheduledTask[] = [],    // default to empty array
-        selectedDate: Date
-    ): ScheduledTask[] => {
-        const weekStart = getStartOfWeek(selectedDate);
-        const weekEnd = getEndOfWeek(weekStart);
+    const weekStart = getStartOfWeek(selectedDate);
+    const weekDates = Array.from({ length: 7 }).map((_, i) => {
+        const d = new Date(weekStart);
+        d.setDate(weekStart.getDate() + i);
+        return d;
+    });
+    const weekdayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-        return tasks
-            .filter((task) => {
-                const taskDate = parseLocalDateOnly(task.date);
-                return taskDate >= weekStart && taskDate < weekEnd;
-            });
+    const weekTasks = tasks.filter((task) => {
+        const d = parseLocalDateOnly(task.date);
+        return d >= weekStart && d < getEndOfWeek(weekStart);
+    });
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    useEffect(() => {
+        const updateTime = () => {
+            const now = new Date();
+            const h = now.getHours(), m = now.getMinutes();
+            if (h >= 8 && h < 21) {
+                const mins = (h - 8) * 60 + m;
+                setTimeOffset((mins / 60) * hourHeight);
+            } else {
+                setTimeOffset(null);
+            }
+        };
+        updateTime();
+        const iv = setInterval(updateTime, 60000);
+        return () => clearInterval(iv);
+    }, []);
+
+    useEffect(() => {
+        const now = new Date();
+
+        const checkAndMarkSkipped = async () => {
+            for (const task of tasks) {
+                if (
+                    task.status === "pending" &&
+                    new Date(`${task.date}T${task.end}`) < now
+                ) {
+                    try {
+                        await updateScheduledTaskStatus(task.id, "skipped");
+                        setTasks((prev) =>
+                            prev.map((x) =>
+                                x.id === task.id ? { ...x, status: "skipped" } : x
+                            )
+                        );
+                    } catch (err) {
+                        console.error(`Error skipping task ${task.id}:`, err);
+                    }
+                }
+            }
+        };
+
+        checkAndMarkSkipped();
+        const interval = setInterval(checkAndMarkSkipped, 60000);
+        return () => clearInterval(interval);
+    }, [tasks, setTasks]);
+
+    const handleBlockClick = async (e: React.MouseEvent, task: ScheduledTask) => {
+        e.preventDefault();
+        if (task.status !== "completed") {
+            setTasks(prev =>
+                prev.map(t => t.id === task.id ? { ...t, status: "completed" } : t)
+            );
+            try {
+                await updateScheduledTaskStatus(task.id, "completed");
+            } catch (err) {
+                console.error("Failed to update task status:", err);
+            }
+        }
+        window.open(task.resource_url, "_blank");
     };
-
-    const weekTasks = filterTasksForWeek(tasks ?? [], selectedDate);
 
     return (
         <div className="flex w-full">
-            {/* Time Labels */}
-            <div className="flex flex-col items-end pr-2 w-[60px] text-sm text-gray-300 font-medium">
-                {Array.from({ length: 14 }, (_, i) => (
-                    <div key={i} className="h-[60px] flex items-start -mt-[0.3px] pt-[39px] pr-2">{8 + i}:00</div>
+            <div className="mt-18 flex flex-col items-end pr-2 w-[60px] text-sm text-gray-300 font-medium">
+                {Array.from({ length: 14 }).map((_, i) => (
+                    <div key={i} className="h-[60px] flex items-start pr-2">
+                        {8 + i}:00
+                    </div>
                 ))}
             </div>
 
-            {/* Grid Columns + Tasks */}
             <div className="flex-1">
+                <div className="grid grid-cols-7 text-center text-indigo-200 mb-1">
+                    {weekDates.map((d, i) => {
+                        const cellDate = new Date(d);
+                        cellDate.setHours(0, 0, 0, 0);
+                        const isToday = cellDate.getTime() === today.getTime();
 
-                {/* Headers */}
-                <div className="grid grid-cols-7 text-center text-indigo-200 text-lg font-semibold mb-1">
-                    {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day, i) => (
-                        <div key={i} className="py-2">{day}</div>
-                    ))}
+                        return (
+                            <div key={d.toISOString()} className="flex flex-col items-center pt-2">
+                                <div className={`text-2xl mb-1 font-bold ${isToday ? "text-indigo-600" : "text-indigo-200"}`}>{d.getDate()}</div>
+                                <div className={`text-lg mb-1 font-bold ${isToday ? "text-indigo-600" : "text-indigo-200"}`}>{weekdayNames[i]}</div>
+                            </div>
+                        );
+                    })}
                 </div>
 
-                {/* Grid + Overlay */}
                 <div className="relative h-[780px]">
-                    {/* Grid Base */}
                     <div className="absolute inset-0 grid grid-cols-7 z-10">
                         {Array.from({ length: 7 }).map((_, dayIdx) => (
                             <div key={dayIdx} className="flex flex-col">
                                 {Array.from({ length: 13 }).map((_, hourIdx) => (
-                                    <div
-                                        key={hourIdx}
-                                        className="h-[60px] border border-gray-400 bg-white/30"
-                                    />
+                                    <div key={`d${dayIdx}-h${hourIdx}`} className="h-[60px] border border-white bg-white/40" />
                                 ))}
                             </div>
                         ))}
                     </div>
 
-                    {/* Task Blocks */}
                     {weekTasks.map((task, idx) => {
                         const taskDate = parseLocalDateOnly(task.date);
                         const [sh, sm] = task.start.split(":").map(Number);
@@ -137,58 +167,46 @@ export default function ScheduleGrid({
                         const endMins = (eh - 8) * 60 + em;
                         const topPx = (startMins / 60) * hourHeight;
                         const heightPx = ((endMins - startMins) / 60) * hourHeight;
-                        const dayColIndex = (taskDate.getDay() + 6) % 7;
+                        const dayCol = (taskDate.getDay() + 6) % 7;
 
+                        const endDateTime = new Date(taskDate);
+                        endDateTime.setHours(eh, em, 0, 0);
+
+                        const now = new Date();
+                        const dotColor =
+                            task.status === "completed" ? "#10B981" :
+                                now > endDateTime ? "#EF4444" :
+                                    "#FBBF24";
                         return (
                             <a
                                 key={idx}
                                 href={task.resource_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="absolute w-[calc(100%/7)] px-1 z-30"
+                                className="absolute w-[calc(100%/7)] px-1 z-30 cursor-pointer"
                                 style={{
                                     top: `${topPx}px`,
-                                    left: `calc((100% / 7) * ${dayColIndex})`,
+                                    left: `calc((100%/7) * ${dayCol})`,
                                     height: `${heightPx}px`,
                                 }}
+                                onClick={e => handleBlockClick(e, task)}
                             >
-                                <div
-                                    className="h-full w-full rounded-md text-white text-xs p-1 shadow-lg overflow-hidden hover:opacity-90 transition-all duration-200 flex flex-col justify-end relative"
-                                >
-                                    {/* Background thumbnail at 60% opacity and top-center aligned */}
-                                    <div
-                                        className="absolute inset-0 bg-cover bg-no-repeat bg-top opacity-80"
-                                        style={{
-                                            backgroundImage: `url(${task.thumbnail_url})`,
-                                        }}
-                                    />
-
-                                    {/* Overlay content */}
-                                    <div className="relative z-10 bg-black/60 rounded p-1">
-                                        <div className="font-semibold truncate" title={task.resource_name}>
-                                            {task.resource_name}
-                                        </div>
-                                        <div className="text-[10px]">
-                                            {task.start.slice(0, 5)} - {task.end.slice(0, 5)}
-                                        </div>
+                                <div className="relative h-full w-full rounded-md overflow-hidden shadow-lg hover:opacity-90 transition-all duration-200">
+                                    <span className="absolute top-1 left-1 w-3 h-3 rounded-full z-50" style={{ backgroundColor: dotColor }} />
+                                    <div className="absolute inset-0 bg-cover bg-no-repeat bg-top" style={{ backgroundImage: `url(${task.thumbnail_url})` }} />
+                                    <div className="absolute top-0 right-0 w-[60%] bg-black/60 p-1 flex flex-col justify-between text-white">
+                                        <div className="font-semibold text-indigo-100 text-[11px] overflow-hidden" style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }} title={task.resource_name}>{task.resource_name}</div>
+                                        <div className="text-[11px] mt-1">{task.start.slice(0, 5)} – {task.end.slice(0, 5)}</div>
                                     </div>
                                 </div>
                             </a>
                         );
                     })}
-                    {/* Current Time Line */}
+
                     {timeOffset !== null && isTodayInSameWeek(selectedDate) && (
                         <div
-                            className="
-                                        absolute
-                                        w-[calc(100%/7)]
-                                        border-t-3 border-red-400
-                                        z-50
-                                        transition-all duration-300 ease-in-out
-                                        "
+                            className="absolute w-[calc(100%/7)] border-t-4 border-red-500 z-50 transition-all duration-300 ease-in-out"
                             style={{
                                 top: `${timeOffset}px`,
-                                left: `calc((100% / 7) * ${getTodayColumnIndex()})`
+                                left: `calc((100%/7) * ${getTodayColumnIndex()})`,
                             }}
                         />
                     )}

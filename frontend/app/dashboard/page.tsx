@@ -12,12 +12,14 @@ import { fetchUserGoal, saveResumeFile, updateUserGoal } from "@/utils/api"; // 
 import HeaderDashboard from "@/components/ui/headerDashboard";
 import SalaryMap from "@/components/dashboard/salaryMap";
 import dynamic from "next/dynamic";
+import ModuleProgressPanel from "@/components/dashboard/moduleProgress";
 
 export default function Dashboard() {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSetupComplete, setIsSetupComplete] = useState(false);
+  const [userId, setUserId] = useState(-1);
 
   // Setup Form States
   const [step, setStep] = useState(1);
@@ -44,6 +46,7 @@ export default function Dashboard() {
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     const userId = localStorage.getItem("user_id");
+    setUserId(Number(userId));
 
     if (!token || !userId) {
       router.push("/auth/signin");
@@ -186,15 +189,15 @@ export default function Dashboard() {
           <main className="mt-8 flex flex-row w-full min-h-screen p-3 gap-6">
             {/* Left: Resume */}
             <div className="w-[50%] flex justify-center">
-              <div className="w-[91%]">
+              <div className="w-[95%]">
                 <SalaryMap />
               </div>
             </div>
 
             {/* Right: Your career goal components go here */}
             <div className="w-[50%]">
-              <div className="w-[96%]">
-
+              <div className="w-[98%]">
+                <ModuleProgressPanel userId={userId} />
               </div>
             </div>
           </main>
