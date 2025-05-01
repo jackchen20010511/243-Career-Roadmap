@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Logo from "./logo";
-import UserMenu from "@/components/ui/userMenu";
+import UserMenu from "./userMenu";
 import { usePathname } from "next/navigation";
 import { fetchUserGoal } from "@/utils/api";
 
