@@ -9,7 +9,6 @@ import WeeklyHours from "@/components/dashboard/weekly-hours";
 import StepNavigation from "@/components/dashboard/step-navigation";
 import AuthProtected from "@/components/auth-protected";
 import { fetchUserGoal, saveResumeFile, updateUserGoal } from "@/utils/api"; // ✅ Use API utility
-import HeaderDashboard from "@/components/ui/headerDashboard";
 import SalaryMap from "@/components/dashboard/salaryMap";
 import dynamic from "next/dynamic";
 import ModuleProgressPanel from "@/components/dashboard/moduleProgress";
@@ -125,9 +124,8 @@ export default function Dashboard() {
   return (
     <>
       {!isSetupComplete ? (
-
         <AuthProtected>
-          <HeaderDashboard />
+          <Header />
           <div className="relative flex flex-col items-center justify-start min-h-screen text-white overflow-hidden w-full pt-5 px-4">
             <section className="text-center bg-gray-500/50 backdrop-blur-md bg-opacity-80 p-8 md:p-10 rounded-2xl shadow-2xl max-w-3xl w-full mt-10 transition-all duration-300">
               {step === 1 && (
