@@ -18,7 +18,6 @@ mysql-connector-python
 bcrypt
 passlib[bcrypt]
 python-jose[cryptography]
-textract
 python-multipart
 pymupdf
 sentence-transformers
