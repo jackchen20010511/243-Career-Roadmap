@@ -221,6 +221,7 @@ def suggest_courses(
     scaler = StandardScaler()
 
     for [skill, focus, confidence] in skill_list:
+        print("course select start", skill)
         main_skill = skill.lower()
         D_ideal = int(portion * total_weeks * weekly_hours * focus)
 
@@ -266,7 +267,7 @@ def suggest_courses(
             # ⛑️ Pick fallback: shortest duration course
             fallback = course_df.sort_values("duration").head(1)
             selected_courses = fallback.to_dict(orient="records")
-
+        print("course select end", skill)
         result[main_skill] = selected_courses
 
     return result
