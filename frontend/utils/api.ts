@@ -1,4 +1,4 @@
-export const API_BASE_URL = "https://backend-production-22c9.up.railway.app"
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
 // ✅ Define SignupFormData interface (Same structure as in signup/page.tsx)
 interface SignupFormData {

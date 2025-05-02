@@ -4,13 +4,14 @@ from fastapi.staticfiles import StaticFiles
 from requests import Session
 from database import engine, Base
 from routers import user_login, user_goal, learn_skill, scheduled_tasks, generate_task, generate_skills, map  # ✅ Ensure correct imports
-
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
 
 app.mount("/resumes", StaticFiles(directory="./data/uploaded_resumes"), name="resumes")
 
+app.add_middleware(HTTPSRedirectMiddleware)
 # ✅ CORS Configuration (Allow Frontend to Access API)
 app.add_middleware(
     CORSMiddleware,
