@@ -139,7 +139,7 @@ export default function Dashboard() {
         <AuthProtected>
           <Header />
           <div className="relative flex flex-col items-center justify-start min-h-screen text-white overflow-hidden w-full pt-5 px-4">
-            <section className="text-center bg-gray-500/50 backdrop-blur-md bg-opacity-80 p-8 md:p-10 rounded-2xl shadow-2xl max-w-3xl w-full mt-10 transition-all duration-300">
+            <section className="text-center bg-gray-500/50 backdrop-blur-md bg-opacity-80 p-8 md:p-10 rounded-2xl shadow-2xl max-w-3xl w-full mt-2 transition-all duration-300">
               {step === 1 && (
                 <CareerGoal
                   jobTitle={jobTitle}
