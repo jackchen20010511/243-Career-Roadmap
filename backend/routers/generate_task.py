@@ -13,6 +13,7 @@ from models import Scheduled_Tasks, Learn_Skill, User_Goal
 
 # Adjust imports according to your helper path
 from utils.skill_extractor_helper.match_job_domain import matchJobDomain
+from utils.schedule_generator_helper.embedding_model import embedding_model
 from utils.schedule_generator_helper.module_generator import build_prereq_graph_from_edges, parse_prerequisite_edges, generate_modules
 from utils.schedule_generator_helper.course_selection import suggest_courses
 from utils.schedule_generator_helper.task_generator import schedule_all_modules
@@ -89,7 +90,21 @@ async def generate_scheduled_tasks(req: GenerateScheduleRequest, db: Session = D
 
         print("started courses")
         start_time = time.time()
-        courses = suggest_courses(course_df, skill_list, total_weeks, weekly_hours, portion=1)
+        courses = suggest_courses(
+                    embedding_model,
+                    course_df,
+                    skill_list,
+                    total_weeks,
+                    weekly_hours,
+                    target_position,
+                    modules,
+                    prereq_graph,
+                    portion=0.8,
+                    alpha=0.5,
+                    beta=0.5,
+                    lambda_=0.5,
+                    gamma=1
+                )
         end_time = time.time()
         print(f"courses Execution time: {end_time - start_time:.4f} seconds")
         

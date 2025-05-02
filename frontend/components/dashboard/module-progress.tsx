@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchScheduledTasks } from "@/utils/api";
 import { ScheduledTask } from "@/components/stepTracker/step-schedule";
+import { parse, differenceInMinutes } from "date-fns";
 
 export default function ModuleProgressPanel({ userId }: { userId: number }) {
     const [tasks, setTasks] = useState<ScheduledTask[] | null>(null);
@@ -50,7 +51,13 @@ export default function ModuleProgressPanel({ userId }: { userId: number }) {
                     const percent = Math.round((completed / total) * 100);
 
                     const skills = Array.from(new Set(modTasks.map(t => t.skill)));
-
+                    const totalMinutes = modTasks.reduce((sum, task) => {
+                        const start = parse(task.start, "HH:mm:ss", new Date());
+                        const end = parse(task.end, "HH:mm:ss", new Date());
+                        const duration = differenceInMinutes(end, start);
+                        return sum + duration;
+                    }, 0);
+                    const totalHours = (totalMinutes / 60).toFixed(1);
                     return (
                         <div
                             key={mod}
@@ -69,7 +76,7 @@ export default function ModuleProgressPanel({ userId }: { userId: number }) {
                                             className="flex-1 bg-white/70 px-3 py-2 rounded-md shadow-sm flex flex-col justify-center"
                                         >
                                             <span className="font-semibold text-base text-gray-900 capitalize">{skill}</span>
-                                            <span className="text-sm text-gray-800">{count} course{count !== 1 && "s"}</span>
+                                            <span className="text-sm text-gray-800">{count} section{count !== 1 && "s"}</span>
                                         </div>
                                     );
                                 })}
@@ -83,6 +90,9 @@ export default function ModuleProgressPanel({ userId }: { userId: number }) {
                                     />
                                 </div>
                                 <span className="text-indigo-600 font-semibold text-sm">{percent}%</span>
+                            </div>
+                            <div className="ml-3 mt-2 text-sm text-gray-700">
+                                <span className="font-medium">Total Hours:</span> {totalHours}
                             </div>
                         </div>
                     );

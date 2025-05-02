@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { fetchScheduledTasks, generateScheduledTasks } from "@/utils/api";
-
+import { parse, differenceInMinutes } from "date-fns";
 export interface ScheduledTask {
     id: number;
     user_id: number;
@@ -119,7 +119,13 @@ export default function StepSchedule({
                                 {Array.from(new Set(tasks.map((t) => t.module))).map((mod) => {
                                     const modTasks = tasks.filter((t) => t.module === mod);
                                     const skills = Array.from(new Set(modTasks.map((t) => t.skill)));
-
+                                    const totalMinutes = modTasks.reduce((sum, task) => {
+                                        const start = parse(task.start, "HH:mm:ss", new Date());
+                                        const end = parse(task.end, "HH:mm:ss", new Date());
+                                        const duration = differenceInMinutes(end, start);
+                                        return sum + duration;
+                                    }, 0);
+                                    const totalHours = (totalMinutes / 60).toFixed(1);
                                     return (
                                         <div
                                             key={mod}
@@ -144,17 +150,15 @@ export default function StepSchedule({
                                                         >
                                                             <span className="pl-3 font-semibold text-2xl text-gray-900 capitalize">{skill}</span>
                                                             <span className="pl-3 text-sm text-gray-800">
-                                                                {count} course{count !== 1 && "s"}
+                                                                {count} section{count !== 1 && "s"}
                                                             </span>
                                                         </div>
                                                     );
                                                 })}
                                             </div>
 
-                                            {/* Footer */}
                                             <div className="ml-3 mt-2 text-sm text-gray-700">
-                                                <span className="font-medium">Total:</span>{" "}
-                                                {modTasks.length} task{modTasks.length !== 1 && "s"}
+                                                <span className="font-medium">Total Hours:</span> {totalHours}
                                             </div>
                                         </div>
                                     );
