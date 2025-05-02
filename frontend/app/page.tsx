@@ -29,7 +29,7 @@ export default function Home() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover z-0"
         >
-          <source src="/videos/background.mp4" type="video/mp4" />
+          <source src="https://vimeo.com/1080700402/e32caa9f38" type="video/mp4" />
         </video>
         {/* top and bottom “soften” fades */}
         <div className="absolute inset-0 z-10 pointer-events-none">
