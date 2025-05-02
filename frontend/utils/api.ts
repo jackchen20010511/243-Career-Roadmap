@@ -30,7 +30,6 @@ export async function fetchUserData(userId: string, token: string) {
 export const fetchUserGoal = async (userId: number) => {
     const response = await fetch(`${API_BASE_URL}/user-goal/${userId}/`);
     if (!response.ok) throw new Error("Failed to fetch user goal");
-    console.log(response);
     return response.json();
 };
 

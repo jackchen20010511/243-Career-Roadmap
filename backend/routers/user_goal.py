@@ -44,7 +44,6 @@ def get_user_goal(user_id: int, db: Session = Depends(get_db)):
     cached = get_cached_user_goal(user_id)
     if cached:
         goal = jsonable_encoder(cached)
-        print(goal["exp_level"])
         return goal
     
     goal = db.query(User_Goal).filter(User_Goal.user_id == user_id).first()

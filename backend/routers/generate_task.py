@@ -13,8 +13,7 @@ from models import Scheduled_Tasks, Learn_Skill, User_Goal
 
 # Adjust imports according to your helper path
 from utils.skill_extractor_helper.match_job_domain import matchJobDomain
-from utils.schedule_generator_helper.embedding_model import embedding_model
-from utils.schedule_generator_helper.module_generator import build_prereq_graph_from_edges, parse_prerequisite_edges, generate_modules
+from utils.schedule_generator_helper.module_generator import generate_modules
 from utils.schedule_generator_helper.course_selection import suggest_courses
 from utils.schedule_generator_helper.task_generator import schedule_all_modules
 
@@ -31,6 +30,8 @@ class GenerateScheduleRequest(BaseModel):
 @router.post("/")
 async def generate_scheduled_tasks(req: GenerateScheduleRequest, db: Session = Depends(get_db)):
     try:
+        print("started here")
+        start_time = time.time()
         goal = db.query(User_Goal).filter(User_Goal.user_id == req.user_id).first()
         if not goal:
             raise HTTPException(status_code=404, detail="User goal not found")
@@ -52,13 +53,16 @@ async def generate_scheduled_tasks(req: GenerateScheduleRequest, db: Session = D
             "Saturday": goal.isSaturday,
             "Sunday": goal.isSunday,
         }
-
+        
         # Parse start date or use tomorrow
         start_date = (
             datetime.strptime(req.start_date, "%Y-%m-%d")
             if req.start_date
             else datetime.today() + timedelta(days=1)
         )
+
+        end_time = time.time()
+        print(f"started end Execution time: {end_time - start_time:.4f} seconds")
 
         domain = matchJobDomain(target_position).lower()
         print(f"matched domain: {domain}")
@@ -88,7 +92,7 @@ async def generate_scheduled_tasks(req: GenerateScheduleRequest, db: Session = D
         tasks = schedule_all_modules(modules, start_date, weekly_hours, learning_days, courses, req.user_id)
         end_time = time.time()
         print(f"schedule end Execution time: {end_time - start_time:.4f} seconds")
-        
+
         # Insert into DB
         for task in tasks:
             db_task = Scheduled_Tasks(
