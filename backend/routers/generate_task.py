@@ -1,3 +1,4 @@
+import time
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
@@ -63,18 +64,42 @@ async def generate_scheduled_tasks(req: GenerateScheduleRequest, db: Session = D
         print(f"matched domain: {domain}")
 
         # Load course dataset
+        print("started df")
+        start_time = time.time()
         course_df = pd.read_csv(f"{COURSE_DIR}/{domain}.csv")
+        end_time = time.time()
+        print(f"df Execution time: {end_time - start_time:.4f} seconds")
         
         # Load skill graph for the given domain
         skill_graph_path = os.path.join(SKILL_GRAPH_DIR, f"{domain}.json")
         if not os.path.exists(skill_graph_path):
             raise FileNotFoundError(f"Skill graph not found for domain: {domain}")
+        
 
+        print("started graph")
+        start_time = time.time()
         prereq_graph = build_prereq_graph_from_edges(parse_prerequisite_edges(skill_graph_path, skill_list))
+        end_time = time.time()
+        print(f"graph Execution time: {end_time - start_time:.4f} seconds")
+
+        print("started modules")
+        start_time = time.time()
         modules = generate_modules(skill_graph_path, domain, skill_list, total_weeks, weekly_hours, 0.4, 0.7)
+        end_time = time.time()
+        print(f"modules Execution time: {end_time - start_time:.4f} seconds")
+
+        print("started courses")
+        start_time = time.time()
         courses = suggest_courses(embedding_model, course_df, skill_list, total_weeks, weekly_hours,
-                                  domain, modules, prereq_graph, portion=1)        
+                                  domain, modules, prereq_graph, portion=1)
+        end_time = time.time()
+        print(f"courses Execution time: {end_time - start_time:.4f} seconds")
+        
+        print("started tasks")
+        start_time = time.time()
         tasks = schedule_all_modules(modules, start_date, weekly_hours, learning_days, courses, req.user_id)
+        end_time = time.time()
+        print(f"tasks Execution time: {end_time - start_time:.4f} seconds")
         # Insert into DB
         for task in tasks:
             db_task = Scheduled_Tasks(

@@ -28,7 +28,7 @@ app.include_router(scheduled_tasks.router, prefix="/scheduled-tasks")
 app.include_router(generate_task.router, prefix="/generate-scheduled-tasks")
 app.include_router(generate_skills.router, prefix="/generate-learn-skills")
 app.include_router(map.router, prefix="/map")
-app.include_router(user_logout.router, prefix="/user_logout")
+app.include_router(user_logout.router, prefix="/user-logout")
 
 # ✅ Root Endpoint (Optional)
 @app.get("/")
