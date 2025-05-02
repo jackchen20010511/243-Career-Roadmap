@@ -28,10 +28,8 @@ export default function Header() {
   useEffect(() => {
     const userName = localStorage.getItem("user_name");
     const userId = localStorage.getItem("user_id");
-    const setupComplete = localStorage.getItem("setup_completed") === "true";
 
     setUser(userName ? { name: userName } : null);
-    setIsSetupComplete(setupComplete);
 
     if (!userId) {
       setIsLoading(false);
@@ -42,7 +40,6 @@ export default function Header() {
       .then((goalData) => {
         if (goalData) {
           setIsSetupComplete(true);
-          localStorage.setItem("setup_completed", "true");
         }
       })
       .finally(() => setIsLoading(false));
