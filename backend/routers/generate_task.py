@@ -70,10 +70,8 @@ async def generate_scheduled_tasks(req: GenerateScheduleRequest, db: Session = D
         if not os.path.exists(skill_graph_path):
             raise FileNotFoundError(f"Skill graph not found for domain: {domain}")
 
-        prereq_graph = build_prereq_graph_from_edges(parse_prerequisite_edges(skill_graph_path, skill_list))
         modules = generate_modules(skill_graph_path, domain, skill_list, total_weeks, weekly_hours, 0.4, 0.7)
-        courses = suggest_courses(embedding_model, course_df, skill_list, total_weeks, weekly_hours,
-                                  domain, modules, prereq_graph, portion=1)        
+        courses = suggest_courses(course_df, skill_list, total_weeks, weekly_hours, portion=1)        
         tasks = schedule_all_modules(modules, start_date, weekly_hours, learning_days, courses, req.user_id)
         # Insert into DB
         for task in tasks:
