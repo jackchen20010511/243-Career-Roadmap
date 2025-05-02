@@ -6,7 +6,6 @@ import "aos/dist/aos.css";
 
 import Features from "@/components/landing/features";
 import Header from "@/components/ui/header";
-
 export default function Home() {
   useEffect(() => {
     AOS.init({ once: true });
@@ -29,7 +28,7 @@ export default function Home() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover z-5"
         >
-          <source src="/background.mp4" type="video/mp4" />
+          <source src="/videos/background.mp4" type="video/mp4" />
         </video>
         {/* top and bottom “soften” fades */}
         <div className="absolute inset-0 z-10 pointer-events-none">
