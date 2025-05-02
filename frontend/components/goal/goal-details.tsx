@@ -130,7 +130,7 @@ export default function GoalDetails() {
         <div className="p-4 bg-white/20 backdrop-blur-md border border-gray-400 rounded-xl shadow-md text-white">
             <div className="mb-5">
                 <div className="flex items-start justify-between w-full">
-                    <h2 className="mb-6 text-3xl font-bold text-indigo-200">My Goal</h2>
+                    <h2 className="mb-6 text-2xl font-bold text-indigo-200">My Goal</h2>
                     <div className="flex gap-3">
                         {isEditing && (
                             <button
@@ -237,7 +237,7 @@ export default function GoalDetails() {
                     value={editedGoal.responsibility ?? ""}
                     onChange={(e) => handleChange("responsibility", e.target.value)}
                     readOnly={!isEditing}
-                    className={`-mb-7 mt-2 p-4 w-full h-68 rounded-lg text-lg placeholder-white text-white ${isEditing ? "bg-white/40 cursor-text" : "bg-white/20 cursor-default"} border border-gray-600 resize-none`}
+                    className={`-mb-7 mt-2 p-4 w-full h-58 rounded-lg text-lg placeholder-white text-white ${isEditing ? "bg-white/40 cursor-text" : "bg-white/20 cursor-default"} border border-gray-600 resize-none`}
                     placeholder="Empty"
                 />
             </div>

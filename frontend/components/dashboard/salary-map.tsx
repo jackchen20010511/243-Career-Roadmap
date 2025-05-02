@@ -64,7 +64,7 @@ export default function SalaryMap() {
 
     return (
         <div className="p-4 bg-white/20 backdrop-blur-md border border-gray-400 rounded-xl shadow-md text-white">
-            <h2 className="text-3xl font-bold text-indigo-200 mb-5">
+            <h2 className="text-2xl font-bold text-indigo-200 mb-2">
                 Career Map Explorer
             </h2>
 

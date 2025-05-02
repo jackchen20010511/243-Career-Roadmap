@@ -19,7 +19,7 @@ export default function MiniModulePanel({
 
     return (
         <div className="p-2 text-white bg-white/40 rounded-xl text-white">
-            <h2 className="mt-3 text-2xl font-bold text-center text-indigo-200 mb-6">Module Progress</h2>
+            <h2 className="mt-3 text-xl font-bold text-center text-indigo-200 mb-6">Module Progress</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                 {modules.map((mod) => {
@@ -38,9 +38,9 @@ export default function MiniModulePanel({
                         <div
                             key={mod}
                             onClick={() => onSelectModule(firstDate)}
-                            className="cursor-pointer h-[80px] px-4 py-2 bg-indigo-200/50 backdrop-blur-sm rounded-lg shadow-sm hover:scale-[1.02] hover:shadow-lg transition-all"
+                            className="cursor-pointer h-[75px] px-2 py-2 bg-indigo-200/50 backdrop-blur-sm rounded-lg shadow-sm hover:scale-[1.02] hover:shadow-lg transition-all"
                         >
-                            <div className="mt-1 text-lg font-bold text-indigo-200 text-center">
+                            <div className="text-md font-bold text-indigo-200 text-center">
                                 Module {mod}
                             </div>
 

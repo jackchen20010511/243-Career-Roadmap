@@ -107,7 +107,7 @@ export default function LearnSkill({ userId, step }: { userId: number; step: num
                     <div className="w-full h-full overflow-hidden bg-white/20 backdrop-blur-md rounded-xl shadow-xl p-6 pb-10">
 
                         <div className="mb-5 flex items-start justify-between">
-                            <h2 className="mb-2 text-3xl font-bold text-indigo-200">Learning Skills</h2>
+                            <h2 className="mb-2 text-2xl font-bold text-indigo-200">Learning Skills</h2>
                             <div className="flex gap-3 pr-3">
                                 {isEditing && (
                                     <button
@@ -129,13 +129,13 @@ export default function LearnSkill({ userId, step }: { userId: number; step: num
                             {skills.map((skill, index) => (
                                 <div
                                     key={index}
-                                    className="w-[240px] h-[230px] rounded-xl overflow-hidden flex flex-col
+                                    className="w-[240px] h-[210px] rounded-xl overflow-hidden flex flex-col
                                     transform transition duration-300 ease-in-out
                                     shadow-md hover:shadow-[0_12px_40px_rgba(0,0,0,0.6)]
                                     hover:scale-[1.03]
                                     hover:ring-2 hover:ring-indigo-400 hover:ring-opacity-50 cursor-pointer"
                                 >
-                                    <div className="h-[200px] relative ">
+                                    <div className="h-[180px] relative ">
                                         {/* 1) background image as <img> with reduced opacity */}
                                         <div className="absolute inset-0">
                                             <img

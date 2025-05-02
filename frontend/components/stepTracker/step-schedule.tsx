@@ -113,7 +113,7 @@ export default function StepSchedule({
                 <>
                     {previewReady && tasks.length > 0 && (
                         <div className="mt-6 w-full px-4 lg:px-8">
-                            <h2 className="ml-2 mb-5 text-3xl font-bold text-indigo-200">Module Overview</h2>
+                            <h2 className="ml-2 mb-2 text-2xl font-bold text-indigo-200">Module Overview</h2>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full">
                                 {Array.from(new Set(tasks.map((t) => t.module))).map((mod) => {

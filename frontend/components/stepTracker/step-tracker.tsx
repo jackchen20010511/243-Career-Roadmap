@@ -68,9 +68,9 @@ export default function StepTracker({
 
     if (step === 4) {
         return (
-            <main className="flex flex-row w-full min-h-screen p-5 gap-6">
+            <main className="flex flex-row w-full min-h-screen p-2 gap-6">
                 {/* Left: Calendar + MiniModulePanel */}
-                <div className="pl-3 pt-5 w-[25%] space-y-6">
+                <div className="pl-2 w-[25%] space-y-6">
                     <CalendarPanel selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
                     <MiniModulePanel
                         tasks={tasks}
