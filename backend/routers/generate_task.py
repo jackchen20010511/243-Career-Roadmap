@@ -1,3 +1,4 @@
+import time
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
@@ -69,10 +70,25 @@ async def generate_scheduled_tasks(req: GenerateScheduleRequest, db: Session = D
         skill_graph_path = os.path.join(SKILL_GRAPH_DIR, f"{domain}.json")
         if not os.path.exists(skill_graph_path):
             raise FileNotFoundError(f"Skill graph not found for domain: {domain}")
-
+        
+        print("module start")
+        start_time = time.time()
         modules = generate_modules(skill_graph_path, domain, skill_list, total_weeks, weekly_hours, 0.4, 0.7)
-        courses = suggest_courses(course_df, skill_list, total_weeks, weekly_hours, portion=1)        
+        end_time = time.time()
+        print(f"module end Execution time: {end_time - start_time:.4f} seconds")
+
+        print("course start")
+        start_time = time.time()
+        courses = suggest_courses(course_df, skill_list, total_weeks, weekly_hours, portion=1)
+        end_time = time.time()
+        print(f"course end Execution time: {end_time - start_time:.4f} seconds")       
+
+        print("schedule start")
+        start_time = time.time()
         tasks = schedule_all_modules(modules, start_date, weekly_hours, learning_days, courses, req.user_id)
+        end_time = time.time()
+        print(f"schedule end Execution time: {end_time - start_time:.4f} seconds")
+        
         # Insert into DB
         for task in tasks:
             db_task = Scheduled_Tasks(
