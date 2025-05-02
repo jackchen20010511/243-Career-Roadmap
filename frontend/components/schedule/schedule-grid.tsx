@@ -14,7 +14,7 @@ export default function ScheduleGrid({
     setTasks: React.Dispatch<React.SetStateAction<ScheduledTask[]>>;
 }) {
     const [timeOffset, setTimeOffset] = useState<number | null>(null);
-    const hourHeight = 55;
+    const hourHeight = 60;
 
     function parseLocalDateOnly(dateStr: string): Date {
         const [year, month, day] = dateStr.split("-").map(Number);
@@ -65,8 +65,7 @@ export default function ScheduleGrid({
     useEffect(() => {
         const updateTime = () => {
             const now = new Date();
-            // const h = now.getHours(), m = now.getMinutes();
-            const h = 17, m = 30;
+            const h = now.getHours(), m = now.getMinutes();
             if (h >= 8 && h < 21) {
                 const mins = (h - 8) * 60 + m;
                 setTimeOffset((mins / 60) * hourHeight);
@@ -124,9 +123,9 @@ export default function ScheduleGrid({
 
     return (
         <div className="flex w-full">
-            <div className="mt-16 flex flex-col items-end pr-2 w-[60px] text-sm text-gray-300 font-medium">
+            <div className="mt-18 flex flex-col items-end pr-2 w-[60px] text-sm text-gray-300 font-medium">
                 {Array.from({ length: 14 }).map((_, i) => (
-                    <div key={i} className="h-[55px] flex items-start pr-2">
+                    <div key={i} className="h-[60px] flex items-start pr-2">
                         {8 + i}:00
                     </div>
                 ))}
@@ -140,7 +139,7 @@ export default function ScheduleGrid({
                         const isToday = cellDate.getTime() === today.getTime();
 
                         return (
-                            <div key={d.toISOString()} className="flex flex-col items-center pt-1">
+                            <div key={d.toISOString()} className="flex flex-col items-center pt-2">
                                 <div className={`text-2xl mb-1 font-bold ${isToday ? "text-indigo-600" : "text-indigo-200"}`}>{d.getDate()}</div>
                                 <div className={`text-lg mb-1 font-bold ${isToday ? "text-indigo-600" : "text-indigo-200"}`}>{weekdayNames[i]}</div>
                             </div>
@@ -153,7 +152,7 @@ export default function ScheduleGrid({
                         {Array.from({ length: 7 }).map((_, dayIdx) => (
                             <div key={dayIdx} className="flex flex-col">
                                 {Array.from({ length: 13 }).map((_, hourIdx) => (
-                                    <div key={`d${dayIdx}-h${hourIdx}`} className="h-[55px] border border-white bg-white/40" />
+                                    <div key={`d${dayIdx}-h${hourIdx}`} className="h-[60px] border border-white bg-white/40" />
                                 ))}
                             </div>
                         ))}

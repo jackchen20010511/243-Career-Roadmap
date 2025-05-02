@@ -19,7 +19,7 @@ export default function CalendarPanel({ selectedDate, setSelectedDate }: {
             >
                 &lt;
             </button>
-            <h2 className="text-xl font-semibold text-indigo-200">
+            <h2 className="text-2xl font-semibold text-indigo-200">
                 {format(currentMonth, "MMMM yyyy")}
             </h2>
             <button

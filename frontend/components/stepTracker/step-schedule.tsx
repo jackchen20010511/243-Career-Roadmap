@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { fetchScheduledTasks, generateScheduledTasks } from "@/utils/api";
 import { parse, differenceInMinutes } from "date-fns";
+
 export interface ScheduledTask {
     id: number;
     user_id: number;
@@ -113,18 +114,19 @@ export default function StepSchedule({
                 <>
                     {previewReady && tasks.length > 0 && (
                         <div className="mt-6 w-full px-4 lg:px-8">
-                            <h2 className="ml-2 mb-2 text-2xl font-bold text-indigo-200">Module Overview</h2>
+                            <h2 className="ml-2 mb-5 text-3xl font-bold text-indigo-200">Module Overview</h2>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full">
                                 {Array.from(new Set(tasks.map((t) => t.module))).map((mod) => {
                                     const modTasks = tasks.filter((t) => t.module === mod);
                                     const skills = Array.from(new Set(modTasks.map((t) => t.skill)));
                                     const totalMinutes = modTasks.reduce((sum, task) => {
-                                        const start = parse(task.start, "HH:mm:ss", new Date());
-                                        const end = parse(task.end, "HH:mm:ss", new Date());
+                                        const start = parse(task.start, "HH:mm", new Date());
+                                        const end = parse(task.end, "HH:mm", new Date());
                                         const duration = differenceInMinutes(end, start);
                                         return sum + duration;
                                     }, 0);
+
                                     const totalHours = (totalMinutes / 60).toFixed(1);
                                     return (
                                         <div

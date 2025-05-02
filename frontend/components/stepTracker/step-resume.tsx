@@ -94,7 +94,7 @@ export default function StepResume({ userId, onChange }: { userId: number; onCha
         <div className="w-full h-full overflow-hidden bg-white/20 backdrop-blur-md rounded-xl shadow-xl p-6">
             <div className="mb-5">
                 <div className="flex items-start justify-between">
-                    <h2 className="text-2xl font-bold text-indigo-200">Resume Preview</h2>
+                    <h2 className="text-3xl font-bold text-indigo-200">Resume Preview</h2>
 
                     <div className="flex flex-col items-end space-y-2">
                         <div className="flex space-x-3">
@@ -131,7 +131,7 @@ export default function StepResume({ userId, onChange }: { userId: number; onCha
 
             {resumeUrl?.endsWith(".pdf") || resumeUrl?.endsWith(".txt") ? (
                 <iframe
-                    src={`${resumeUrl}#toolbar=0&navpanes=0&scrollbar=0&zoom=95`}
+                    src={`${resumeUrl}#toolbar=0&navpanes=0&scrollbar=0&zoom=100`}
                     className="w-full h-[65vh] rounded-lg shadow-md"
                     style={{
                         border: "none",

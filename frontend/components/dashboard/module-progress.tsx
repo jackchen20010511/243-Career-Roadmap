@@ -42,8 +42,8 @@ export default function ModuleProgressPanel({ userId }: { userId: number }) {
     return (
         <div className="p-4 bg-white/20 backdrop-blur-md border border-gray-400 rounded-xl shadow-md text-white">
 
-            <h2 className="ml-2 text-2xl mb-5 font-bold text-indigo-200">Module Progress</h2>
-            <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
+            <h2 className="ml-2 mb-5 text-3xl mb-12 font-bold text-indigo-200">Module Progress</h2>
+            <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
                 {modules.map((mod) => {
                     const modTasks = grouped[mod];
                     const total = modTasks.length;
@@ -52,16 +52,17 @@ export default function ModuleProgressPanel({ userId }: { userId: number }) {
 
                     const skills = Array.from(new Set(modTasks.map(t => t.skill)));
                     const totalMinutes = modTasks.reduce((sum, task) => {
-                        const start = parse(task.start, "HH:mm:ss", new Date());
-                        const end = parse(task.end, "HH:mm:ss", new Date());
+                        const start = parse(task.start, "HH:mm", new Date());
+                        const end = parse(task.end, "HH:mm", new Date());
                         const duration = differenceInMinutes(end, start);
                         return sum + duration;
                     }, 0);
+
                     const totalHours = (totalMinutes / 60).toFixed(1);
                     return (
                         <div
                             key={mod}
-                            className="relative cursor-pointer h-[320px] flex flex-col p-2 bg-indigo-100/50 backdrop-blur-sm rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl"
+                            className="relative mb-3 cursor-pointer h-[320px] flex flex-col p-6 bg-indigo-100/50 backdrop-blur-sm rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl"
                         >
                             <span className="absolute -top-8 right-0 text-[120px] font-extrabold text-indigo-600 opacity-50 pointer-events-none">
                                 {mod}
