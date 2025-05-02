@@ -39,7 +39,7 @@ class GoalRequest(BaseModel):
 
 
 # ✅ Fetch User Goal
-@router.get("/{user_id}")
+@router.get("/{user_id}/")
 def get_user_goal(user_id: int, db: Session = Depends(get_db)):
     cached = get_cached_user_goal(user_id)
     if cached:
@@ -55,7 +55,7 @@ def get_user_goal(user_id: int, db: Session = Depends(get_db)):
 
 
 # ✅ Update or Create User Goal
-@router.post("/{user_id}")
+@router.post("/{user_id}/")
 def update_user_goal(user_id: int, request: GoalRequest, db: Session = Depends(get_db)):
     goal = db.query(User_Goal).filter(User_Goal.user_id == user_id).first()
     if goal:
@@ -77,7 +77,7 @@ import os
 UPLOAD_DIR = "data/uploaded_resumes"
 ALLOWED_EXTENSIONS = [".pdf", ".docx", ".txt"]
 
-@router.get("/get-resume-url/{user_id}")
+@router.get("/get-resume-url/{user_id}/")
 def get_resume_url(user_id: int):
     user_dir = os.path.join(UPLOAD_DIR, str(user_id))
     for ext in ALLOWED_EXTENSIONS:
@@ -88,7 +88,7 @@ def get_resume_url(user_id: int):
     return JSONResponse(status_code=404, content={"message": "Resume not found."})
 
 
-@router.post("/save-resume/{user_id}")
+@router.post("/save-resume/{user_id}/")
 async def save_resume(user_id: int, file: UploadFile = File(...)):
     filename = file.filename
     _, ext = os.path.splitext(filename)
@@ -113,7 +113,7 @@ async def save_resume(user_id: int, file: UploadFile = File(...)):
     return {"message": f"Resume saved as resume{ext}."}
 
 
-@router.post("/remove-resume/{user_id}")
+@router.post("/remove-resume/{user_id}/")
 async def remove_resume(user_id: int):
     user_dir = os.path.join(UPLOAD_DIR, str(user_id))
     deleted = False

@@ -28,23 +28,24 @@ export default function Header() {
   useEffect(() => {
     const userName = localStorage.getItem("user_name");
     const userId = localStorage.getItem("user_id");
+    const setupComplete = localStorage.getItem("setup_completed") === "true";
+
     setUser(userName ? { name: userName } : null);
+    setIsSetupComplete(setupComplete);
 
-
-    if (userId) {
-      // ✅ Fetch User Goal
-      fetchUserGoal(Number(userId))
-        .then((goalData) => {
-          if (goalData) {
-            setIsSetupComplete(true);
-          }
-        })
-        .catch(() => console.error("Failed to fetch goal"))
-        .finally(() => setIsLoading(false));
-    } else {
-      // no user → we're done loading immediately
-      setIsLoading(false)
+    if (!userId) {
+      setIsLoading(false);
+      return;
     }
+
+    fetchUserGoal(Number(userId))
+      .then((goalData) => {
+        if (goalData) {
+          setIsSetupComplete(true);
+          localStorage.setItem("setup_completed", "true");
+        }
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
 

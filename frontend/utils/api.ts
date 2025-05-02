@@ -11,7 +11,7 @@ interface SignupFormData {
 
 export async function fetchUserData(userId: string, token: string) {
     try {
-        const response = await fetch(`${API_BASE_URL}/user-login/${userId}`, {
+        const response = await fetch(`${API_BASE_URL}/user-login/${userId}/`, {
             headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -28,7 +28,7 @@ export async function fetchUserData(userId: string, token: string) {
 
 // ✅ Fetch User Goal
 export const fetchUserGoal = async (userId: number) => {
-    const response = await fetch(`${API_BASE_URL}/user-goal/${userId}`);
+    const response = await fetch(`${API_BASE_URL}/user-goal/${userId}/`);
     if (!response.ok) throw new Error("Failed to fetch user goal");
     console.log(response);
     return response.json();
@@ -36,7 +36,7 @@ export const fetchUserGoal = async (userId: number) => {
 
 // ✅ Update User Goal (Includes Resume Text)
 export const updateUserGoal = async (userId: number, goalData: any) => {
-    const response = await fetch(`${API_BASE_URL}/user-goal/${userId}`, {
+    const response = await fetch(`${API_BASE_URL}/user-goal/${userId}/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(goalData),
@@ -50,7 +50,7 @@ export const saveResumeFile = async (userId: number, file: File) => {
     const formData = new FormData();
     formData.append("file", file);
 
-    const response = await fetch(`${API_BASE_URL}/user-goal/save-resume/${userId}`, {
+    const response = await fetch(`${API_BASE_URL}/user-goal/save-resume/${userId}/`, {
         method: "POST",
         body: formData,
     });
@@ -61,7 +61,7 @@ export const saveResumeFile = async (userId: number, file: File) => {
 
 // ✅ Remove Resume File
 export const removeResumeFile = async (userId: number) => {
-    const response = await fetch(`${API_BASE_URL}/user-goal/remove-resume/${userId}`, {
+    const response = await fetch(`${API_BASE_URL}/user-goal/remove-resume/${userId}/`, {
         method: "POST",
     });
 
@@ -71,7 +71,7 @@ export const removeResumeFile = async (userId: number) => {
 
 // ✅ Get Resume File Url
 export const fetchResumeUrl = async (userId: number): Promise<string | null> => {
-    const response = await fetch(`${API_BASE_URL}/user-goal/get-resume-url/${userId}`);
+    const response = await fetch(`${API_BASE_URL}/user-goal/get-resume-url/${userId}/`);
     if (response.ok) {
         const data = await response.json();
         return `${API_BASE_URL}${data.url}`;
@@ -86,7 +86,7 @@ export const updateUserInfo = async (userId: number, updateFields: any) => {
     if (!token) throw new Error("Unauthorized: No access token found");
 
     try {
-        const response = await fetch(`${API_BASE_URL}/user-login/update/${userId}`, {
+        const response = await fetch(`${API_BASE_URL}/user-login/update/${userId}/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -108,14 +108,14 @@ export const updateUserInfo = async (userId: number, updateFields: any) => {
 };
 // ✅ Fetch Security Question
 export const fetchSecurityQuestion = async (email: string) => {
-    const response = await fetch(`${API_BASE_URL}/user-login/reset-password/question?email=${email}`);
+    const response = await fetch(`${API_BASE_URL}/user-login/reset-password/question?email=${email}/`);
     if (!response.ok) throw new Error("Email not found");
     return response.json();
 };
 
 // ✅ Verify Security Answer
 export const verifySecurityAnswer = async (email: string, securityAnswer: string) => {
-    const response = await fetch(`${API_BASE_URL}/user-login/reset-password/verify`, {
+    const response = await fetch(`${API_BASE_URL}/user-login/reset-password/verify/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, security_answer: securityAnswer }),
@@ -128,7 +128,7 @@ export const verifySecurityAnswer = async (email: string, securityAnswer: string
 
 // ✅ User Login
 export const loginUser = async (email: string, password: string) => {
-    const response = await fetch(`${API_BASE_URL}/user-login/login`, {
+    const response = await fetch(`${API_BASE_URL}/user-login/login/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -141,7 +141,7 @@ export const loginUser = async (email: string, password: string) => {
 
 // ✅ User Registration
 export const registerUser = async (formData: SignupFormData) => {
-    const response = await fetch(`${API_BASE_URL}/user-login/register`, {
+    const response = await fetch(`${API_BASE_URL}/user-login/register/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -154,7 +154,7 @@ export const registerUser = async (formData: SignupFormData) => {
 
 export async function fetchLearnSkill(userId: number) {
     console.log(userId);
-    const res = await fetch(`${API_BASE_URL}/learn-skill/${userId}`);
+    const res = await fetch(`${API_BASE_URL}/learn-skill/${userId}/`);
     if (!res.ok) {
         throw new Error("Failed to fetch learning skills");
     }
@@ -162,7 +162,7 @@ export async function fetchLearnSkill(userId: number) {
 }
 
 export async function updateLearnSkill(userId: number, skills: any[]) {
-    const res = await fetch(`${API_BASE_URL}/learn-skill/${userId}`, {
+    const res = await fetch(`${API_BASE_URL}/learn-skill/${userId}/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -178,7 +178,7 @@ export async function updateLearnSkill(userId: number, skills: any[]) {
 
 // ✅ Fetch scheduled tasks for a user
 export async function fetchScheduledTasks(userId: number) {
-    const res = await fetch(`${API_BASE_URL}/scheduled-tasks/${userId}`);
+    const res = await fetch(`${API_BASE_URL}/scheduled-tasks/${userId}/`);
 
     if (!res.ok) {
         throw new Error("Failed to fetch scheduled tasks");
@@ -189,7 +189,7 @@ export async function fetchScheduledTasks(userId: number) {
 
 // ✅ Replace scheduled tasks for a user
 export async function updateScheduledTasks(userId: number, tasks: any[]) {
-    const res = await fetch(`${API_BASE_URL}/scheduled-tasks/${userId}`, {
+    const res = await fetch(`${API_BASE_URL}/scheduled-tasks/${userId}/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -204,7 +204,7 @@ export async function updateScheduledTasks(userId: number, tasks: any[]) {
 }
 
 export async function generateScheduledTasks(userId: number) {
-    const response = await fetch(`${API_BASE_URL}/generate-scheduled-tasks`, {
+    const response = await fetch(`${API_BASE_URL}/generate-scheduled-tasks/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -220,7 +220,7 @@ export async function generateScheduledTasks(userId: number) {
 }
 
 export async function generateLearnSkill(userId: number) {
-    const response = await fetch(`${API_BASE_URL}/generate-learn-skills`, {
+    const response = await fetch(`${API_BASE_URL}/generate-learn-skills/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId }),
@@ -261,7 +261,7 @@ export async function fetchMapData(
     if (q && q.trim() !== "") {
         params.set("q", q.trim());
     }
-    const res = await fetch(`${API_BASE_URL}/map/?${params.toString()}`);
+    const res = await fetch(`${API_BASE_URL}/map/?${params.toString()}/`);
     if (!res.ok) {
         const err = await res.text();
         throw new Error(`Map fetch failed: ${err}`);
@@ -270,7 +270,7 @@ export async function fetchMapData(
 }
 
 export async function updateScheduledTaskStatus(taskId: number, status: string): Promise<void> {
-    const res = await fetch(`${API_BASE_URL}/scheduled-tasks/${taskId}`, {
+    const res = await fetch(`${API_BASE_URL}/scheduled-tasks/${taskId}/`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),

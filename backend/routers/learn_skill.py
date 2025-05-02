@@ -26,7 +26,7 @@ class LearnSkillResponse(BaseModel):
     class Config:
         from_attributes = True
 
-@router.get("/{user_id}", response_model=List[LearnSkillResponse])
+@router.get("/{user_id}/", response_model=List[LearnSkillResponse])
 def get_learn_skill(user_id: int, db: Session = Depends(get_db)):
     cached = get_cached_learn_skills(user_id)
     if cached:
@@ -39,7 +39,7 @@ def get_learn_skill(user_id: int, db: Session = Depends(get_db)):
     cache_learn_skills(user_id, skills)
     return skills
 
-@router.post("/{user_id}")
+@router.post("/{user_id}/")
 def update_learn_skill(user_id: int, request: List[LearnSkillRequest], db: Session = Depends(get_db)):
     # Replace existing skills
     db.query(Learn_Skill).filter(Learn_Skill.user_id == user_id).delete()

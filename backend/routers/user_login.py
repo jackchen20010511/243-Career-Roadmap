@@ -60,7 +60,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
 
     return user  # ✅ Now returns a `User_Login` object instead of just the email
 
-@router.get("/{user_id}", response_model=UserResponse)
+@router.get("/{user_id}/", response_model=UserResponse)
 def get_user(user_id: int, db: Session = Depends(get_db), current_user: User_Login = Depends(get_current_user)):
     # ✅ Ensure user can only fetch their own data
     if current_user.id != user_id:
@@ -70,7 +70,7 @@ def get_user(user_id: int, db: Session = Depends(get_db), current_user: User_Log
 
 
 # ✅ User Registration
-@router.post("/register")
+@router.post("/register/")
 def register_user(request: UserSignupRequest, db: Session = Depends(get_db)):
     existing_user = db.query(User_Login).filter(User_Login.email == request.email).first()
     if existing_user:
@@ -89,7 +89,7 @@ def register_user(request: UserSignupRequest, db: Session = Depends(get_db)):
     return {"message": "User registered successfully"}
 
 # ✅ User Login (Returns JWT Token)
-@router.post("/login")
+@router.post("/login/")
 def login_user(request: UserLoginRequest, db: Session = Depends(get_db)):
     user = db.query(User_Login).filter(User_Login.email == request.email).first()
     if not user or not pwd_context.verify(request.password, user.password):
@@ -99,7 +99,7 @@ def login_user(request: UserLoginRequest, db: Session = Depends(get_db)):
     return {"access_token": access_token, "user_id": user.id, "user_email":user.email, "user_name":user.name}
 
 # ✅ Fetch Security Question
-@router.get("/reset-password/question")
+@router.get("/reset-password/question/")
 def get_security_question(email: str, db: Session = Depends(get_db)):
     user = db.query(User_Login).filter(User_Login.email == email).first()
     if not user:
@@ -107,7 +107,7 @@ def get_security_question(email: str, db: Session = Depends(get_db)):
     return {"security_question": user.security_question}
 
 # ✅ Verify Security Answer
-@router.post("/reset-password/verify")
+@router.post("/reset-password/verify/")
 def verify_security_answer(request: SecurityAnswerRequest, db: Session = Depends(get_db)):
     user = db.query(User_Login).filter(User_Login.email == request.email).first()
     if not user:
@@ -119,7 +119,7 @@ def verify_security_answer(request: SecurityAnswerRequest, db: Session = Depends
     return {"message": "Security answer verified, proceed to reset password"}
 
 # ✅ Update User Info (Handles Name & Password)
-@router.post("/update/{user_id}")
+@router.post("/update/{user_id}/")
 def update_user(user_id: int, request: UserUpdateRequest, db: Session = Depends(get_db), current_user: User_Login = Depends(get_current_user)):
     if current_user.id != user_id:
         raise HTTPException(status_code=403, detail="Permission denied")

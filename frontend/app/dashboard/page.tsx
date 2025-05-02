@@ -124,6 +124,7 @@ export default function Dashboard() {
         await saveResumeFile(Number(userId), resumeFile);
       }
       setIsSetupComplete(true);
+      localStorage.setItem("setup_completed", "true");
     } catch (error) {
       console.error("Error saving goal:", error);
     }

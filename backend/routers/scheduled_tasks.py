@@ -43,7 +43,7 @@ class TaskResponse(BaseModel):
 
 
 # === GET ALL TASKS FOR USER ===
-@router.get("/{user_id}", response_model=List[TaskResponse])
+@router.get("/{user_id}/", response_model=List[TaskResponse])
 def get_scheduled_tasks(user_id: int, db: Session = Depends(get_db)):
     cached = get_cached_tasks(user_id)
     if cached:
@@ -58,7 +58,7 @@ def get_scheduled_tasks(user_id: int, db: Session = Depends(get_db)):
 
 
 # === REPLACE ALL TASKS FOR USER ===
-@router.post("/{user_id}")
+@router.post("/{user_id}/")
 def update_scheduled_tasks(user_id: int, request: List[TaskRequest], db: Session = Depends(get_db)):
     db.query(Scheduled_Tasks).filter(Scheduled_Tasks.user_id == user_id).delete()
     db.commit()
@@ -78,7 +78,7 @@ def update_scheduled_tasks(user_id: int, request: List[TaskRequest], db: Session
 class TaskStatusUpdate(BaseModel):
     status: str
 
-@router.patch("/{task_id}")
+@router.patch("/{task_id}/")
 def update_task_status(
     task_id: int,
     update: TaskStatusUpdate,
