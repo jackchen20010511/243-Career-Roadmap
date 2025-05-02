@@ -106,7 +106,7 @@ export default function LearnSkill({ userId, step }: { userId: number; step: num
                 <div className="space-y-6 max-w-[1600px] px-6">
                     <div className="w-full h-full overflow-hidden bg-white/20 backdrop-blur-md rounded-xl shadow-xl p-6 pb-10">
 
-                        <div className="mb-5 flex items-start justify-between">
+                        <div className="mb-1 flex items-start justify-between">
                             <h2 className="mb-2 text-2xl font-bold text-indigo-200">Learning Skills</h2>
                             <div className="flex gap-3 pr-3">
                                 {isEditing && (

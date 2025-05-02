@@ -42,7 +42,7 @@ export default function ModuleProgressPanel({ userId }: { userId: number }) {
         <div className="p-4 bg-white/20 backdrop-blur-md border border-gray-400 rounded-xl shadow-md text-white">
 
             <h2 className="ml-2 text-2xl mb-5 font-bold text-indigo-200">Module Progress</h2>
-            <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
+            <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
                 {modules.map((mod) => {
                     const modTasks = grouped[mod];
                     const total = modTasks.length;
@@ -54,7 +54,7 @@ export default function ModuleProgressPanel({ userId }: { userId: number }) {
                     return (
                         <div
                             key={mod}
-                            className="relative cursor-pointer h-[320px] flex flex-col p-6 bg-indigo-100/50 backdrop-blur-sm rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl"
+                            className="relative cursor-pointer h-[320px] flex flex-col p-2 bg-indigo-100/50 backdrop-blur-sm rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl"
                         >
                             <span className="absolute -top-8 right-0 text-[120px] font-extrabold text-indigo-600 opacity-50 pointer-events-none">
                                 {mod}

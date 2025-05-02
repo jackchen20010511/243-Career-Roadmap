@@ -237,7 +237,7 @@ export default function GoalDetails() {
                     value={editedGoal.responsibility ?? ""}
                     onChange={(e) => handleChange("responsibility", e.target.value)}
                     readOnly={!isEditing}
-                    className={`-mb-7 mt-2 p-4 w-full h-58 rounded-lg text-lg placeholder-white text-white ${isEditing ? "bg-white/40 cursor-text" : "bg-white/20 cursor-default"} border border-gray-600 resize-none`}
+                    className={`-mb-7 mt-2 p-4 w-full h-52 rounded-lg text-lg placeholder-white text-white ${isEditing ? "bg-white/40 cursor-text" : "bg-white/20 cursor-default"} border border-gray-600 resize-none`}
                     placeholder="Empty"
                 />
             </div>
