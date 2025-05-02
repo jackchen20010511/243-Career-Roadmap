@@ -26,11 +26,9 @@ export default function Home() {
           muted
           loop
           playsInline
-          controls
-          className="w-full h-auto"
+          className="absolute inset-0 w-full h-full object-cover z-5"
         >
-          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
+          <source src="https://cdn.jsdelivr.net/gh/jackchen20010511/videos/background.mp4" type="video/mp4" />
         </video>
         {/* top and bottom “soften” fades */}
         <div className="absolute inset-0 z-10 pointer-events-none">
