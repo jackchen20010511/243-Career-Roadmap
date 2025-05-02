@@ -1,9 +1,9 @@
-from fastapi import FastAPI, HTTPException, File, UploadFile
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from requests import Session
 from database import engine, Base
-from routers import user_login, user_goal, learn_skill, scheduled_tasks, generate_task, generate_skills, map  # ✅ Ensure correct imports
+from routers import user_login, user_goal, learn_skill, scheduled_tasks, generate_task, generate_skills, map, user_logout  # ✅ Ensure correct imports
+
 
 app = FastAPI()
 
@@ -28,7 +28,7 @@ app.include_router(scheduled_tasks.router, prefix="/scheduled-tasks")
 app.include_router(generate_task.router, prefix="/generate-scheduled-tasks")
 app.include_router(generate_skills.router, prefix="/generate-learn-skills")
 app.include_router(map.router, prefix="/map")
-
+app.include_router(user_logout.router, prefix="/user_logout")
 
 # ✅ Root Endpoint (Optional)
 @app.get("/")

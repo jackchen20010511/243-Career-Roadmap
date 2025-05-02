@@ -260,7 +260,7 @@ export async function fetchMapData(
     if (q && q.trim() !== "") {
         params.set("q", q.trim());
     }
-    const res = await fetch(`${API_BASE_URL}/map/?${params.toString()}/`);
+    const res = await fetch(`${API_BASE_URL}/map/?${params.toString()}`);
     if (!res.ok) {
         const err = await res.text();
         throw new Error(`Map fetch failed: ${err}`);
@@ -277,5 +277,21 @@ export async function updateScheduledTaskStatus(taskId: number, status: string):
 
     if (!res.ok) {
         throw new Error(`Failed to update status for task ${taskId}`);
+    }
+}
+
+export async function clearAllUserCache(userId: number): Promise<void> {
+    try {
+        const response = await fetch(`${API_BASE_URL}/user-logout/${userId}/`, {
+            method: "POST",
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Failed to clear user cache: ${errorText}`);
+        }
+    } catch (error) {
+        console.error("Error clearing user cache:", error);
+        throw error;
     }
 }

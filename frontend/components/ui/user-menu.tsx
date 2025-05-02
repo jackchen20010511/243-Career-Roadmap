@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import userIcon from "/public/images/user_logo.png"; // Ensure correct path
+import { clearAllUserCache } from "@/utils/api";
 
 interface User {
     name: string;
@@ -33,10 +34,19 @@ export default function UserMenu({ user }: { user: User }) {
     }, [showMenu]);
 
     // ✅ Logout Handler
-    const handleLogout = () => {
-        localStorage.clear();
-        setShowMenu(false);
-        router.push("/auth/signin"); // Redirect after logout
+    const handleLogout = async () => {
+        try {
+            const userId = localStorage.getItem("user_id");
+            if (userId) {
+                await clearAllUserCache(Number(userId));
+            }
+        } catch (error) {
+            console.warn("Failed to clear user cache, proceeding with logout");
+        } finally {
+            localStorage.clear();
+            setShowMenu(false);
+            router.push("/auth/signin");
+        }
     };
 
     return (
