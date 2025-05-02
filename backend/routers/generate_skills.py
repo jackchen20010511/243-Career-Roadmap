@@ -22,9 +22,6 @@ load_dotenv()
 
 SPACE_URL = os.getenv("SPACE_URL")
 GEMINI_KEY = os.getenv("GEMINI_API_KEY")
-
-MODEL_DIR = "utils/skill_extractor_helper/Nous-Hermes-2-Mistral-7B-DPO.Q4_K_M.gguf"
-
 UPLOAD_DIR = "data/uploaded_resumes"
 ALLOWED_EXTENSIONS = [".pdf", ".docx", ".txt"]
 

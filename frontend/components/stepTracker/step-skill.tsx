@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchLearnSkill, generateLearnSkill, updateLearnSkill } from "@/utils/api";
+import { fetchLearnSkill, generateLearnSkill, } from "@/utils/api";
 import LearnSkill from "../skill/learn-skill";
 
 interface LearnSkill {
