@@ -47,10 +47,6 @@ export default function Header() {
     }
   }, []);
 
-  // ✅ Loading State
-  if (isLoading) {
-    return <div className="flex items-center justify-center min-h-screen text-white text-lg">Loading...</div>;
-  }
 
   if (!user) {
     return (
