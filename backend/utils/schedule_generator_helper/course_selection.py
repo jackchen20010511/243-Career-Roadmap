@@ -141,57 +141,65 @@ def compute_difficulty_scores(row, main_skill, skill_list):
         is_pro_certificate=(row["course_type"] == "Certificate")
     )
 
-def greedy_course_selection(course_df, skill, D_ideal, alpha, beta, lambda_, gamma):
+# Function to solve the ILP for selecting courses with a dynamic duration constraint
+def solve_course_selection_pulp(course_df, skill, D_ideal, alpha, beta, lambda_, gamma):
     """
-    Greedy version of ILP: Select courses for a skill based on weighted score, under duration constraints.
+    Solves the ILP for selecting courses that maximize skill match and difficulty score while minimizing price,
+    while ensuring the total selected duration stays within ±10% of the ideal duration.
 
     Parameters:
-    - course_df (DataFrame): Full course dataset
-    - skill (str): Current skill name
-    - D_ideal (float): Ideal total duration to match
-    - alpha, beta, lambda_, gamma: Weights from ILP
+    - course_df (DataFrame): The dataset containing courses with relevant fields.
+    - skill (str): The skill being optimized in this iteration.
+    - skill_list (list): A list of skills with their focus-score and confidence level.
+    - D_ideal (float): The ideal duration for the selected courses.
+    - alpha, gamma, lambda_, beta: Weight parameters for optimization.
 
     Returns:
-    - List of selected course dicts
+    - Selected courses as a list of course indices.
     """
-    # Filter for relevant skill
+
+    # Extract relevant courses for the given skill
     relevant_courses = course_df[course_df["skill"].str.lower() == skill.lower()].copy()
     if relevant_courses.empty:
-        return []
+        return []  # No courses available for this skill
 
-    # Compute the greedy score
-    relevant_courses["greedy_score"] = (
-        relevant_courses["match_score"] +
-        alpha * relevant_courses["difficulty_score"] +
-        beta * relevant_courses["wilson_score"] -
-        lambda_ * relevant_courses["price"] -
-        gamma     # penalize more selections
+    # Define decision variables (binary: select or not)
+    x = {i: LpVariable(f"x_{i}", cat="Binary") for i in relevant_courses.index}
+
+    # Define the ILP problem
+    problem = LpProblem("Course_Selection", LpMaximize)
+
+    match_score = lpSum(relevant_courses.loc[i, "match_score"] * x[i] for i in relevant_courses.index)
+    difficulty_score = lpSum(relevant_courses.loc[i, "difficulty_score"] * x[i] for i in relevant_courses.index)
+    wilson_score = lpSum(relevant_courses.loc[i, "wilson_score"] * x[i] for i in relevant_courses.index)
+    price_score = lpSum(relevant_courses.loc[i, "price"] * x[i] for i in relevant_courses.index)
+    number_score = lpSum(x[i] for i in relevant_courses.index)
+
+    # Objective Function: Maximize average skill match, difficulty, and review score while minimizing price
+    problem += (
+        match_score +
+        alpha * difficulty_score +
+        beta * wilson_score -
+        lambda_ * price_score -
+        gamma *  number_score
     )
+    
 
-    # Sort by greedy score descending
-    sorted_df = relevant_courses.sort_values(by="greedy_score", ascending=False)
+    # Skill Coverage Constraint: At least 2 courses must be selected
+    problem += lpSum(x[i] for i in relevant_courses.index) >= 2
 
-    # Duration constraint
-    selected = []
-    total_duration = 0
-    D_min = 0.9 * D_ideal
-    D_max = 1.1 * D_ideal
+    # Duration Constraint: Total selected duration must be within ±10% of the ideal duration
+    duration_tolerance = 0.1 * D_ideal
+    problem += lpSum(relevant_courses.loc[i, "duration"] * x[i] for i in relevant_courses.index) <= (D_ideal + duration_tolerance)
+    problem += lpSum(relevant_courses.loc[i, "duration"] * x[i] for i in relevant_courses.index) >= (D_ideal - duration_tolerance)
 
-    for _, row in sorted_df.iterrows():
-        dur = row["duration"]
-        if total_duration + dur <= D_max:
-            selected.append(row.to_dict())
-            total_duration += dur
+    # Solve the ILP
+    problem.solve(PULP_CBC_CMD(msg=False))
 
-        if total_duration >= D_min and len(selected) >= 2:
-            break
+    # Extract selected courses
+    selected_courses = [i for i in relevant_courses.index if x[i].varValue == 1]
 
-    # fallback: select shortest if empty
-    if not selected and not sorted_df.empty:
-        selected = [sorted_df.sort_values("duration").iloc[0].to_dict()]
-
-    return selected
-
+    return selected_courses
 
 def suggest_courses(
     embedding_model,
@@ -248,9 +256,16 @@ def suggest_courses(
             courses[col] = scaler.fit_transform(courses[[col]])
 
         # Solve ILP
-        selected_courses = greedy_course_selection(
+        selected_indices = solve_course_selection_pulp(
             courses, main_skill, D_ideal, alpha, beta, lambda_, gamma
         )
+
+        if selected_indices:
+            selected_courses = course_df.loc[selected_indices].to_dict(orient="records")
+        else:
+            # ⛑️ Pick fallback: shortest duration course
+            fallback = course_df.sort_values("duration").head(1)
+            selected_courses = fallback.to_dict(orient="records")
 
         result[main_skill] = selected_courses
 
